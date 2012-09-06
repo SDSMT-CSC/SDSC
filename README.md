@@ -1,4 +1,4 @@
-SmartDeviceSystemControl
+SDSC
 ========================
 
-Smartphone Controlled Sprinkler System (2012-13)
+Smart Device System Control (2012-13)
