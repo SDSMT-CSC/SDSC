@@ -1,0 +1,44 @@
+Addresses request
+iOS to DDNS
+
+{
+
+	"HRHomeStationsRequest" : [
+
+		{ "StationDID" : "(StationDID)"},
+
+		{ "StationDID" : "(StationDID)"},
+
+		...
+
+	]
+
+}
+
+Successfuly connected
+DDNS to iOS
+
+{
+    "DDNSConnected": [
+        {
+            "Connected": true
+        }
+    ]
+}
+
+Addresses 
+DDNS to iOS
+
+{
+
+	"HRHomeStationReply" : [
+
+		{"StationDID" : "(stationDID)", "StationIP" : "xxx.xxx.xxx.xxx"},
+
+		{"StationDID" : "(stationDID)", "StationIP" : null},
+
+		...
+
+	]
+
+}

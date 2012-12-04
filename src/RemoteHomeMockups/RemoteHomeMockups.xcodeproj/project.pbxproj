@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		72995E9D162672EC00A2F2B8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72995E9C162672EC00A2F2B8 /* UIKit.framework */; };
+		72995E9F162672EC00A2F2B8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72995E9E162672EC00A2F2B8 /* Foundation.framework */; };
+		72995EA1162672EC00A2F2B8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72995EA0162672EC00A2F2B8 /* CoreGraphics.framework */; };
+		72995EA7162672EC00A2F2B8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 72995EA5162672EC00A2F2B8 /* InfoPlist.strings */; };
+		72995EA9162672EC00A2F2B8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 72995EA8162672EC00A2F2B8 /* main.m */; };
+		72995EAD162672EC00A2F2B8 /* RHMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 72995EAC162672EC00A2F2B8 /* RHMAppDelegate.m */; };
+		72995EAF162672EC00A2F2B8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 72995EAE162672EC00A2F2B8 /* Default.png */; };
+		72995EB1162672EC00A2F2B8 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72995EB0162672EC00A2F2B8 /* Default@2x.png */; };
+		72995EB3162672EC00A2F2B8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 72995EB2162672EC00A2F2B8 /* Default-568h@2x.png */; };
+		72995EB6162672EC00A2F2B8 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72995EB4162672EC00A2F2B8 /* MainStoryboard.storyboard */; };
+		72995EB9162672EC00A2F2B8 /* RHMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72995EB8162672EC00A2F2B8 /* RHMViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		72995E98162672EC00A2F2B8 /* RemoteHomeMockups.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemoteHomeMockups.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		72995E9C162672EC00A2F2B8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		72995E9E162672EC00A2F2B8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		72995EA0162672EC00A2F2B8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		72995EA4162672EC00A2F2B8 /* RemoteHomeMockups-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RemoteHomeMockups-Info.plist"; sourceTree = "<group>"; };
+		72995EA6162672EC00A2F2B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		72995EA8162672EC00A2F2B8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		72995EAA162672EC00A2F2B8 /* RemoteHomeMockups-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RemoteHomeMockups-Prefix.pch"; sourceTree = "<group>"; };
+		72995EAB162672EC00A2F2B8 /* RHMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHMAppDelegate.h; sourceTree = "<group>"; };
+		72995EAC162672EC00A2F2B8 /* RHMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHMAppDelegate.m; sourceTree = "<group>"; };
+		72995EAE162672EC00A2F2B8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		72995EB0162672EC00A2F2B8 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		72995EB2162672EC00A2F2B8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		72995EB5162672EC00A2F2B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		72995EB7162672EC00A2F2B8 /* RHMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHMViewController.h; sourceTree = "<group>"; };
+		72995EB8162672EC00A2F2B8 /* RHMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHMViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		72995E95162672EC00A2F2B8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72995E9D162672EC00A2F2B8 /* UIKit.framework in Frameworks */,
+				72995E9F162672EC00A2F2B8 /* Foundation.framework in Frameworks */,
+				72995EA1162672EC00A2F2B8 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		72995E8D162672EC00A2F2B8 = {
+			isa = PBXGroup;
+			children = (
+				72995EA2162672EC00A2F2B8 /* RemoteHomeMockups */,
+				72995E9B162672EC00A2F2B8 /* Frameworks */,
+				72995E99162672EC00A2F2B8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		72995E99162672EC00A2F2B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				72995E98162672EC00A2F2B8 /* RemoteHomeMockups.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		72995E9B162672EC00A2F2B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72995E9C162672EC00A2F2B8 /* UIKit.framework */,
+				72995E9E162672EC00A2F2B8 /* Foundation.framework */,
+				72995EA0162672EC00A2F2B8 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		72995EA2162672EC00A2F2B8 /* RemoteHomeMockups */ = {
+			isa = PBXGroup;
+			children = (
+				72995EAB162672EC00A2F2B8 /* RHMAppDelegate.h */,
+				72995EAC162672EC00A2F2B8 /* RHMAppDelegate.m */,
+				72995EB4162672EC00A2F2B8 /* MainStoryboard.storyboard */,
+				72995EB7162672EC00A2F2B8 /* RHMViewController.h */,
+				72995EB8162672EC00A2F2B8 /* RHMViewController.m */,
+				72995EA3162672EC00A2F2B8 /* Supporting Files */,
+			);
+			path = RemoteHomeMockups;
+			sourceTree = "<group>";
+		};
+		72995EA3162672EC00A2F2B8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				72995EA4162672EC00A2F2B8 /* RemoteHomeMockups-Info.plist */,
+				72995EA5162672EC00A2F2B8 /* InfoPlist.strings */,
+				72995EA8162672EC00A2F2B8 /* main.m */,
+				72995EAA162672EC00A2F2B8 /* RemoteHomeMockups-Prefix.pch */,
+				72995EAE162672EC00A2F2B8 /* Default.png */,
+				72995EB0162672EC00A2F2B8 /* Default@2x.png */,
+				72995EB2162672EC00A2F2B8 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		72995E97162672EC00A2F2B8 /* RemoteHomeMockups */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 72995EBC162672EC00A2F2B8 /* Build configuration list for PBXNativeTarget "RemoteHomeMockups" */;
+			buildPhases = (
+				72995E94162672EC00A2F2B8 /* Sources */,
+				72995E95162672EC00A2F2B8 /* Frameworks */,
+				72995E96162672EC00A2F2B8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RemoteHomeMockups;
+			productName = RemoteHomeMockups;
+			productReference = 72995E98162672EC00A2F2B8 /* RemoteHomeMockups.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		72995E8F162672EC00A2F2B8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RHM;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "James Wiegand";
+			};
+			buildConfigurationList = 72995E92162672EC00A2F2B8 /* Build configuration list for PBXProject "RemoteHomeMockups" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 72995E8D162672EC00A2F2B8;
+			productRefGroup = 72995E99162672EC00A2F2B8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				72995E97162672EC00A2F2B8 /* RemoteHomeMockups */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		72995E96162672EC00A2F2B8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72995EA7162672EC00A2F2B8 /* InfoPlist.strings in Resources */,
+				72995EAF162672EC00A2F2B8 /* Default.png in Resources */,
+				72995EB1162672EC00A2F2B8 /* Default@2x.png in Resources */,
+				72995EB3162672EC00A2F2B8 /* Default-568h@2x.png in Resources */,
+				72995EB6162672EC00A2F2B8 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		72995E94162672EC00A2F2B8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72995EA9162672EC00A2F2B8 /* main.m in Sources */,
+				72995EAD162672EC00A2F2B8 /* RHMAppDelegate.m in Sources */,
+				72995EB9162672EC00A2F2B8 /* RHMViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		72995EA5162672EC00A2F2B8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				72995EA6162672EC00A2F2B8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		72995EB4162672EC00A2F2B8 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				72995EB5162672EC00A2F2B8 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		72995EBA162672EC00A2F2B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		72995EBB162672EC00A2F2B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		72995EBD162672EC00A2F2B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Wiegand (68KD9WE8X8)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RemoteHomeMockups/RemoteHomeMockups-Prefix.pch";
+				INFOPLIST_FILE = "RemoteHomeMockups/RemoteHomeMockups-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8E4A6945-F2F8-4BBE-8699-74A147B7F41B";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		72995EBE162672EC00A2F2B8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: James Wiegand (68KD9WE8X8)";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RemoteHomeMockups/RemoteHomeMockups-Prefix.pch";
+				INFOPLIST_FILE = "RemoteHomeMockups/RemoteHomeMockups-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8E4A6945-F2F8-4BBE-8699-74A147B7F41B";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		72995E92162672EC00A2F2B8 /* Build configuration list for PBXProject "RemoteHomeMockups" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72995EBA162672EC00A2F2B8 /* Debug */,
+				72995EBB162672EC00A2F2B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		72995EBC162672EC00A2F2B8 /* Build configuration list for PBXNativeTarget "RemoteHomeMockups" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72995EBD162672EC00A2F2B8 /* Debug */,
+				72995EBE162672EC00A2F2B8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 72995E8F162672EC00A2F2B8 /* Project object */;
+}
