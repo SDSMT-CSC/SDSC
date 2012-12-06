@@ -10,7 +10,7 @@
 #import <CoreData/CoreData.h>
 
 @interface RHFirstTimeRegisterViewController : UIViewController
-<NSStreamDelegate>
+<NSStreamDelegate, UITextFieldDelegate>
 {
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;

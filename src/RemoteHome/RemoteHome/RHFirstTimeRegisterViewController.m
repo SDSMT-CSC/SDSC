@@ -10,7 +10,7 @@
 #import "RHBaseStationModel.h"
 #import "RHAppDelegate.h"
 
-#define ADDRESS @"10.0.1.10"      // DDNS address
+#define ADDRESS @"172.20.10.12"     // DDNS address
 #define TIMERTIME 3.0              // Timeout time
 
 
@@ -30,6 +30,11 @@
         RHAppDelegate *delegate = (RHAppDelegate*)[[UIApplication sharedApplication] delegate];
         context = [delegate managedObjectContext];
         model = [delegate managedObjectModel];
+        
+        //set delegate
+        [[self serialNumberField] setDelegate:self];
+        [[self nameField] setDelegate:self];
+        [[self passwordField] setDelegate:self];
     }
     return self;
 }
@@ -131,6 +136,8 @@
     if(eventCode == NSStreamEventOpenCompleted) {
         // Invalidate timer
         [timeout invalidate];
+        
+        //[self startTimeoutTimer];
     }
     
     // Server disconnected
@@ -183,6 +190,9 @@
                 // Connection response
                 resArr = (NSArray*) [response objectForKey:@"DDNSConnected"];
                 if (resArr != Nil && resArr[0]) {
+                    // Invalidate second timer
+                    [timeout invalidate];
+                    
                     // Connection established send the registration data
                     [self sendTCPIPData];
                 }
@@ -339,11 +349,20 @@
 // closes the sockets
 - (void)cleanUp
 {
+    // Check for timers
+    if(timeout.isValid)
+    {
+        [timeout invalidate];
+    }
+    
     // Hide the loading view
     [[self loadingView] setHidden:YES];
     
     [inputStream close];
     [outputStream close];
 }
+
+#pragma mark - UITextFieldDelegate
+
 
 @end
