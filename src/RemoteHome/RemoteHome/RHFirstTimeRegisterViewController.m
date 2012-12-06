@@ -137,7 +137,8 @@
         // Invalidate timer
         [timeout invalidate];
         
-        //[self startTimeoutTimer];
+        // Second timeout timer since the system has not ack
+        [self startTimeoutTimer];
     }
     
     // Server disconnected
