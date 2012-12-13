@@ -11,6 +11,7 @@ class Server:
   #end __init__
 
   def run(self):
+    createDaemon()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((self.hostName, self.port))
      
@@ -25,35 +26,35 @@ class Server:
   #end run
 
   def handleConnection(self,conn,addr):
+    conn.send('''{"DDNSConnected":[{"Connected":true}]}''')
+
     raw = conn.recv(1024)
 
-    conn.send("{'DDNSConnected':[{'Connected':True}]}")
+    print raw
 
-    #data = json.loads(raw)
+    data = json.loads(raw)
 
+    if data.keys()[0] == 'HRHomeStationsRequest':
+      #get the id values out of the deserialized json
+      ids = data.values()[0]
 
+      ips = list()
 
-    # if data.keys()[0] == 'HRHomeStationsRequest':
-    #   #get the id values out of the deserialized json
-    #   ids = data.values()[0]
+      for id in ids:
+        ips.append(self.finder.find(id.values()[0]))
 
-    #   ips = list()
-
-    #   for id in ids:
-    #     ips.append(self.finder.find(id.values()[0]))
-
-    #   conn.sendall(self.buildRequestResponse(ids,ips))
-    # elif data.keys()[0] == 'HRHomeStationUpdate':
+      conn.sendall(self.buildRequestResponse(ids,ips))
+    elif data.keys()[0] == 'HRHomeStationUpdate':
       
-    #   id = data.values()[0].values()[0]
+      id = data.values()[0].values()[0]
 
-    #   ip = data.values()[0].values()[1]
+      ip = data.values()[0].values()[1]
 
-    #   self.finder.update(id,ip)      
+      self.finder.update(id,ip)      
 
-    #   conn.sendall(id + " " + ip)
-    # else:
-    #   pass
+      conn.sendall(id + " " + ip)
+    else:
+      pass
 
   def buildRequestResponse(self,ids,ips):
     values = list()
