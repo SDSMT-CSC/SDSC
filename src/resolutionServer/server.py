@@ -11,7 +11,6 @@ class Server:
   #end __init__
 
   def run(self):
-    createDaemon()
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.bind((self.hostName, self.port))
      
@@ -30,12 +29,9 @@ class Server:
 
     raw = conn.recv(1024)
 
-    print raw
-
     data = json.loads(raw)
 
     if data.keys()[0] == 'HRHomeStationsRequest':
-      #get the id values out of the deserialized json
       ids = data.values()[0]
 
       ips = list()
@@ -50,7 +46,7 @@ class Server:
 
       ip = data.values()[0].values()[1]
 
-      self.finder.update(id,ip)      
+      self.finder.update(id,ip)
 
       conn.sendall(id + " " + ip)
     else:
@@ -58,9 +54,6 @@ class Server:
 
   def buildRequestResponse(self,ids,ips):
     values = list()
-
-    print ids
-    print ips
 
     i = 0
     while i < len(ids):
