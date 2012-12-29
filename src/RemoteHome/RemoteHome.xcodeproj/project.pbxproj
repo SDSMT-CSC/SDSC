@@ -21,6 +21,7 @@
 		726E7F3B1662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F391662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib */; };
 		726E7F491662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */; };
 		726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */; };
+		72F2D821168F9F1E004C459D /* RHNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F2D820168F9F1D004C459D /* RHNetworkEngine.m */; };
 		72FC8F0616681D6900B1D887 /* RemoteHome.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */; };
 		72FC8F0C16681DA200B1D887 /* RHBaseStationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FC8F0B16681DA200B1D887 /* RHBaseStationModel.m */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,8 @@
 		726E7F461662BB7700B7BC0F /* RHFirstTimeInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHFirstTimeInstructionViewController.h; sourceTree = "<group>"; };
 		726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHFirstTimeInstructionViewController.m; sourceTree = "<group>"; };
 		726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHFirstTimeInstructionViewController.xib; sourceTree = "<group>"; };
+		72F2D81F168F9F1D004C459D /* RHNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNetworkEngine.h; sourceTree = "<group>"; };
+		72F2D820168F9F1D004C459D /* RHNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNetworkEngine.m; sourceTree = "<group>"; };
 		72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteHome.xcdatamodel; sourceTree = "<group>"; };
 		72FC8F0A16681DA200B1D887 /* RHBaseStationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RHBaseStationModel.h; path = ../RHBaseStationModel.h; sourceTree = "<group>"; };
 		72FC8F0B16681DA200B1D887 /* RHBaseStationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RHBaseStationModel.m; path = ../RHBaseStationModel.m; sourceTree = "<group>"; };
@@ -69,6 +72,9 @@
 		724C523F1662D25E00B17F1A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				72F2D81F168F9F1D004C459D /* RHNetworkEngine.h */,
+				72F2D820168F9F1D004C459D /* RHNetworkEngine.m */,
+				72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */,
 				72FC8F0A16681DA200B1D887 /* RHBaseStationModel.h */,
 				72FC8F0B16681DA200B1D887 /* RHBaseStationModel.m */,
 			);
@@ -106,7 +112,6 @@
 		726E7F191662B44000B7BC0F /* RemoteHome */ = {
 			isa = PBXGroup;
 			children = (
-				72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */,
 				724C523F1662D25E00B17F1A /* Models */,
 				726E7F361662B49000B7BC0F /* View Controllers */,
 				726E7F341662B47F00B7BC0F /* nibs */,
@@ -225,6 +230,7 @@
 				726E7F491662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m in Sources */,
 				72FC8F0616681D6900B1D887 /* RemoteHome.xcdatamodel in Sources */,
 				72FC8F0C16681DA200B1D887 /* RHBaseStationModel.m in Sources */,
+				72F2D821168F9F1E004C459D /* RHNetworkEngine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
