@@ -14,17 +14,41 @@ static RHNetworkEngine* sharedManager = nil;
 
 #pragma mark - Public Static Methods
 
+
+/**
+ * @brief	Initializer for the singleton class.
+ * @detail  This public method will initialize the singleton class.
+ *          if the class was initialized before it will ignore the
+ *          initialization.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 + (void)initialize
 {
     // If shared manager exisits, dump it
     if (sharedManager)
     {
-        sharedManager = nil;
+        return;
     }
     
     sharedManager = [[RHNetworkEngine alloc] init];
 }
 
+
+/**
+ * @brief	Sends JSON data to the target.
+ * @warning Make sure to call initialize and set the address before
+ *          use of this function.
+ * @detail  This is the main function of the RHNetworkEngine. This
+ *          method will send the payload to the address. This method
+ *          takes a target with two selectors. eSel if the transaciton
+ *          is not successful. and rSel if the transactions is. If the
+ *          transaction fails a NSString will be returned to the eSel.
+ *          If the transaction is successful a NSDictonary will be sent
+ *          to the rSel.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 + (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel
 {
     // Check for a valid address, if not send the string back to the error selector
@@ -44,8 +68,30 @@ static RHNetworkEngine* sharedManager = nil;
     [sharedManager startNetworkTransaction];
 }
 
+
+/**
+ * @brief	Access the sharedManager.
+ * @warning Make sure to call initialize and set the address before
+ *          use of this function.
+ * @detail  Returns a pointer to the sharedManager singleton.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
++ (RHNetworkEngine*)sharedManager
+{
+    return sharedManager;
+}
+
 #pragma mark - Private Mutators
 
+/**
+ * @brief	Class constructor.
+ * @detail  This public method will initialize the singleton class.
+ *          if the class was initialized before it will ignore the
+ *          initialization.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (id)init
 {
     self = [super init];
@@ -56,31 +102,71 @@ static RHNetworkEngine* sharedManager = nil;
 return self;
 }
 
+
+/**
+ * @brief	Accessor for retMethod.
+ * @detail  This method will return retMethod.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (SEL)retMethod
 {
     return retMethod;
 }
 
+
+/**
+ * @brief	Accessor for errMethod.
+ * @detail  This method will return errMethod.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (SEL)errMethod
 {
     return errMethod;
 }
 
+
+/**
+ * @brief	Accessor for target.
+ * @detail  This method will return target.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (id)target
 {
     return target;
 }
 
+/**
+ * @brief	Mutator for errMthod.
+ * @detail  This method will set errMethod to e.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)setErrMethod:(SEL)e
 {
     errMethod = e;
 }
 
+
+/**
+ * @brief	Mutator for retMethod.
+ * @detail  This method will set retMethod to r.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)setRetMethod:(SEL)r
 {
     retMethod = r;
 }
 
+/**
+ * @brief	Mutator for target.
+ * @detail  This method will set target to t
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)setTarget:(id)t
 {
     target = t;
@@ -88,6 +174,14 @@ return self;
 
 #pragma mark - Networking Methods
 
+/**
+ * @brief	This method is the starting point for any network transaction.
+ * @detail  This method will initialize the streams for the singleton object.
+ *          Once the streams are initialized the connections will be placed
+ *          on a seperate thread.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)startNetworkTransaction
 {
     // Connect to the DDNS to get the address (this should be refactored into a class)
@@ -113,7 +207,13 @@ return self;
     //[self startTimeoutTimer];
 }
 
-// Packages the data into JSON format and transmits it over the line
+/**
+ * @brief	Transmit the payload. 
+ * @detail  After the connection is established this method will be called
+ *          and will transmit the payload given.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)sendTCPIPData
 {
     // Construct the message
@@ -134,7 +234,12 @@ return self;
     
 }
 
-// closes the sockets
+/**
+ * @brief	Stops the communications.
+ * @detail  This method will close the streams and stop all timers.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)cleanUp
 {
     // Check for timers
@@ -149,6 +254,16 @@ return self;
 
 #pragma mark - Timeout
 
+
+/**
+ * @brief	Starts the timeout.
+ * @detail  This method will start the timeout. It will use the time
+ *          specified in the TIMERTIME macro at the top of the file.
+ *          If the timer fires it will call the timeoutFire method.
+ * @see     timeoutFire
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)startTimeoutTimer
 {
     timeout = [NSTimer scheduledTimerWithTimeInterval:TIMERTIME
@@ -159,7 +274,13 @@ return self;
 }
 
 
-// Closes connections and cleans up
+/**
+ * @brief	Called when the timeout timer is fired.
+ * @detail  This method will return an error to the errMthod and call
+ *          the cleanup.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)timeoutFire
 {
     // Send an error back
@@ -171,6 +292,20 @@ return self;
 
 #pragma mark - NSStreamDelegate
 
+/**
+ * @brief	Handles stream communication.
+ * @detail  Once data is sent to the input stream this method is called.
+ *          This method will handle all errors from connections issues.
+ *          If no errors arise this method will synchronize the server
+ *          and client without any action needed from the UI thread.
+ *          If synchronization is successful, any response from the
+ *          server will be passed back to the UI thread. This response
+ *          will be in the form of a NSDictonary. If there is any error
+ *          in the JSON parsing the targets error method will be sent
+ *          a message.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
 {
     // Socket Open
