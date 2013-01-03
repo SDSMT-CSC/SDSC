@@ -9,9 +9,7 @@
 #import "RHFirstTimeRegisterViewController.h"
 #import "RHBaseStationModel.h"
 #import "RHAppDelegate.h"
-
-#define ADDRESS @"172.20.10.12"     // DDNS address
-#define TIMERTIME 3.0              // Timeout time
+#import "RHNetworkEngine.h"
 
 
 @interface RHFirstTimeRegisterViewController ()
@@ -96,31 +94,29 @@
         return;
     }
     
-    // Connect to the DDNS to get the address (this should be refactored into a class)
-    CFReadStreamRef readStream;
-    CFWriteStreamRef writeStream;
-    
-    // Create a connection
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)ADDRESS, 80, &readStream, &writeStream);
-    
-    inputStream = (__bridge NSInputStream*)readStream;
-    outputStream = (__bridge NSOutputStream*)writeStream;
-    
-    [inputStream setDelegate:self];
-    [outputStream setDelegate:self];
-    
-    [inputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    [outputStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    
-    // Open the connection and set the timeout
-    [inputStream open];
-    [outputStream open];
-    
-    [self startTimeoutTimer];
-    
     // Show the status
     [[self loadingView] setHidden:NO];
     [[self statusLabel] setText:@"Connecting..."];
+    
+    // Create JSON data
+    NSString *msg = [ NSString stringWithFormat:
+                     @"{ \"HRHomeStationsRequest\" : [ { \"StationDID\" : \"%@\" } ] }",
+                     [[self serialNumberField] text] ];
+    NSError *e;
+    NSDictionary *JSONMsg = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:[msg dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&e];
+    
+    if(e)
+    {
+        NSLog(@"Error : %@", e.description);
+        return;
+    }
+    
+    // Send the data
+    SEL response = @selector(nonErrorResponse:);
+    SEL eResponse = @selector(errorResponse:);
+    [[RHNetworkEngine sharedManager] setAddress:@"10.0.1.10"];
+    
+    [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse];
     
     // Check first responder status
     [[self serialNumberField] resignFirstResponder];
@@ -128,122 +124,49 @@
     [[self passwordField] resignFirstResponder];
 }
 
-#pragma mark - NSStreamDelegate
+#pragma mark - Data response
 
-- (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode
+- (void)nonErrorResponse:(NSDictionary*)res
 {
-    // Socket Open
-    if(eventCode == NSStreamEventOpenCompleted) {
-        // Invalidate timer
-        [timeout invalidate];
+    // IP address of the base station
+    NSArray *resArr = (NSArray*) [res objectForKey:@"HRHomeStationReply"];
+    if (resArr != Nil)
+    {
+        // We only need to worry about the first element
+        NSDictionary  *baseSationData = (NSDictionary*) resArr[0];
         
-        // Second timeout timer since the system has not ack
-        [self startTimeoutTimer];
-    }
-    
-    // Server disconnected
-    if(eventCode == NSStreamEventEndEncountered) {
+        // Find the address, we have the base station
         
-        // Close the sockets
-        [self cleanUp];
-
-    }
-    
-    // Error
-    if (eventCode == NSStreamEventErrorOccurred) {
-        
-        // Close the sockets
-        [self cleanUp];
-        
-        // Print an error
-        UIAlertView *err = [[UIAlertView alloc]
-                            initWithTitle:@"Error"
-                            message:@"An error in the connection has been encountered. Please try again."
-                            delegate:Nil
-                            cancelButtonTitle:@"Okay"
-                            otherButtonTitles: nil];
-        [err show];
-        return;
-    }
-    
-    // By: Ray Wenderlich
-    // http://www.raywenderlich.com/3932/how-to-create-a-socket-based-iphone-app-and-server
-    // If the system said somthing
-    if (eventCode == NSStreamEventHasBytesAvailable) {
-        uint8_t buffer[1024];
-        int len;
-        
-        while ([inputStream hasBytesAvailable]) {
-            len = [inputStream read:buffer maxLength:sizeof(buffer)];
-            if(len > 0) {
-                
-                
-                //Convert the JSON into a dictonary
-                NSError *e;
-                NSData *inputData = [NSData dataWithBytes:buffer length:len];
-                NSDictionary *response = [NSJSONSerialization JSONObjectWithData:inputData
-                                                                        options:kNilOptions
-                                                                        error:&e];
-                
-                // Search the Dictonary for known responses
-                NSArray *resArr;
-                
-                // Connection response
-                resArr = (NSArray*) [response objectForKey:@"DDNSConnected"];
-                if (resArr != Nil && resArr[0]) {
-                    // Invalidate second timer
-                    [timeout invalidate];
-                    
-                    // Connection established send the registration data
-                    [self sendTCPIPData];
-                }
-                
-                // IP address of the base station
-                resArr = (NSArray*) [response objectForKey:@"HRHomeStationReply"];
-                if (resArr != Nil)
-                {
-                    // We only need to worry about the first element
-                    NSDictionary  *baseSationData = (NSDictionary*) resArr[0];
-                    
-                    // Find the address, we have the base station
-                    
-                    // Check for bad base station
-                    id baseStationAddress = [baseSationData objectForKey:@"StationIP"] ;
-                    if( baseStationAddress == [NSNull null])
-                    {
-                        [self noSuchBaseStationInDDNS];
-                    }
-                    
-                    // If address is good create a new base station object
-                    else
-                    {
-                        [self createNewBaseStation:(NSString*)baseStationAddress];
-                    }
-                    
-                }
-                
-            }
+        // Check for bad base station
+        id baseStationAddress = [baseSationData objectForKey:@"StationIP"] ;
+        if( baseStationAddress == [NSNull null])
+        {
+            [self noSuchBaseStationInDDNS];
         }
+        
+        // If address is good create a new base station object
+        else
+        {
+            [self createNewBaseStation:(NSString*)baseStationAddress];
+        }
+        
     }
     
+    // Hide the loading indicator
+    [[self loadingView] setHidden:YES];
 }
 
-#pragma mark - Network Communications
-
-// Packages the data into JSON format and transmits it over the line
-- (void)sendTCPIPData
+- (void)errorResponse:(NSString*)errString
 {
-    // Update the label that we have connected
-    [[self statusLabel] setText:@"Connected"];
+    NSLog(@"Error : %@", errString);
     
-    NSString *msg = [ NSString stringWithFormat:
-                            @"{ \"HRHomeStationsRequest\" : [ { \"StationDID\" : \"%@\" } ] }",
-                            [[self serialNumberField] text] ];
-    NSData *data = [[NSData alloc] initWithData:[msg dataUsingEncoding:NSASCIIStringEncoding]];
-    [outputStream write:[data bytes] maxLength:[data length]];
+    // Hide the loading indicator
+    [[self loadingView] setHidden:YES];
     
-    [[self statusLabel] setText:@"Registering Base Station"];
+    // String match to find the correct error.
 }
+
+#pragma mark - Database Communications
 
 // Create new base station object with ip address
 - (void)createNewBaseStation:(NSString *) addr
@@ -287,10 +210,6 @@
     }
     //!ENDDEBUG
     
-    
-    // Close the connection and tell the user it was a success
-    [self cleanUp];
-    
     UIAlertView *err = [[UIAlertView alloc]
                         initWithTitle:@"Success"
                         message:@"The station was successfully registered"
@@ -304,9 +223,6 @@
 // If a the station is not registered
 - (void)noSuchBaseStationInDDNS
 {
-    // Close the connections
-    [self cleanUp];
-    
     // Show an error message
     UIAlertView *err = [[UIAlertView alloc]
                         initWithTitle:@"Error"
@@ -315,52 +231,6 @@
                         cancelButtonTitle:@"Okay"
                         otherButtonTitles: nil];
     [err show];
-}
-
-#pragma mark - Timeout
-
-- (void)startTimeoutTimer
-{
-    timeout = [NSTimer scheduledTimerWithTimeInterval:TIMERTIME
-                                            target:self
-                                            selector:@selector(timeoutFire)
-                                            userInfo:nil
-                                            repeats:NO];
-}
-
-
-// Closes connections and cleans up
-- (void)timeoutFire
-{
-    // Close sockets
-    [self cleanUp];
-    
-    // Show an error message
-    // Print an error
-    UIAlertView *err = [[UIAlertView alloc]
-                        initWithTitle:@"Error"
-                        message:@"Could not connect to the DDNS server. Please check your connection and try again."
-                        delegate:Nil
-                        cancelButtonTitle:@"Okay"
-                        otherButtonTitles: nil];
-    [err show];
-    return;
-}
-
-// closes the sockets
-- (void)cleanUp
-{
-    // Check for timers
-    if(timeout.isValid)
-    {
-        [timeout invalidate];
-    }
-    
-    // Hide the loading view
-    [[self loadingView] setHidden:YES];
-    
-    [inputStream close];
-    [outputStream close];
 }
 
 #pragma mark - UITextFieldDelegate

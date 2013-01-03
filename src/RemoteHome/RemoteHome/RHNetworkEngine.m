@@ -1,6 +1,6 @@
 #import "RHNetworkEngine.h"
 
-#define TIMERTIME 3.0              // Timeout time
+#define TIMERTIME 10.0              // Timeout time
 
 @implementation RHNetworkEngine
 
@@ -51,18 +51,21 @@ static RHNetworkEngine* sharedManager = nil;
  */
 + (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel
 {
-    // Check for a valid address, if not send the string back to the error selector
-    if([[sharedManager address]isEqual:@""])
-    {
-        [targ performSelector:eSel withObject:@"no address."];
-        return;
-    }
-    
     // Set the return target and selectors
     [sharedManager setTarget:targ];
     [sharedManager setRetMethod:rSel];
     [sharedManager setErrMethod:eSel];
     [sharedManager setPayload:payload];
+    
+    // Check for a valid address, if not send the string back to the error selector
+    if([[sharedManager address]isEqual:@""])
+    {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [targ performSelector:eSel withObject:@"no address."];
+#pragma clang diagnostic pop
+        return;
+    }
     
     // Start the network traffic
     [sharedManager startNetworkTransaction];
@@ -204,7 +207,7 @@ return self;
     [inputStream open];
     [outputStream open];
     
-    //[self startTimeoutTimer];
+    [self startTimeoutTimer];
 }
 
 /**
@@ -218,12 +221,16 @@ return self;
 {
     // Construct the message
     NSError* e = nil;
-    NSData* data = [NSJSONSerialization dataWithJSONObject:self.payload options:nil error:&e];
+
+    NSData* data = [NSJSONSerialization dataWithJSONObject:self.payload options:0 error:&e];
     
     // If an error occours return it
     if(e)
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [target performSelector:errMethod withObject:[e localizedDescription]];
+#pragma clang pop
         
         // Clean up and close connections
         [self cleanUp];
@@ -312,6 +319,7 @@ return self;
     if(eventCode == NSStreamEventOpenCompleted) {
         // Invalidate timer
         [timeout invalidate];
+        timeout = nil;
         
         // Second timeout timer since the system has not ack
         [self startTimeoutTimer];
@@ -357,7 +365,10 @@ return self;
                 // If an error occours return it
                 if(e)
                 {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
                     [target performSelector:errMethod withObject:[e localizedDescription]];
+#pragma clan pop
                     
                     // Clean up and close connections
                     [self cleanUp];

@@ -8,6 +8,7 @@
 
 #import "RHAppDelegate.h"
 #import "RHFirstTimeInstructionViewController.h"
+#import "RHNetworkEngine.h"
 #import <CoreData/CoreData.h>
 
 @implementation RHAppDelegate
@@ -20,6 +21,10 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    // Initialize network engine
+    [RHNetworkEngine initialize];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
     // If this is the first time a user has used this appliation load the "first time" view controller
