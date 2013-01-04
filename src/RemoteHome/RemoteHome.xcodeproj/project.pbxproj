@@ -17,10 +17,11 @@
 		726E7F261662B44000B7BC0F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F251662B44000B7BC0F /* Default.png */; };
 		726E7F281662B44000B7BC0F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F271662B44000B7BC0F /* Default@2x.png */; };
 		726E7F2A1662B44000B7BC0F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F291662B44000B7BC0F /* Default-568h@2x.png */; };
-		726E7F3A1662B4B000B7BC0F /* RHFirstTimeRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 726E7F381662B4B000B7BC0F /* RHFirstTimeRegisterViewController.m */; };
-		726E7F3B1662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F391662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib */; };
+		726E7F3A1662B4B000B7BC0F /* RHAddBaseStationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 726E7F381662B4B000B7BC0F /* RHAddBaseStationViewController.m */; };
+		726E7F3B1662B4B000B7BC0F /* RHAddBaseStationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */; };
 		726E7F491662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */; };
 		726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */; };
+		72E346FB1696642300BEE6F5 /* RHBaseStationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */; };
 		72F2D821168F9F1E004C459D /* RHNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F2D820168F9F1D004C459D /* RHNetworkEngine.m */; };
 		72FC8F0616681D6900B1D887 /* RemoteHome.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */; };
 		72FC8F0C16681DA200B1D887 /* RHBaseStationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72FC8F0B16681DA200B1D887 /* RHBaseStationModel.m */; };
@@ -41,12 +42,14 @@
 		726E7F251662B44000B7BC0F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		726E7F271662B44000B7BC0F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		726E7F291662B44000B7BC0F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		726E7F371662B4B000B7BC0F /* RHFirstTimeRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHFirstTimeRegisterViewController.h; sourceTree = "<group>"; };
-		726E7F381662B4B000B7BC0F /* RHFirstTimeRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHFirstTimeRegisterViewController.m; sourceTree = "<group>"; };
-		726E7F391662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHFirstTimeRegisterViewController.xib; sourceTree = "<group>"; };
+		726E7F371662B4B000B7BC0F /* RHAddBaseStationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHAddBaseStationViewController.h; sourceTree = "<group>"; };
+		726E7F381662B4B000B7BC0F /* RHAddBaseStationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHAddBaseStationViewController.m; sourceTree = "<group>"; };
+		726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHAddBaseStationViewController.xib; sourceTree = "<group>"; };
 		726E7F461662BB7700B7BC0F /* RHFirstTimeInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHFirstTimeInstructionViewController.h; sourceTree = "<group>"; };
 		726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHFirstTimeInstructionViewController.m; sourceTree = "<group>"; };
 		726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHFirstTimeInstructionViewController.xib; sourceTree = "<group>"; };
+		72E346F81696642300BEE6F5 /* RHBaseStationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBaseStationTableViewController.h; sourceTree = "<group>"; };
+		72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBaseStationTableViewController.m; sourceTree = "<group>"; };
 		72F2D81F168F9F1D004C459D /* RHNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNetworkEngine.h; sourceTree = "<group>"; };
 		72F2D820168F9F1D004C459D /* RHNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNetworkEngine.m; sourceTree = "<group>"; };
 		72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RemoteHome.xcdatamodel; sourceTree = "<group>"; };
@@ -140,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */,
-				726E7F391662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib */,
+				726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */,
 			);
 			name = nibs;
 			sourceTree = "<group>";
@@ -148,10 +151,12 @@
 		726E7F361662B49000B7BC0F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				726E7F371662B4B000B7BC0F /* RHFirstTimeRegisterViewController.h */,
-				726E7F381662B4B000B7BC0F /* RHFirstTimeRegisterViewController.m */,
+				726E7F371662B4B000B7BC0F /* RHAddBaseStationViewController.h */,
+				726E7F381662B4B000B7BC0F /* RHAddBaseStationViewController.m */,
 				726E7F461662BB7700B7BC0F /* RHFirstTimeInstructionViewController.h */,
 				726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */,
+				72E346F81696642300BEE6F5 /* RHBaseStationTableViewController.h */,
+				72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -212,7 +217,7 @@
 				726E7F261662B44000B7BC0F /* Default.png in Resources */,
 				726E7F281662B44000B7BC0F /* Default@2x.png in Resources */,
 				726E7F2A1662B44000B7BC0F /* Default-568h@2x.png in Resources */,
-				726E7F3B1662B4B000B7BC0F /* RHFirstTimeRegisterViewController.xib in Resources */,
+				726E7F3B1662B4B000B7BC0F /* RHAddBaseStationViewController.xib in Resources */,
 				726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,11 +231,12 @@
 			files = (
 				726E7F201662B44000B7BC0F /* main.m in Sources */,
 				726E7F241662B44000B7BC0F /* RHAppDelegate.m in Sources */,
-				726E7F3A1662B4B000B7BC0F /* RHFirstTimeRegisterViewController.m in Sources */,
+				726E7F3A1662B4B000B7BC0F /* RHAddBaseStationViewController.m in Sources */,
 				726E7F491662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m in Sources */,
 				72FC8F0616681D6900B1D887 /* RemoteHome.xcdatamodel in Sources */,
 				72FC8F0C16681DA200B1D887 /* RHBaseStationModel.m in Sources */,
 				72F2D821168F9F1E004C459D /* RHNetworkEngine.m in Sources */,
+				72E346FB1696642300BEE6F5 /* RHBaseStationTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

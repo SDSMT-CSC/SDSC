@@ -9,6 +9,7 @@
 #import "RHAppDelegate.h"
 #import "RHFirstTimeInstructionViewController.h"
 #import "RHNetworkEngine.h"
+#import "RHBaseStationTableViewController.h"
 #import <CoreData/CoreData.h>
 
 @implementation RHAppDelegate
@@ -43,6 +44,7 @@
     else
     {
         // Load the main view controller
+        [self loadNavRootViewController];
     }
     
     [self.window makeKeyAndVisible];
@@ -169,6 +171,19 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - Helper functions
+
+- (void)loadNavRootViewController
+{
+    RHBaseStationTableViewController *baseStation = [[RHBaseStationTableViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:baseStation];
+    
+    // Configure the navigation controller
+    [baseStation setTitle:@"Base Stations"];
+    
+    [self.window setRootViewController:navController];
 }
 
 

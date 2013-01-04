@@ -6,17 +6,17 @@
 //  Copyright (c) 2012 James Wiegand. All rights reserved.
 //
 
-#import "RHFirstTimeRegisterViewController.h"
+#import "RHAddBaseStationViewController.h"
 #import "RHBaseStationModel.h"
 #import "RHAppDelegate.h"
 #import "RHNetworkEngine.h"
 
 
-@interface RHFirstTimeRegisterViewController ()
+@interface RHAddBaseStationViewController ()
 
 @end
 
-@implementation RHFirstTimeRegisterViewController
+@implementation RHAddBaseStationViewController
 
 @synthesize inputStream,outputStream, timeout, setupTimer;
 
@@ -28,11 +28,6 @@
         RHAppDelegate *delegate = (RHAppDelegate*)[[UIApplication sharedApplication] delegate];
         context = [delegate managedObjectContext];
         model = [delegate managedObjectModel];
-        
-        //set delegate
-        [[self serialNumberField] setDelegate:self];
-        [[self nameField] setDelegate:self];
-        [[self passwordField] setDelegate:self];
     }
     return self;
 }
@@ -41,6 +36,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    //set delegate
+    [[self serialNumberField] setDelegate:self];
+    [[self nameField] setDelegate:self];
+    [[self passwordField] setDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -164,6 +164,28 @@
     [[self loadingView] setHidden:YES];
     
     // String match to find the correct error.
+    UIAlertView *err;
+    
+    // Handle timeout
+    if ([errString isEqualToString:@"timeout"]) {
+        err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                      message:@"Could not contact the registration server. Please check your network connection and try again later."
+                                                     delegate:Nil
+                                            cancelButtonTitle:@"Okay"
+                                            otherButtonTitles: nil];
+        
+    }
+    
+    // Generic errors
+    else {
+        err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                      message:@"There was an error with the registration. Please try again later."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"Okay"
+                                            otherButtonTitles: nil];
+    }
+    
+    [err show];
 }
 
 #pragma mark - Database Communications
@@ -210,14 +232,25 @@
     }
     //!ENDDEBUG
     
-    UIAlertView *err = [[UIAlertView alloc]
+    UIAlertView *suc = [[UIAlertView alloc]
                         initWithTitle:@"Success"
                         message:@"The station was successfully registered"
                         delegate:Nil
                         cancelButtonTitle:@"Continue"
                         otherButtonTitles: nil];
     
-    [err show];
+    [suc show];
+    
+    // Set the user defaults so that it loads the normal view
+    NSUserDefaults *uDef = [NSUserDefaults standardUserDefaults];
+    [uDef setObject:@"complete" forKey:@"firstTime"];
+    
+    if(!uDef)
+    {
+        // Load the root controller
+        RHAppDelegate *delegate = (RHAppDelegate*)[[UIApplication sharedApplication] delegate];
+        [delegate loadNavRootViewController];
+    }
 }
 
 // If a the station is not registered
@@ -235,5 +268,10 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 
 @end

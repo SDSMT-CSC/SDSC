@@ -8,7 +8,7 @@
 
 #import "RHFirstTimeInstructionViewController.h"
 #import "RHAppDelegate.h"
-#import "RHFirstTimeRegisterViewController.h"
+#import "RHAddBaseStationViewController.h"
 
 @interface RHFirstTimeInstructionViewController ()
 
@@ -42,8 +42,8 @@
     // Swap the view controllers
     RHAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
     
-    RHFirstTimeRegisterViewController *reg = [[RHFirstTimeRegisterViewController alloc]
-                                              initWithNibName:@"RHFirstTimeRegisterViewController"
+    RHAddBaseStationViewController *reg = [[RHAddBaseStationViewController alloc]
+                                              initWithNibName:@"RHAddBaseStationViewController"
                                               bundle:Nil];
     
     [delegate.window setRootViewController:reg];

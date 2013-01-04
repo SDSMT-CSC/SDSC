@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface RHFirstTimeRegisterViewController : UIViewController
+@interface RHAddBaseStationViewController : UIViewController
 <NSStreamDelegate, UITextFieldDelegate>
 {
     NSManagedObjectContext *context;

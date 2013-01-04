@@ -62,13 +62,27 @@ static RHNetworkEngine* sharedManager = nil;
     {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [targ performSelector:eSel withObject:@"no address."];
+        [targ performSelector:eSel withObject:@"no address"];
 #pragma clang diagnostic pop
         return;
     }
     
     // Start the network traffic
     [sharedManager startNetworkTransaction];
+}
+
+/**
+ * @brief	Static alias for cleanup
+ * @detail  This method will close all streams. Used for
+ *          when a view is closed and a stream might be
+ *          open.
+ * @see     cleanUp
+ * @author	James A. Wiegand Jr.
+ * @date	January 3, 2013
+ */
++ (void)halt
+{
+    [sharedManager cleanUp];
 }
 
 
@@ -142,7 +156,7 @@ return self;
 }
 
 /**
- * @brief	Mutator for errMthod.
+ * @brief	Mutator for errMethod.
  * @detail  This method will set errMethod to e.
  * @author	James A. Wiegand Jr.
  * @date	December 29, 2012
@@ -283,7 +297,7 @@ return self;
 
 /**
  * @brief	Called when the timeout timer is fired.
- * @detail  This method will return an error to the errMthod and call
+ * @detail  This method will return an error to the errMethod and call
  *          the cleanup.
  * @author	James A. Wiegand Jr.
  * @date	December 29, 2012

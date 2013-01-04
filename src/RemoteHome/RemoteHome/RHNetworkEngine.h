@@ -45,4 +45,7 @@
 // Used to access the singleton object
 + (RHNetworkEngine*)sharedManager;
 
+// Used to stop connections
++ (void)halt;
+
 @end
