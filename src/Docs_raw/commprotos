@@ -42,3 +42,20 @@ DDNS to iOS
 	]
 
 }
+
+Password transmit
+iOS to Base Station
+{
+	"HRLoginPassword" : "(password)"
+}
+
+Password transmit
+Base Station to iOS
+{
+	"RHLoginSuccess" : (true | false),
+	"RHDeviceCount" : (int),
+	"RHDeviceList" : [
+		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial", "DeviceTypeCode" : (int) },
+		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial", "DeviceTypeCode" : (int) }
+	]
+}

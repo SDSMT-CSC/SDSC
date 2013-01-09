@@ -17,4 +17,6 @@
 @property (nonatomic, retain) NSString * ipAddress;
 @property (nonatomic, retain) NSString * serialNumber;
 
+- (void)setPasswordWithoutHash:(NSString*)password;
+
 @end

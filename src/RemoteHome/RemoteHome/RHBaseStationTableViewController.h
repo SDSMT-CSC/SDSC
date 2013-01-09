@@ -10,11 +10,12 @@
 #import <CoreData/CoreData.h>
 
 @interface RHBaseStationTableViewController : UITableViewController
-<UITableViewDataSource, UITableViewDelegate>
+<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
     NSMutableArray *dataSource;
 }
 
+@property (nonatomic) int selectedIndex;
 @end

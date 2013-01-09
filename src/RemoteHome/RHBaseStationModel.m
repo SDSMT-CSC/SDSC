@@ -16,6 +16,12 @@
 @synthesize ipAddress;
 @synthesize serialNumber;
 
+// ONLY USE IF PASSWORD IS HASHED
+- (void)setPasswordWithoutHash:(NSString*)password;
+{
+    hashedPassword = password;
+}
+
 // Override setter for hashed password to support SHA 512
 - (void)setHashedPassword:(NSString*)p
 {

@@ -340,18 +340,21 @@ return self;
     }
     
     // Server disconnected
-    if(eventCode == NSStreamEventEndEncountered) {
+    else if(eventCode == NSStreamEventEndEncountered) {
         
         // Send server closed socket error
+        [target performSelector:errMethod withObject:@"NSStreamEventEndEncountered"];
+        
         // Close the sockets
         [self cleanUp];
         
     }
     
     // Error
-    if (eventCode == NSStreamEventErrorOccurred) {
+    else if (eventCode == NSStreamEventErrorOccurred) {
         
         // Send a generic error code.
+        [target performSelector:errMethod withObject:@"NSStreamEventErrorOccurred"];
         
         // Close the sockets
         [self cleanUp];
@@ -360,7 +363,7 @@ return self;
     // By: Ray Wenderlich
     // http://www.raywenderlich.com/3932/how-to-create-a-socket-based-iphone-app-and-server
     // If the system said somthing
-    if (eventCode == NSStreamEventHasBytesAvailable) {
+    else if (eventCode == NSStreamEventHasBytesAvailable) {
         uint8_t buffer[1024];
         int len;
         

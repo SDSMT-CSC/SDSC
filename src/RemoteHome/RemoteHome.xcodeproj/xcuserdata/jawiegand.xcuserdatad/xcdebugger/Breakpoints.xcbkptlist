@@ -4,16 +4,16 @@
    version = "1.0">
    <FileBreakpoints>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "RemoteHome/RHNetworkEngine.m"
-         timestampString = "378952016.75773"
+         filePath = "RemoteHome/RHUpdateBaseStationViewController.m"
+         timestampString = "379400252.114122"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "373"
-         endingLineNumber = "373"
-         landmarkName = "-stream:handleEvent:"
+         startingLineNumber = "59"
+         endingLineNumber = "59"
+         landmarkName = "-userDidPressUpInsideTheUpdateButton:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -114,7 +114,7 @@
     // Send the data
     SEL response = @selector(nonErrorResponse:);
     SEL eResponse = @selector(errorResponse:);
-    [[RHNetworkEngine sharedManager] setAddress:@"10.0.1.10"];
+    [[RHNetworkEngine sharedManager] setAddress:DDNSSERVERADDRESS];
     
     [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse];
     
@@ -209,28 +209,6 @@
     // Place the base station into the SQLLite DB
     NSError *e;
     [context save:&e];
-    
-    
-    //!DEBUG
-    // Test to see if we can get the items out
-    NSFetchRequest *req = [[NSFetchRequest alloc] init];
-    [req setReturnsObjectsAsFaults:NO];
-    NSEntityDescription *desc = [[model entitiesByName] objectForKey:@"RHBaseStationModel"];
-    [req setEntity:desc];
-    NSSortDescriptor *sortDesc = [NSSortDescriptor sortDescriptorWithKey:@"commonName"
-                                                               ascending:YES];
-    [req setSortDescriptors:@[sortDesc]];
-    NSArray *res = [context executeFetchRequest:req error:&e];
-    
-    // Print each element
-    for (RHBaseStationModel *b in res) {
-        NSLog(@"======Entry======");
-        NSLog(@"Name : %@", [b commonName]);
-        NSLog(@"Serial Number : %@", [b serialNumber]);
-        NSLog(@"Address : %@", [b ipAddress]);
-        NSLog(@"Password : %@", [b hashedPassword]);
-    }
-    //!ENDDEBUG
     
     UIAlertView *suc = [[UIAlertView alloc]
                         initWithTitle:@"Success"
