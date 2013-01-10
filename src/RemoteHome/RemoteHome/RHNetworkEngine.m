@@ -201,6 +201,9 @@ return self;
  */
 - (void)startNetworkTransaction
 {
+    // Close any open connections
+    [sharedManager cleanUp];
+    
     // Connect to the DDNS to get the address (this should be refactored into a class)
     CFReadStreamRef readStream;
     CFWriteStreamRef writeStream;
@@ -294,6 +297,17 @@ return self;
                                               repeats:NO];
 }
 
+/**
+ * @brief	Stops the timeout.
+ * @detail  This method will stop the timer.
+ * @author	James A. Wiegand Jr.
+ * @date	December 29, 2012
+ */
+- (void)stopTimer
+{
+    [timeout invalidate];
+}
+
 
 /**
  * @brief	Called when the timeout timer is fired.
@@ -304,11 +318,11 @@ return self;
  */
 - (void)timeoutFire
 {
-    // Send an error back
-    [target performSelector:errMethod withObject:@"timeout"];
-    
     // Close sockets
     [self cleanUp];
+    
+    // Send an error back
+    [target performSelector:errMethod withObject:@"timeout"];
 }
 
 #pragma mark - NSStreamDelegate
@@ -331,33 +345,28 @@ return self;
 {
     // Socket Open
     if(eventCode == NSStreamEventOpenCompleted) {
-        // Invalidate timer
-        [timeout invalidate];
-        timeout = nil;
-        
-        // Second timeout timer since the system has not ack
-        [self startTimeoutTimer];
+        // Nothing to see here
     }
     
     // Server disconnected
     else if(eventCode == NSStreamEventEndEncountered) {
         
-        // Send server closed socket error
-        [target performSelector:errMethod withObject:@"NSStreamEventEndEncountered"];
-        
         // Close the sockets
         [self cleanUp];
+        
+        // Send server closed socket error
+        [target performSelector:errMethod withObject:@"NSStreamEventEndEncountered"];
         
     }
     
     // Error
     else if (eventCode == NSStreamEventErrorOccurred) {
         
-        // Send a generic error code.
-        [target performSelector:errMethod withObject:@"NSStreamEventErrorOccurred"];
-        
         // Close the sockets
         [self cleanUp];
+        
+        // Send a generic error code.
+        [target performSelector:errMethod withObject:@"NSStreamEventErrorOccurred"];
     }
     
     // By: Ray Wenderlich
@@ -398,15 +407,17 @@ return self;
                 NSArray* resArr = (NSArray*) [response objectForKey:@"DDNSConnected"];
                 if (resArr != Nil && resArr[0]) {
                     // Invalidate second timer
-                    [timeout invalidate];
+                    [sharedManager stopTimer];
                     
                     // Connection established send the registration data
                     [sharedManager sendTCPIPData];
                 }
                 
-                // Else return the response
+                // Else return the response (managed mode)
                 else
                 {
+                    [self cleanUp];
+                    
                     [target performSelector:retMethod withObject:response];
                 }
                 

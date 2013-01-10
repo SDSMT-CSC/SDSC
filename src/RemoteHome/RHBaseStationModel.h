@@ -1,10 +1,9 @@
-//
-//  RHBaseStationModel.h
-//  RemoteHome
-//
-//  Created by James Wiegand on 11/29/12.
-//  Copyright (c) 2012 James Wiegand. All rights reserved.
-//
+/**
+ * @brief	A class that wraps the base stations.
+ * @detail	This class holds the information for a base station.
+ * @author	James A. Wiegand Jr.
+ * @date	November 29, 2013
+ */
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -16,6 +15,7 @@
 @property (nonatomic, retain) NSString * hashedPassword;
 @property (nonatomic, retain) NSString * ipAddress;
 @property (nonatomic, retain) NSString * serialNumber;
+
 
 - (void)setPasswordWithoutHash:(NSString*)password;
 

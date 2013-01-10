@@ -13,6 +13,8 @@
 #import "RHNetworkEngine.h"
 #import "RHDeviceModel.h"
 #import "RHUpdateBaseStationViewController.h"
+#import "RHDeviceViewController.h"
+
 
 @interface RHBaseStationTableViewController ()
 
@@ -20,7 +22,7 @@
 
 @implementation RHBaseStationTableViewController
 
-@synthesize selectedIndex;
+@synthesize selectedIndex, popupNotice;
 
 
 #pragma mark - Lifecycle
@@ -51,6 +53,9 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addBaseStation)];
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    // Set the back button title
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:nil action:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,7 +66,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [RHNetworkEngine halt];
 }
 
@@ -155,6 +159,8 @@
         
         [update setSelectedModel:mod];
         
+        [update setTitle:@"Edit Base Station"];
+        
         [self.navigationController pushViewController:update animated:YES];
     }
 }
@@ -171,32 +177,42 @@
         // Get a list of devices
         NSUInteger count = [(NSNumber*)[response objectForKey:@"RHDeviceCount"] integerValue];
         
+        NSMutableArray *parsedDevices =[[NSMutableArray alloc] init];
+        
         if (count != 0) {
             // Copy the devices into a device array
             NSArray *devices = (NSArray*)[response objectForKey:@"RHDeviceList"];
-            NSMutableArray *parsedDevices =[[NSMutableArray alloc] init];
+
             
             for (NSDictionary *currDict in devices) {
                 RHDeviceModel *mod = [[RHDeviceModel alloc] init];
                 [mod setDeviceName:(NSString*)[currDict objectForKey:@"DeviceName"]];
                 [mod setDeviceSerial:(NSString*)[currDict objectForKey:@"DeviceSerial"]];
                 [mod setDeviceType:[(NSNumber*)[currDict objectForKey:@"DeviceType"] integerValue]];
+                [mod setDeviceType:[(NSNumber*)[currDict objectForKey:@"DeviceOnline"] integerValue]];
                 
                 [parsedDevices addObject:model];
             }
         }
         
         // Build the viewer
+        RHDeviceViewController *deviceView = [[RHDeviceViewController alloc] initWithStyle:UITableViewStylePlain];
+        [deviceView setDataSource: parsedDevices];
+        [deviceView setTitle:@"Devices"];
+        
+        [self.navigationController pushViewController:deviceView animated:YES];
+        
+        [popupNotice dismissAnimated:YES];
     }
     
     // No success
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The password was rejected. Please check that the password you suppled was correct" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        
         [alert show];
+        
+        [popupNotice dismissAnimated:YES];
     }
-    
-    // Stop the activity indicator
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)passwordTransactionDidRecieveError:(NSString*)error
@@ -232,7 +248,7 @@
         
         [error show];
         
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [popupNotice dismissAnimated:YES];
     }
 }
 
@@ -272,6 +288,8 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please update your base station address from the base station portal and try again" delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
                 
                 [alert show];
+                
+                [popupNotice dismissAnimated:YES];
             }
             
             // If they are different update the address information and retry
@@ -284,7 +302,7 @@
                 [req setReturnsObjectsAsFaults:NO];
                 NSEntityDescription *desc = [[model entitiesByName] objectForKey:@"RHBaseStationModel"];
                 [req setEntity:desc];
-                NSPredicate *pred = [NSPredicate predicateWithFormat:[NSString stringWithFormat:@"deviceSerial == %@", [station serialNumber]]];
+                NSPredicate *pred = [NSPredicate predicateWithFormat:@"serialNumber == %@", [station serialNumber]];
                 [req setPredicate:pred];
                 
                 NSManagedObject *staticDataSource = [[context executeFetchRequest:req error:&e] lastObject];
@@ -303,12 +321,11 @@
                 }
                 
                 [context save:&e];
-                
+                [self reloadDataSource];
+                [self connectToBaseStation];
             }
         }
     }
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
 }
 
@@ -318,7 +335,16 @@
     
     [alert show];
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    // Dismiss the popup
+    [popupNotice dismissAnimated:YES];
+}
+
+#pragma mark - CMPopTipViewDelegate
+
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView
+{
+    //Terminate network connections
+    [RHNetworkEngine halt];
 }
 
 #pragma mark - Helper functions
@@ -353,6 +379,15 @@
 
 - (void)connectToBaseStation
 {
+    // Notify the user of the loading status
+    NSIndexPath *path = [NSIndexPath indexPathForItem:selectedIndex inSection:0];
+    
+    UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:path];
+    popupNotice = [[CMPopTipView alloc] initWithMessage:@"Connecting. Tap the screen to stop connecting."];
+    [popupNotice setDismissTapAnywhere:YES];
+    [popupNotice setDelegate:self];
+    [popupNotice presentPointingAtView:cell.contentView inView:self.view animated:YES];
+    
     // Get the correct controller
     RHBaseStationModel *selectedStation = [dataSource objectAtIndex:selectedIndex];
     
@@ -364,9 +399,6 @@
     
     // Send the request
     [RHNetworkEngine sendJSON:JSONPasswordTransaction toAddressWithTarget:self withRetSelector:@selector(passwordTransactionDidRecieveResponse:) andErrSelector:@selector(passwordTransactionDidRecieveError:)];
-    
-    // Start network activity indicator
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 @end

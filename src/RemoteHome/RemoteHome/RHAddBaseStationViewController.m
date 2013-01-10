@@ -20,6 +20,8 @@
 
 @synthesize inputStream,outputStream, timeout, setupTimer;
 
+
+#pragma mark - Lifecycle
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -49,6 +51,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [RHNetworkEngine halt];
+}
+
 #pragma mark - Buttons	
 
 // Create a connection and retrieve the data for that base station object
@@ -61,36 +68,26 @@
     NSString *pass = [[self passwordField] text];
     
     if ([serial isEqualToString:@""]) {
-        // Print an error
-        UIAlertView *err = [[UIAlertView alloc]
-                            initWithTitle:@"Error"
-                            message:@"Please enter the serial number in the serial number field."
-                            delegate:Nil
-                            cancelButtonTitle:@"Okay"
-                            otherButtonTitles: nil];
-        [err show];
+        CMPopTipView *error = [[CMPopTipView alloc] initWithMessage:@"Please enter the serial number in the serial number field."];
+        [error setDismissTapAnywhere:YES];
+        [error setBackgroundColor:[UIColor redColor]];
+        [error presentPointingAtView:[self serialNumberField] inView:self.view animated:YES];
+        
         return;
     }
     else if ([name isEqualToString:@""]) {
-        // Print an error
-        UIAlertView *err = [[UIAlertView alloc]
-                            initWithTitle:@"Error"
-                            message:@"Please enter a name in the name field."
-                            delegate:Nil
-                            cancelButtonTitle:@"Okay"
-                            otherButtonTitles: nil];
-        [err show];
+        CMPopTipView *error = [[CMPopTipView alloc] initWithMessage:@"Please enter a name in the name field."];
+        [error setDismissTapAnywhere:YES];
+        [error setBackgroundColor:[UIColor redColor]];
+        [error presentPointingAtView:[self nameField] inView:self.view animated:YES];
         return;
     }
     else if ([pass isEqualToString:@""]) {
         // Print an error
-        UIAlertView *err = [[UIAlertView alloc]
-                            initWithTitle:@"Error"
-                            message:@"Please enter the password in the password field."
-                            delegate:Nil
-                            cancelButtonTitle:@"Okay"
-                            otherButtonTitles: nil];
-        [err show];
+        CMPopTipView *error = [[CMPopTipView alloc] initWithMessage:@"Please enter the password in the password field."];
+        [error setDismissTapAnywhere:YES];
+        [error setBackgroundColor:[UIColor redColor]];
+        [error presentPointingAtView:[self nameField] inView:self.view animated:YES];
         return;
     }
     
@@ -221,10 +218,13 @@
     
     // Set the user defaults so that it loads the normal view
     NSUserDefaults *uDef = [NSUserDefaults standardUserDefaults];
-    [uDef setObject:@"complete" forKey:@"firstTime"];
+    NSString* firstTimeString = [uDef objectForKey:@"firstTime"];
     
-    if(!uDef)
+    if(firstTimeString == nil);
     {
+        
+        [uDef setObject:@"complete" forKey:@"firstTime"];
+        
         // Load the root controller
         RHAppDelegate *delegate = (RHAppDelegate*)[[UIApplication sharedApplication] delegate];
         [delegate loadNavRootViewController];

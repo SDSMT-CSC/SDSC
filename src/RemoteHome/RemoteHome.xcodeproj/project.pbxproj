@@ -24,6 +24,8 @@
 		72AB7145169CF1BF00A478E4 /* RHDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7144169CF1BF00A478E4 /* RHDeviceModel.m */; };
 		72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */; };
 		72AB714B169D041100A478E4 /* RHUpdateBaseStationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */; };
+		72C3E189169E37EA00570705 /* RHDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C3E188169E37EA00570705 /* RHDeviceViewController.m */; };
+		72C3E18F169E486200570705 /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72C3E18E169E485100570705 /* CMPopTipView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		72E346FB1696642300BEE6F5 /* RHBaseStationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */; };
 		72F2D821168F9F1E004C459D /* RHNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 72F2D820168F9F1D004C459D /* RHNetworkEngine.m */; };
 		72FC8F0616681D6900B1D887 /* RemoteHome.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 72FC8F0516681D6900B1D887 /* RemoteHome.xcdatamodel */; };
@@ -56,6 +58,10 @@
 		72AB7147169D03ED00A478E4 /* RHUpdateBaseStationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHUpdateBaseStationViewController.h; sourceTree = "<group>"; };
 		72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHUpdateBaseStationViewController.m; sourceTree = "<group>"; };
 		72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHUpdateBaseStationViewController.xib; sourceTree = "<group>"; };
+		72C3E187169E37EA00570705 /* RHDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDeviceViewController.h; sourceTree = "<group>"; };
+		72C3E188169E37EA00570705 /* RHDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDeviceViewController.m; sourceTree = "<group>"; };
+		72C3E18D169E485100570705 /* CMPopTipView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
+		72C3E18E169E485100570705 /* CMPopTipView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		72E346F81696642300BEE6F5 /* RHBaseStationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHBaseStationTableViewController.h; sourceTree = "<group>"; };
 		72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHBaseStationTableViewController.m; sourceTree = "<group>"; };
 		72F2D81F168F9F1D004C459D /* RHNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNetworkEngine.h; sourceTree = "<group>"; };
@@ -125,6 +131,7 @@
 		726E7F191662B44000B7BC0F /* RemoteHome */ = {
 			isa = PBXGroup;
 			children = (
+				72C3E18C169E481D00570705 /* CMPopTipView */,
 				724C523F1662D25E00B17F1A /* Models */,
 				726E7F361662B49000B7BC0F /* View Controllers */,
 				726E7F341662B47F00B7BC0F /* nibs */,
@@ -170,8 +177,19 @@
 				72E346F91696642300BEE6F5 /* RHBaseStationTableViewController.m */,
 				72AB7147169D03ED00A478E4 /* RHUpdateBaseStationViewController.h */,
 				72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */,
+				72C3E187169E37EA00570705 /* RHDeviceViewController.h */,
+				72C3E188169E37EA00570705 /* RHDeviceViewController.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		72C3E18C169E481D00570705 /* CMPopTipView */ = {
+			isa = PBXGroup;
+			children = (
+				72C3E18D169E485100570705 /* CMPopTipView.h */,
+				72C3E18E169E485100570705 /* CMPopTipView.m */,
+			);
+			name = CMPopTipView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +261,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72C3E18F169E486200570705 /* CMPopTipView.m in Sources */,
 				726E7F201662B44000B7BC0F /* main.m in Sources */,
 				726E7F241662B44000B7BC0F /* RHAppDelegate.m in Sources */,
 				726E7F3A1662B4B000B7BC0F /* RHAddBaseStationViewController.m in Sources */,
@@ -253,6 +272,7 @@
 				72E346FB1696642300BEE6F5 /* RHBaseStationTableViewController.m in Sources */,
 				72AB7145169CF1BF00A478E4 /* RHDeviceModel.m in Sources */,
 				72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */,
+				72C3E189169E37EA00570705 /* RHDeviceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

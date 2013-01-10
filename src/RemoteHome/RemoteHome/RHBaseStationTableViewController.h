@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "CMPopTipView.h"
 
 @interface RHBaseStationTableViewController : UITableViewController
-<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate,
+CMPopTipViewDelegate>
 {
     NSManagedObjectContext *context;
     NSManagedObjectModel *model;
@@ -18,4 +20,5 @@
 }
 
 @property (nonatomic) int selectedIndex;
+@property (nonatomic, retain) CMPopTipView *popupNotice;
 @end

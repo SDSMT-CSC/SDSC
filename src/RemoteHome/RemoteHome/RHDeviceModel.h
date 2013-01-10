@@ -16,9 +16,10 @@ enum RHDeviceType {
 
 @interface RHDeviceModel : NSObject
 
-@property (nonatomic, retain) NSString* deviceName;
-@property (nonatomic, retain) NSString* deviceSerial;
-@property (nonatomic)  enum RHDeviceType deviceType;
+@property (nonatomic, retain)   NSString* deviceName;
+@property (nonatomic, retain)   NSString* deviceSerial;
+@property (nonatomic)           enum RHDeviceType deviceType;
+@property (nonatomic)           BOOL isOnline;
 
 
 

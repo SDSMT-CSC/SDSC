@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RHBaseStationModel.h"
+#import "CMPopTipView.h"
 
 @interface RHUpdateBaseStationViewController : UIViewController
 <UITextFieldDelegate>

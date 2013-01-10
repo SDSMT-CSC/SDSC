@@ -56,6 +56,26 @@
 #pragma mark - Buttons
 
 - (IBAction)userDidPressUpInsideTheUpdateButton:(id)sender {
+    
+    // Check for fields to be populated
+    if ([[nameField text] isEqualToString:@""]) {
+        CMPopTipView *error = [[CMPopTipView alloc] initWithMessage:@"Please enter a name in the name field."];
+        [error setDismissTapAnywhere:YES];
+        [error setBackgroundColor:[UIColor redColor]];
+        [error presentPointingAtView:[self nameField] inView:self.view animated:YES];
+        
+        return;
+    }
+    else if ([[passwordField text] isEqualToString:@""])
+    {
+        CMPopTipView *error = [[CMPopTipView alloc] initWithMessage:@"Please enter a password in the password field."];
+        [error setDismissTapAnywhere:YES];
+        [error setBackgroundColor:[UIColor redColor]];
+        [error presentPointingAtView:[self passwordField] inView:self.view animated:YES];
+        
+        return;
+    }
+    
     NSString *name = [[self nameField] text];
     NSString *newPassword = nil;
     
@@ -100,6 +120,14 @@
     if (![context save:&e]) {
         NSLog(@"%@", e.localizedDescription);
     }
+    
+    // Drop first responders
+    [nameField resignFirstResponder];
+    [passwordField resignFirstResponder];
+    
+    // Notify the user
+    UIAlertView *notify = [[UIAlertView alloc] initWithTitle:@"Notice" message:@"The base station has been updated." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    [notify show];
 }
 
 #pragma mark - UITextFieldDelegate
