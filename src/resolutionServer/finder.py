@@ -22,6 +22,8 @@ class Finder:
     self.db.commit()
     cursor.close()
 
+    print ip
+
     return ip
   #end find
 

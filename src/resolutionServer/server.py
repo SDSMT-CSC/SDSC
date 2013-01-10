@@ -27,9 +27,21 @@ class Server:
   def handleConnection(self,conn,addr):
     conn.send('''{"DDNSConnected":[{"Connected":true}]}''')
 
-    raw = conn.recv(1024)
+    print 'confirmation sent'
 
-    data = json.loads(raw)
+    raw = conn.recv(4096)
+
+    print raw
+
+
+    data = None
+
+    try:
+      data = json.loads(raw)
+    except Exception, e:
+      conn.close()
+      return
+
 
     if data.keys()[0] == 'HRHomeStationsRequest':
       ids = data.values()[0]
@@ -40,6 +52,7 @@ class Server:
         ips.append(self.finder.find(id.values()[0]))
 
       conn.sendall(self.buildRequestResponse(ids,ips))
+      conn.close()
     elif data.keys()[0] == 'HRHomeStationUpdate':
       
       id = data.values()[0].values()[0]
@@ -49,16 +62,17 @@ class Server:
       self.finder.update(id,ip)
 
       conn.sendall(id + " " + ip)
+      conn.close()
     else:
-      pass
+      conn.close()
 
   def buildRequestResponse(self,ids,ips):
     values = list()
 
     i = 0
     while i < len(ids):
-      values.append({'stationDID':ids[i].values()[0], 'stationIP':ips[i]})
+      values.append({'StationDID':ids[i].values()[0], 'StationIP':ips[i]})
       i += 1
 
-    return json.dumps({'HRHomStationReply':values})
+    return json.dumps({'HRHomeStationReply':values})
 #end Server
