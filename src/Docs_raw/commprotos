@@ -55,7 +55,7 @@ Base Station to iOS
 	"RHLoginSuccess" : (true | false),
 	"RHDeviceCount" : (int),
 	"RHDeviceList" : [
-		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial", "DeviceTypeCode" : (int), "DeviceOnline" : ( true | false ) },
-		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial", "DeviceTypeCode" : (int), "DeviceOnline" : ( true | false ) }
+		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial)", "DeviceTypeCode" : (int), "ErrorCode" : (int) },
+		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial)", "DeviceTypeCode" : (int), "ErrorCode" : (int) }
 	]
 }

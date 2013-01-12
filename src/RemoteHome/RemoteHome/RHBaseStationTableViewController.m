@@ -189,20 +189,29 @@
                 [mod setDeviceName:(NSString*)[currDict objectForKey:@"DeviceName"]];
                 [mod setDeviceSerial:(NSString*)[currDict objectForKey:@"DeviceSerial"]];
                 [mod setDeviceType:[(NSNumber*)[currDict objectForKey:@"DeviceType"] integerValue]];
-                [mod setDeviceType:[(NSNumber*)[currDict objectForKey:@"DeviceOnline"] integerValue]];
+                [mod setErrorCode:[(NSNumber*)[currDict objectForKey:@"ErrorCode"] integerValue]];
                 
-                [parsedDevices addObject:model];
+                [parsedDevices addObject:mod];
             }
         }
+        
+        // Sort the devices by name
+        [parsedDevices sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            RHDeviceModel *firstModel = (RHDeviceModel*)obj1;
+            RHDeviceModel *secondModel = (RHDeviceModel*)obj2;
+            
+            return [firstModel.deviceName caseInsensitiveCompare:secondModel.deviceName];
+        }];
         
         // Build the viewer
         RHDeviceViewController *deviceView = [[RHDeviceViewController alloc] initWithStyle:UITableViewStylePlain];
         [deviceView setDataSource: parsedDevices];
+        [deviceView setBaseStation:[dataSource objectAtIndex:selectedIndex]];
         [deviceView setTitle:@"Devices"];
         
-        [self.navigationController pushViewController:deviceView animated:YES];
-        
         [popupNotice dismissAnimated:YES];
+        
+        [self.navigationController pushViewController:deviceView animated:YES];
     }
     
     // No success

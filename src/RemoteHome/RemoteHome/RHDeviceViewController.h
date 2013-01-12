@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RHNetworkEngine.h"
+#import "RHBaseStationModel.h"
 
 @interface RHDeviceViewController : UITableViewController
 
 @property (nonatomic,retain) NSMutableArray *dataSource;
+@property (nonatomic, retain) RHBaseStationModel *baseStation;
 
 @end

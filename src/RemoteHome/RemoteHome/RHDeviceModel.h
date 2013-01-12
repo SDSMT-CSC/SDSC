@@ -19,7 +19,7 @@ enum RHDeviceType {
 @property (nonatomic, retain)   NSString* deviceName;
 @property (nonatomic, retain)   NSString* deviceSerial;
 @property (nonatomic)           enum RHDeviceType deviceType;
-@property (nonatomic)           BOOL isOnline;
+@property (nonatomic)           NSUInteger errorCode;
 
 
 

@@ -21,6 +21,8 @@
 		726E7F3B1662B4B000B7BC0F /* RHAddBaseStationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */; };
 		726E7F491662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */; };
 		726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */; };
+		729246A316A1E8DD00229045 /* RHErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729246A216A1E8DD00229045 /* RHErrorViewController.m */; };
+		729246A616A1E90A00229045 /* RHErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 729246A516A1E90A00229045 /* RHErrorViewController.xib */; };
 		72AB7145169CF1BF00A478E4 /* RHDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7144169CF1BF00A478E4 /* RHDeviceModel.m */; };
 		72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */; };
 		72AB714B169D041100A478E4 /* RHUpdateBaseStationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */; };
@@ -53,6 +55,9 @@
 		726E7F461662BB7700B7BC0F /* RHFirstTimeInstructionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHFirstTimeInstructionViewController.h; sourceTree = "<group>"; };
 		726E7F471662BB7700B7BC0F /* RHFirstTimeInstructionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHFirstTimeInstructionViewController.m; sourceTree = "<group>"; };
 		726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHFirstTimeInstructionViewController.xib; sourceTree = "<group>"; };
+		729246A116A1E8DD00229045 /* RHErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHErrorViewController.h; sourceTree = "<group>"; };
+		729246A216A1E8DD00229045 /* RHErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHErrorViewController.m; sourceTree = "<group>"; };
+		729246A516A1E90A00229045 /* RHErrorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHErrorViewController.xib; sourceTree = "<group>"; };
 		72AB7143169CF1BF00A478E4 /* RHDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDeviceModel.h; sourceTree = "<group>"; };
 		72AB7144169CF1BF00A478E4 /* RHDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDeviceModel.m; sourceTree = "<group>"; };
 		72AB7147169D03ED00A478E4 /* RHUpdateBaseStationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHUpdateBaseStationViewController.h; sourceTree = "<group>"; };
@@ -162,6 +167,7 @@
 				726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */,
 				726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */,
 				72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */,
+				729246A516A1E90A00229045 /* RHErrorViewController.xib */,
 			);
 			name = nibs;
 			sourceTree = "<group>";
@@ -179,6 +185,8 @@
 				72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */,
 				72C3E187169E37EA00570705 /* RHDeviceViewController.h */,
 				72C3E188169E37EA00570705 /* RHDeviceViewController.m */,
+				729246A116A1E8DD00229045 /* RHErrorViewController.h */,
+				729246A216A1E8DD00229045 /* RHErrorViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -251,6 +259,7 @@
 				726E7F3B1662B4B000B7BC0F /* RHAddBaseStationViewController.xib in Resources */,
 				726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */,
 				72AB714B169D041100A478E4 /* RHUpdateBaseStationViewController.xib in Resources */,
+				729246A616A1E90A00229045 /* RHErrorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +282,7 @@
 				72AB7145169CF1BF00A478E4 /* RHDeviceModel.m in Sources */,
 				72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */,
 				72C3E189169E37EA00570705 /* RHDeviceViewController.m in Sources */,
+				729246A316A1E8DD00229045 /* RHErrorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
