@@ -113,7 +113,7 @@
     SEL eResponse = @selector(errorResponse:);
     [[RHNetworkEngine sharedManager] setAddress:DDNSSERVERADDRESS];
     
-    [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse];
+    [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse withMode:RHNetworkModeManaged];
     
     // Check first responder status
     [[self serialNumberField] resignFirstResponder];

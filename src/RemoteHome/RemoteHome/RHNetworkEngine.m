@@ -8,6 +8,7 @@
 inputStream,
 outputStream,
 setupTimer,
+mode,
 timeout;
 
 static RHNetworkEngine* sharedManager = nil;
@@ -49,7 +50,7 @@ static RHNetworkEngine* sharedManager = nil;
  * @author	James A. Wiegand Jr.
  * @date	December 29, 2012
  */
-+ (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel
++ (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel withMode:(enum RHNetworkMode)mode
 {
     // Set the return target and selectors
     [sharedManager setTarget:targ];
@@ -416,7 +417,9 @@ return self;
                 // Else return the response (managed mode)
                 else
                 {
-                    [self cleanUp];
+                    if (mode == RHNetworkModeManaged) {
+                        [self cleanUp];
+                    }
                     
                     [target performSelector:retMethod withObject:response];
                 }

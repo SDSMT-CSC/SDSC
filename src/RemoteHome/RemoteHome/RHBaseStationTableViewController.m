@@ -249,7 +249,7 @@
         SEL eResponse = @selector(DDNSUpdateRequestDidRecieveError:);
         [[RHNetworkEngine sharedManager] setAddress:DDNSSERVERADDRESS];
         
-        [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse];
+        [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse withMode:RHNetworkModeManaged];
     }
     else {
         // Give an error message
@@ -407,7 +407,7 @@
     [[RHNetworkEngine sharedManager] setAddress:[selectedStation ipAddress]];
     
     // Send the request
-    [RHNetworkEngine sendJSON:JSONPasswordTransaction toAddressWithTarget:self withRetSelector:@selector(passwordTransactionDidRecieveResponse:) andErrSelector:@selector(passwordTransactionDidRecieveError:)];
+    [RHNetworkEngine sendJSON:JSONPasswordTransaction toAddressWithTarget:self withRetSelector:@selector(passwordTransactionDidRecieveResponse:) andErrSelector:@selector(passwordTransactionDidRecieveError:) withMode:RHNetworkModeManaged];
 }
 
 @end

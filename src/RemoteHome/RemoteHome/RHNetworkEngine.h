@@ -14,6 +14,11 @@
 #import <Foundation/Foundation.h>
 #define DDNSSERVERADDRESS @"10.0.1.10"
 
+enum RHNetworkMode {
+    RHNetworkModeManaged = 0,
+    RHNetworkModeUnmanaged = 1
+    };
+
 @interface RHNetworkEngine : NSObject
 <NSStreamDelegate>
 {
@@ -37,11 +42,14 @@
 @property (retain, nonatomic) NSTimer *timeout;
 @property (retain, nonatomic) NSTimer *setupTimer;
 
+// Used to determine the network mode
+@property (nonatomic) enum RHNetworkMode mode;
+
 // Initialze the shared manager
 + (void)initialize;
 
 // Send the data to an address with a target and return selector
-+ (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel;
++ (void)sendJSON:(NSDictionary*)payload toAddressWithTarget:(id)targ withRetSelector:(SEL)rSel andErrSelector:(SEL)eSel withMode:(enum RHNetworkMode)mode;
 
 // Used to access the singleton object
 + (RHNetworkEngine*)sharedManager;

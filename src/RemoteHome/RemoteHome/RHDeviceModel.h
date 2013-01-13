@@ -14,6 +14,11 @@ enum RHDeviceType {
     RHLightType = 2
     };
 
+enum RHErrorCodes {
+    RHErrorNoError = 0,
+    RHErrorOffline = 1
+    };
+
 @interface RHDeviceModel : NSObject
 
 @property (nonatomic, retain)   NSString* deviceName;

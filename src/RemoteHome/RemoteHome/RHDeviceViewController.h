@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "RHNetworkEngine.h"
 #import "RHBaseStationModel.h"
+#import "CMPopTipView.h"
 
 @interface RHDeviceViewController : UITableViewController
+<CMPopTipViewDelegate>
 
 @property (nonatomic,retain) NSMutableArray *dataSource;
 @property (nonatomic, retain) RHBaseStationModel *baseStation;
+@property (nonatomic, retain) CMPopTipView *popupNotice;
 
 @end

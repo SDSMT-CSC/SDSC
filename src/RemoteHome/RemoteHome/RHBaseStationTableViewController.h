@@ -21,4 +21,5 @@ CMPopTipViewDelegate>
 
 @property (nonatomic) int selectedIndex;
 @property (nonatomic, retain) CMPopTipView *popupNotice;
+
 @end

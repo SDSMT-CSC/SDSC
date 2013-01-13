@@ -23,6 +23,7 @@
 		726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */; };
 		729246A316A1E8DD00229045 /* RHErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 729246A216A1E8DD00229045 /* RHErrorViewController.m */; };
 		729246A616A1E90A00229045 /* RHErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 729246A516A1E90A00229045 /* RHErrorViewController.xib */; };
+		729246A816A2427700229045 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729246A716A2427700229045 /* QuartzCore.framework */; };
 		72AB7145169CF1BF00A478E4 /* RHDeviceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7144169CF1BF00A478E4 /* RHDeviceModel.m */; };
 		72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 72AB7148169D03ED00A478E4 /* RHUpdateBaseStationViewController.m */; };
 		72AB714B169D041100A478E4 /* RHUpdateBaseStationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */; };
@@ -58,6 +59,7 @@
 		729246A116A1E8DD00229045 /* RHErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHErrorViewController.h; sourceTree = "<group>"; };
 		729246A216A1E8DD00229045 /* RHErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHErrorViewController.m; sourceTree = "<group>"; };
 		729246A516A1E90A00229045 /* RHErrorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHErrorViewController.xib; sourceTree = "<group>"; };
+		729246A716A2427700229045 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		72AB7143169CF1BF00A478E4 /* RHDeviceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHDeviceModel.h; sourceTree = "<group>"; };
 		72AB7144169CF1BF00A478E4 /* RHDeviceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHDeviceModel.m; sourceTree = "<group>"; };
 		72AB7147169D03ED00A478E4 /* RHUpdateBaseStationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHUpdateBaseStationViewController.h; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				729246A816A2427700229045 /* QuartzCore.framework in Frameworks */,
 				7208D7B21667F7E10092C686 /* CoreData.framework in Frameworks */,
 				726E7F141662B44000B7BC0F /* UIKit.framework in Frameworks */,
 				726E7F161662B44000B7BC0F /* Foundation.framework in Frameworks */,
@@ -125,6 +128,7 @@
 		726E7F121662B44000B7BC0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				729246A716A2427700229045 /* QuartzCore.framework */,
 				7208D7B11667F7E10092C686 /* CoreData.framework */,
 				726E7F131662B44000B7BC0F /* UIKit.framework */,
 				726E7F151662B44000B7BC0F /* Foundation.framework */,
