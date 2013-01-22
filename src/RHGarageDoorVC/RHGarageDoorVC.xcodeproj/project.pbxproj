@@ -1,0 +1,306 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D5190C316A86FA7001A6A2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C216A86FA7001A6A2A /* UIKit.framework */; };
+		0D5190C516A86FA7001A6A2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C416A86FA7001A6A2A /* Foundation.framework */; };
+		0D5190C716A86FA7001A6A2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C616A86FA7001A6A2A /* CoreGraphics.framework */; };
+		0D5190CD16A86FA7001A6A2A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190CB16A86FA7001A6A2A /* InfoPlist.strings */; };
+		0D5190CF16A86FA7001A6A2A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190CE16A86FA7001A6A2A /* main.m */; };
+		0D5190D316A86FA7001A6A2A /* RHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190D216A86FA7001A6A2A /* RHAppDelegate.m */; };
+		0D5190D516A86FA7001A6A2A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D416A86FA7001A6A2A /* Default.png */; };
+		0D5190D716A86FA7001A6A2A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D616A86FA7001A6A2A /* Default@2x.png */; };
+		0D5190D916A86FA7001A6A2A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D816A86FA7001A6A2A /* Default-568h@2x.png */; };
+		0D5190DC16A86FA7001A6A2A /* RHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190DB16A86FA7001A6A2A /* RHViewController.m */; };
+		0D5190DF16A86FA8001A6A2A /* RHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190DD16A86FA8001A6A2A /* RHViewController.xib */; };
+		0D5190E716A8725D001A6A2A /* RHNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0D5190BE16A86FA7001A6A2A /* RHGarageDoorVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHGarageDoorVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0D5190C216A86FA7001A6A2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0D5190C416A86FA7001A6A2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0D5190C616A86FA7001A6A2A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0D5190CA16A86FA7001A6A2A /* RHGarageDoorVC-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RHGarageDoorVC-Info.plist"; sourceTree = "<group>"; };
+		0D5190CC16A86FA7001A6A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0D5190CE16A86FA7001A6A2A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0D5190D016A86FA7001A6A2A /* RHGarageDoorVC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RHGarageDoorVC-Prefix.pch"; sourceTree = "<group>"; };
+		0D5190D116A86FA7001A6A2A /* RHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHAppDelegate.h; sourceTree = "<group>"; };
+		0D5190D216A86FA7001A6A2A /* RHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHAppDelegate.m; sourceTree = "<group>"; };
+		0D5190D416A86FA7001A6A2A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		0D5190D616A86FA7001A6A2A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		0D5190D816A86FA7001A6A2A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		0D5190DA16A86FA7001A6A2A /* RHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHViewController.h; sourceTree = "<group>"; };
+		0D5190DB16A86FA7001A6A2A /* RHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHViewController.m; sourceTree = "<group>"; };
+		0D5190DE16A86FA8001A6A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHViewController.xib; sourceTree = "<group>"; };
+		0D5190E516A8725D001A6A2A /* RHNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNetworkEngine.h; sourceTree = "<group>"; };
+		0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNetworkEngine.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0D5190BB16A86FA7001A6A2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D5190C316A86FA7001A6A2A /* UIKit.framework in Frameworks */,
+				0D5190C516A86FA7001A6A2A /* Foundation.framework in Frameworks */,
+				0D5190C716A86FA7001A6A2A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0D5190B316A86FA7001A6A2A = {
+			isa = PBXGroup;
+			children = (
+				0D5190C816A86FA7001A6A2A /* RHGarageDoorVC */,
+				0D5190C116A86FA7001A6A2A /* Frameworks */,
+				0D5190BF16A86FA7001A6A2A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0D5190BF16A86FA7001A6A2A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D5190BE16A86FA7001A6A2A /* RHGarageDoorVC.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0D5190C116A86FA7001A6A2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0D5190C216A86FA7001A6A2A /* UIKit.framework */,
+				0D5190C416A86FA7001A6A2A /* Foundation.framework */,
+				0D5190C616A86FA7001A6A2A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0D5190C816A86FA7001A6A2A /* RHGarageDoorVC */ = {
+			isa = PBXGroup;
+			children = (
+				0D5190D116A86FA7001A6A2A /* RHAppDelegate.h */,
+				0D5190D216A86FA7001A6A2A /* RHAppDelegate.m */,
+				0D5190DA16A86FA7001A6A2A /* RHViewController.h */,
+				0D5190DB16A86FA7001A6A2A /* RHViewController.m */,
+				0D5190DD16A86FA8001A6A2A /* RHViewController.xib */,
+				0D5190C916A86FA7001A6A2A /* Supporting Files */,
+				0D5190E516A8725D001A6A2A /* RHNetworkEngine.h */,
+				0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */,
+			);
+			path = RHGarageDoorVC;
+			sourceTree = "<group>";
+		};
+		0D5190C916A86FA7001A6A2A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0D5190CA16A86FA7001A6A2A /* RHGarageDoorVC-Info.plist */,
+				0D5190CB16A86FA7001A6A2A /* InfoPlist.strings */,
+				0D5190CE16A86FA7001A6A2A /* main.m */,
+				0D5190D016A86FA7001A6A2A /* RHGarageDoorVC-Prefix.pch */,
+				0D5190D416A86FA7001A6A2A /* Default.png */,
+				0D5190D616A86FA7001A6A2A /* Default@2x.png */,
+				0D5190D816A86FA7001A6A2A /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0D5190BD16A86FA7001A6A2A /* RHGarageDoorVC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0D5190E216A86FA8001A6A2A /* Build configuration list for PBXNativeTarget "RHGarageDoorVC" */;
+			buildPhases = (
+				0D5190BA16A86FA7001A6A2A /* Sources */,
+				0D5190BB16A86FA7001A6A2A /* Frameworks */,
+				0D5190BC16A86FA7001A6A2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RHGarageDoorVC;
+			productName = RHGarageDoorVC;
+			productReference = 0D5190BE16A86FA7001A6A2A /* RHGarageDoorVC.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D5190B516A86FA7001A6A2A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = RH;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Joshua Kinkade";
+			};
+			buildConfigurationList = 0D5190B816A86FA7001A6A2A /* Build configuration list for PBXProject "RHGarageDoorVC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0D5190B316A86FA7001A6A2A;
+			productRefGroup = 0D5190BF16A86FA7001A6A2A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0D5190BD16A86FA7001A6A2A /* RHGarageDoorVC */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0D5190BC16A86FA7001A6A2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D5190CD16A86FA7001A6A2A /* InfoPlist.strings in Resources */,
+				0D5190D516A86FA7001A6A2A /* Default.png in Resources */,
+				0D5190D716A86FA7001A6A2A /* Default@2x.png in Resources */,
+				0D5190D916A86FA7001A6A2A /* Default-568h@2x.png in Resources */,
+				0D5190DF16A86FA8001A6A2A /* RHViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0D5190BA16A86FA7001A6A2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0D5190CF16A86FA7001A6A2A /* main.m in Sources */,
+				0D5190D316A86FA7001A6A2A /* RHAppDelegate.m in Sources */,
+				0D5190DC16A86FA7001A6A2A /* RHViewController.m in Sources */,
+				0D5190E716A8725D001A6A2A /* RHNetworkEngine.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0D5190CB16A86FA7001A6A2A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0D5190CC16A86FA7001A6A2A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0D5190DD16A86FA8001A6A2A /* RHViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0D5190DE16A86FA8001A6A2A /* en */,
+			);
+			name = RHViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0D5190E016A86FA8001A6A2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0D5190E116A86FA8001A6A2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0D5190E316A86FA8001A6A2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RHGarageDoorVC/RHGarageDoorVC-Prefix.pch";
+				INFOPLIST_FILE = "RHGarageDoorVC/RHGarageDoorVC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0D5190E416A86FA8001A6A2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RHGarageDoorVC/RHGarageDoorVC-Prefix.pch";
+				INFOPLIST_FILE = "RHGarageDoorVC/RHGarageDoorVC-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0D5190B816A86FA7001A6A2A /* Build configuration list for PBXProject "RHGarageDoorVC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D5190E016A86FA8001A6A2A /* Debug */,
+				0D5190E116A86FA8001A6A2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0D5190E216A86FA8001A6A2A /* Build configuration list for PBXNativeTarget "RHGarageDoorVC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0D5190E316A86FA8001A6A2A /* Debug */,
+				0D5190E416A86FA8001A6A2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0D5190B516A86FA7001A6A2A /* Project object */;
+}

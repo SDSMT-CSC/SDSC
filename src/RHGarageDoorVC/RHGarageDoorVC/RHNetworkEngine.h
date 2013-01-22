@@ -12,19 +12,20 @@
  */
 
 #import <Foundation/Foundation.h>
+#define DDNSSERVERADDRESS @"10.0.1.10"
 
 enum RHNetworkMode {
     RHNetworkModeManaged = 0,
     RHNetworkModeUnmanaged = 1
-    };
+};
 
 @interface RHNetworkEngine : NSObject
 <NSStreamDelegate>
 {
-    @private
-        id target;
-        SEL retMethod;
-        SEL errMethod;
+@private
+    id target;
+    SEL retMethod;
+    SEL errMethod;
 }
 
 // Used to track who we are talking to

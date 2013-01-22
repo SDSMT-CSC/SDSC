@@ -1,6 +1,6 @@
 #import "RHNetworkEngine.h"
 
-#define TIMERTIME 1.0              // Timeout time
+#define TIMERTIME 10.0              // Timeout time
 
 @implementation RHNetworkEngine
 
@@ -116,8 +116,8 @@ static RHNetworkEngine* sharedManager = nil;
     if (self) {
         address = @"";
     }
-
-return self;
+    
+    return self;
 }
 
 
@@ -210,7 +210,7 @@ return self;
     CFWriteStreamRef writeStream;
     
     // Create a connection
-    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)address, 8128, &readStream, &writeStream);
+    CFStreamCreatePairWithSocketToHost(NULL, (__bridge CFStringRef)address, 80, &readStream, &writeStream);
     
     inputStream = (__bridge NSInputStream*)readStream;
     outputStream = (__bridge NSOutputStream*)writeStream;
@@ -229,7 +229,7 @@ return self;
 }
 
 /**
- * @brief	Transmit the payload. 
+ * @brief	Transmit the payload.
  * @detail  After the connection is established this method will be called
  *          and will transmit the payload given.
  * @author	James A. Wiegand Jr.
@@ -239,7 +239,7 @@ return self;
 {
     // Construct the message
     NSError* e = nil;
-
+    
     NSData* data = [NSJSONSerialization dataWithJSONObject:self.payload options:0 error:&e];
     
     // If an error occours return it
