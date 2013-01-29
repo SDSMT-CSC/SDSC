@@ -4,20 +4,20 @@ import resource
 from server import Server
 
 def main():
-  id = 0
-  try:
-    id =  os.fork()
-    print 'forked'
-  except OSError, e:
-    print e
-    sys.exit(1)
+  # id = 0
+  # try:
+  #   id =  os.fork()
+  #   print 'forked'
+  # except OSError, e:
+  #   print e
+  #   sys.exit(1)
 
-  if id != 0:
-    sys.exit(0)
+  # if id != 0:
+  #   sys.exit(0)
 
-  print 'parent process ended'
+  # print 'parent process ended'
 
-  os.setsid()
+  # os.setsid()
 
 
   server = Server()

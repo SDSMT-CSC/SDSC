@@ -31,6 +31,7 @@
         context = [delegate managedObjectContext];
         model = [delegate managedObjectModel];
     }
+    
     return self;
 }
 
@@ -111,7 +112,7 @@
     // Send the data
     SEL response = @selector(nonErrorResponse:);
     SEL eResponse = @selector(errorResponse:);
-    [[RHNetworkEngine sharedManager] setAddress:DDNSSERVERADDRESS];
+    [[RHNetworkEngine sharedManager] setAddress:@"10.250.1.128"];
     
     [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse withMode:RHNetworkModeManaged];
     

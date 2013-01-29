@@ -40,6 +40,7 @@ class Server:
       data = json.loads(raw)
     except Exception, e:
       conn.close()
+      print "Connection closed"
       return
 
 
@@ -65,6 +66,7 @@ class Server:
       conn.close()
     else:
       conn.close()
+      print "Connection closed"
 
   def buildRequestResponse(self,ids,ips):
     values = list()

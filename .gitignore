@@ -1,2 +1,15 @@
 .DS_Store
 *.pyc
+*.xcworkspacedata
+
+*.xcuserstate
+
+*.xcbkptlist
+
+*.xcscheme
+
+src/RemoteHome/RemoteHome.xcodeproj/xcuserdata/joshuakinkade.xcuserdatad/xcschemes/xcschememanagement.plist
+
+*.pyc
+
+*.pyc
