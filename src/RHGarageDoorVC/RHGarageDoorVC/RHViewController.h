@@ -9,6 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @interface RHViewController : UIViewController
-- (IBAction)open:(id)sender;
+
+@property BOOL doorOpened;
+@property BOOL objectDetected;
+
+@property (strong, nonatomic) NSString * deviceID;
+@property (strong, nonatomic) IBOutlet UIButton *toggleButton;
+
+- (IBAction)toggleDoor:(id)sender;
+
+- (void)requestReturnedData:(NSDictionary *)data;
+- (void)requestReturnedError:(NSString *)error;
 
 @end
