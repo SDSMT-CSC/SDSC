@@ -34,14 +34,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)toggleDoor:(id)sender {
+- (IBAction)toggleDoor:(id)sender
+{
         
-    NSDictionary * request = [self getRequestDictForAction:1 andHumanMessage:@"Hello, World!"];
-        
-    NSLog(@"%@",[self getValueForKey:@"HumanMessage" fromRequest:request]);
-    NSLog(@"%@",[self getValueForKey:@"Data" fromRequest:request]);
-    NSLog(@"%@",[self getValueForKey:@"DeviceID" fromRequest:request]);
-
+    self.currentRequest = [self getRequestDictForAction:1 andHumanMessage:@"Hello, World!"];
+    
+    [self sendRequest:self.currentRequest];
     
     
     if (self.doorOpened) {
@@ -60,19 +58,57 @@
     
 }
 
-- (void)requestReturnedData:(NSDictionary *)data
+-(void)sendRequest:(NSDictionary *)request
 {
+    [RHNetworkEngine sendJSON:request toAddressWithTarget:self withRetSelector:@selector(requestReturnedWithData:) andErrSelector:@selector(requestReturnedWithError:) withMode:RHNetworkModeManaged];
+}
+
+- (void)requestReturnedWithData:(NSDictionary *)requestData
+{
+    NSString * type = [self getValueForKey:@"Type" fromRequest:requestData];
+    NSString * data = [self getValueForKey:@"Data" fromRequest:requestData];
+    NSString * humanMessage = [self getValueForKey:@"HumanMessage" fromRequest:requestData];
     
 }
 
-- (void)requestReturnedError:(NSString *)error
+- (void)requestReturnedWithError:(NSString *)error
 {
+    NSString * alertTitle = @"Oops.";
+    NSString * alertMessage = @"Something bad happend";
     
+    if ([error isEqualToString:@"timeout"])
+    {
+        alertTitle = @"Timeout";
+        alertMessage = @"The connection timed out";
+    }
+    else if ([error isEqualToString:@"NSStreamEventErrorOccurred"])
+    {
+        alertTitle = error;
+        alertMessage = @"An NSStreamEvent occurred";
+    }
+    else if([error isEqualToString:@"NSStreamEventEndEncountered"])
+    {
+        alertTitle = error;
+        alertMessage = @"The end of the NSStreamEvent was encountered";
+    }
+    else if([error isEqualToString:@"no address"])
+    {
+        alertTitle = @"No IP Address";
+        alertMessage = @"Tell me where to send the request!";
+    }
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                     message:alertMessage
+                                                    delegate:self
+                                           cancelButtonTitle:@"Cancel"
+                                           otherButtonTitles:@"Retry", nil];
+    
+    [alert show];
 }
 
 - (NSDictionary *)getRequestDictForAction:(NSInteger)action andHumanMessage:(NSString *)msg
 {
-    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":[{\"DeviceID\":\"%@\"},{\"Type\":\"Byte\"},{\"Data\":\"%d\"},{\"HumanMessage\":\"%@\"}]}", self.deviceID, action,msg];
+    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":[{\"DeviceID\":\"%@\"},{\"Type\":\"Byte\"},{\"Data\":\"%d\"},{\"HumanMessage\":\"%@\"}]}", self.deviceID, action, msg];
     NSError * error;
     
     NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
@@ -93,5 +129,13 @@
     }
     
     return value;
+}
+
+#pragma mark - UIAlertViewDelegate Methods
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) //if the user pressed the retry button
+    {
+        [self sendRequest:self.currentRequest];
+    }
 }
 @end

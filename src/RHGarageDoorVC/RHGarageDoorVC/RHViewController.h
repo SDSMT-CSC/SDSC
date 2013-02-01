@@ -8,17 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RHViewController : UIViewController
+@interface RHViewController : UIViewController <UIAlertViewDelegate>
 
 @property BOOL doorOpened;
 @property BOOL objectDetected;
+@property (strong, nonatomic) NSDictionary * currentRequest;
 
 @property (strong, nonatomic) NSString * deviceID;
 @property (strong, nonatomic) IBOutlet UIButton *toggleButton;
 
 - (IBAction)toggleDoor:(id)sender;
 
-- (void)requestReturnedData:(NSDictionary *)data;
-- (void)requestReturnedError:(NSString *)error;
+- (void)sendRequest:(NSDictionary *) request;
+
+- (void)requestReturnedWithData:(NSDictionary *)data;
+- (void)requestReturnedWithError:(NSString *)error;
 
 @end
