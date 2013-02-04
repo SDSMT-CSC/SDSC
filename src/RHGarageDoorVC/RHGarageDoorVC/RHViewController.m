@@ -69,6 +69,16 @@
     NSString * data = [self getValueForKey:@"Data" fromRequest:requestData];
     NSString * humanMessage = [self getValueForKey:@"HumanMessage" fromRequest:requestData];
     
+    
+    switch ([data integerValue]) {
+        case 0:
+            break;
+        case 1:
+            break;
+        default:
+            break;
+    }
+    
 }
 
 - (void)requestReturnedWithError:(NSString *)error
