@@ -8,6 +8,7 @@
 
 #import "RHViewController.h"
 #import "RHNetworkEngine.h"
+#import "RHGarageDoorView.h"
 
 @interface RHViewController ()
 
@@ -24,8 +25,10 @@
     
     //get initial status of door
     self.deviceID = @"Jeff";
-    self.doorOpened = NO;
-    self.objectDetected = NO;
+    self.baseStationAddress = @"123.456.789.101";
+    self.currentRequest = [self getRequestDictForAction:IS_OPEN
+                                        andHumanMessage:@"Open?"];
+    [self sendRequest:self.currentRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -37,48 +40,82 @@
 - (IBAction)toggleDoor:(id)sender
 {
         
-    self.currentRequest = [self getRequestDictForAction:1 andHumanMessage:@"Hello, World!"];
-    
-    [self sendRequest:self.currentRequest];
+//    self.currentRequest = [self getRequestDictForAction:1
+//                                        andHumanMessage:@"Hello, World!"];
+//    
+//    [self sendRequest:self.currentRequest];
     
     
     if (self.doorOpened) {
-        if (!self.objectDetected) {
-            //send request to close the door
-        }
-        else
-        {
-            //let the user know that there is an object in the door's way
-        }
+        self.currentRequest = [self getRequestDictForAction:CLOSE_IF_OPEN andHumanMessage:@"Close the door"];
     }
     else
     {
-        //send request to open the door
+        self.currentRequest = [self getRequestDictForAction:OPEN_IF_CLOSED andHumanMessage:@"Open the door"];
     }
     
 }
 
 -(void)sendRequest:(NSDictionary *)request
 {
-    [RHNetworkEngine sendJSON:request toAddressWithTarget:self withRetSelector:@selector(requestReturnedWithData:) andErrSelector:@selector(requestReturnedWithError:) withMode:RHNetworkModeManaged];
+    [RHNetworkEngine sendJSON:request
+          toAddressWithTarget:self
+              withRetSelector:@selector(requestReturnedWithData:)
+               andErrSelector:@selector(requestReturnedWithError:)
+                     withMode:RHNetworkModeManaged];
 }
 
 - (void)requestReturnedWithData:(NSDictionary *)requestData
 {
-    NSString * type = [self getValueForKey:@"Type" fromRequest:requestData];
-    NSString * data = [self getValueForKey:@"Data" fromRequest:requestData];
-    NSString * humanMessage = [self getValueForKey:@"HumanMessage" fromRequest:requestData];
+    NSString * data = [self getValueForKey:@"Data"
+                               fromRequest:requestData];
+    NSString * humanMessage = [self getValueForKey:@"HumanMessage"
+                                       fromRequest:requestData];
+    
+    NSInteger currentAction = [[self getValueForKey:@"Data" fromRequest:self.currentRequest] integerValue];
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway" message:@"You're garage door could not close because an object was detected in the doorway." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
     
     
-    switch ([data integerValue]) {
-        case 0:
-            break;
-        case 1:
-            break;
-        default:
-            break;
+    GD_MESSAGE_T message = [data integerValue];
+    
+    if (message) {
+        switch (currentAction) {
+            case OPEN_IF_CLOSED:
+                [self.garageDoor setOpened:1.0];
+                self.doorOpened = YES;
+                [self.toggleButton.titleLabel setText:@"Close"];
+                break;
+            case CLOSE_IF_OPEN:
+                [self.garageDoor setOpened:0.0];
+                self.doorOpened = NO;
+                [self.toggleButton.titleLabel setText:@"Open"];
+                break;
+            case IS_OPEN:
+                self.doorOpened = YES;
+                break;
+            default:
+                break;
+        }
     }
-    
+    else
+    {
+        switch (currentAction) {
+            case OPEN_IF_CLOSED:
+                self.doorOpened = NO;
+                break;
+            case CLOSE_IF_OPEN:
+                self.doorOpened = YES;
+                [self.garageDoor setOpened:0.5];
+                [alert show];
+                break;
+            case IS_OPEN:
+                self.doorOpened = NO;
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 - (void)requestReturnedWithError:(NSString *)error

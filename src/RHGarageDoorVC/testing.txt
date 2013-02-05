@@ -1,0 +1,60 @@
+Case 1: Normal door opening
+  Initial door state: closed
+  iOS UI action: tap button
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"6"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
+  iOS UI Updates: door view should open, button should change text
+
+Case 2: Normal door closing
+  Initial door state: opened
+  iOS UI action: tap button
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"7"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
+  iOS UI Updates: door view should close, button should change text
+
+Case 3: Object under door
+  Initial door state: opened
+  iOS UI action: tap button
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"7"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+  iOS UI Updates: should alert user of object, door should close halfway
+
+Case 4: network connection failure
+  Initial door state: either
+  iOS UI action: tap button
+  Request JSON: doesn't matter
+  response: connection error
+  iOS UI Updates: should alert user about error, retry if the tap retry button 
+
+Case 5:
+  Initial door state: closed
+  iOS UI action: swipe door up
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"6"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
+  iOS UI Updates: door view should open, button should change text
+
+Case 6:
+  Initial door state: open
+  iOS UI action: swipe door down
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"7"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
+  iOS UI Updates: door view should close, button should change text
+
+Case 7:
+  Initial door state: open
+  iOS UI action: swipe door down
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"7"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+  iOS UI Updates: should alert user of object, door should close halfway

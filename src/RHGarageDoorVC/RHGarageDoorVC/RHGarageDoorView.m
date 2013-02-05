@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Joshua Kinkade. All rights reserved.
 //
 
-#import "GDGarageDoorView.h"
+#import "RHGarageDoorView.h"
 
 //@implementation PanelLayer
 //

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D25C2E116C178F600C143CF /* RHGarageDoorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D25C2E016C178F600C143CF /* RHGarageDoorView.m */; };
 		0D5190C316A86FA7001A6A2A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C216A86FA7001A6A2A /* UIKit.framework */; };
 		0D5190C516A86FA7001A6A2A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C416A86FA7001A6A2A /* Foundation.framework */; };
 		0D5190C716A86FA7001A6A2A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D5190C616A86FA7001A6A2A /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D25C2DF16C178F600C143CF /* RHGarageDoorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHGarageDoorView.h; sourceTree = "<group>"; };
+		0D25C2E016C178F600C143CF /* RHGarageDoorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHGarageDoorView.m; sourceTree = "<group>"; };
 		0D5190BE16A86FA7001A6A2A /* RHGarageDoorVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RHGarageDoorVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D5190C216A86FA7001A6A2A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0D5190C416A86FA7001A6A2A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -86,6 +89,8 @@
 		0D5190C816A86FA7001A6A2A /* RHGarageDoorVC */ = {
 			isa = PBXGroup;
 			children = (
+				0D25C2DF16C178F600C143CF /* RHGarageDoorView.h */,
+				0D25C2E016C178F600C143CF /* RHGarageDoorView.m */,
 				0D5190D116A86FA7001A6A2A /* RHAppDelegate.h */,
 				0D5190D216A86FA7001A6A2A /* RHAppDelegate.m */,
 				0D5190DA16A86FA7001A6A2A /* RHViewController.h */,
@@ -183,6 +188,7 @@
 				0D5190D316A86FA7001A6A2A /* RHAppDelegate.m in Sources */,
 				0D5190DC16A86FA7001A6A2A /* RHViewController.m in Sources */,
 				0D5190E716A8725D001A6A2A /* RHNetworkEngine.m in Sources */,
+				0D25C2E116C178F600C143CF /* RHGarageDoorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +305,7 @@
 				0D5190E416A86FA8001A6A2A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
