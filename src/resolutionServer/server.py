@@ -1,5 +1,6 @@
 import socket
 import json
+import time
 from finder import Finder
 
 class Server:
@@ -25,6 +26,7 @@ class Server:
   #end run
 
   def handleConnection(self,conn,addr):
+    time.sleep(1)
     conn.send('''{"DDNSConnected":[{"Connected":true}]}''')
 
     print 'confirmation sent'
@@ -40,7 +42,6 @@ class Server:
       data = json.loads(raw)
     except Exception, e:
       conn.close()
-      print "Connection closed"
       return
 
 
@@ -54,6 +55,7 @@ class Server:
 
       conn.sendall(self.buildRequestResponse(ids,ips))
       conn.close()
+      print "Connection closed"
     elif data.keys()[0] == 'HRHomeStationUpdate':
       
       id = data.values()[0].values()[0]
@@ -64,6 +66,7 @@ class Server:
 
       conn.sendall(id + " " + ip)
       conn.close()
+      print "Connection closed"
     else:
       conn.close()
       print "Connection closed"
