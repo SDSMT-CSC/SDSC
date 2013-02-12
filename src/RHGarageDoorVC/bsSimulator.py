@@ -2,34 +2,23 @@ import socket
 import time
 import sys
 
-def main():
-  if len(sys.argv) != 2:
-    print "Incorrect arguments"
-    return
+soc = socket.socket()
 
-  return_value = 0
+soc.bind((socket.gethostname(),8128))
 
-  if sys.argv[1] == "success":
-    return_value = 1
-  elif sys.argv[1] == "fail":
-    return_value = 0
-  else:
-    print "Command not found"
-    return;
-
-  runserver(return_value)
-
-
-def runserver(return_value):
-  soc = socket.socket()
-
-  soc.bind((socket.gethostname(),8128))
-
+while 1:
   soc.listen(5)
 
-  conn, addr = sco.accept()
-  
+  conn, addr = soc.accept()
 
+  time.sleep(1)
 
-if __name__ == '__main__':
-  main()
+  conn.send('''{"DDNSConnected":[{"Connected":true}]}''')
+
+  request = conn.recv(4096)
+
+  print request
+
+  response = raw_input("Enter a response: ")
+
+  conn.send(response)

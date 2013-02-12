@@ -1,3 +1,21 @@
+Case 0a: Getting Initial Door State - closed
+  Initial door state: closed
+  iOS UI action: open application
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"4"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+  iOS UI Updates: should set view controller's doorOpened property to false
+
+Case 0b: Normal door opening
+  Initial door state: open
+  iOS UI action: open application
+  Request JSON: 
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"4"},{"HumanMessage":""}]}
+  Response JSON:
+    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
+  iOS UI Updates: should set view controller's doorOpened property to false, door view should open
+
 Case 1: Normal door opening
   Initial door state: closed
   iOS UI action: tap button

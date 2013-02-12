@@ -23,9 +23,11 @@
 {
     [super viewDidLoad];
     
+    [[RHNetworkEngine sharedManager] setAddress:@"10.250.1.128"];
+    
     //get initial status of door
     self.deviceID = @"Jeff";
-    self.baseStationAddress = @"123.456.789.101";
+    self.baseStationAddress = @"10.250.1.128";
     self.currentRequest = [self getRequestDictForAction:IS_OPEN
                                         andHumanMessage:@"Open?"];
     [self sendRequest:self.currentRequest];
@@ -39,7 +41,6 @@
 
 - (IBAction)toggleDoor:(id)sender
 {
-        
 //    self.currentRequest = [self getRequestDictForAction:1
 //                                        andHumanMessage:@"Hello, World!"];
 //    
@@ -53,6 +54,8 @@
     {
         self.currentRequest = [self getRequestDictForAction:OPEN_IF_CLOSED andHumanMessage:@"Open the door"];
     }
+    
+    [self sendRequest:self.currentRequest];
     
 }
 
@@ -69,8 +72,8 @@
 {
     NSString * data = [self getValueForKey:@"Data"
                                fromRequest:requestData];
-    NSString * humanMessage = [self getValueForKey:@"HumanMessage"
-                                       fromRequest:requestData];
+//    NSString * humanMessage = [self getValueForKey:@"HumanMessage"
+//                                       fromRequest:requestData];
     
     NSInteger currentAction = [[self getValueForKey:@"Data" fromRequest:self.currentRequest] integerValue];
     
@@ -78,7 +81,6 @@
     
     
     GD_MESSAGE_T message = [data integerValue];
-    
     if (message) {
         switch (currentAction) {
             case OPEN_IF_CLOSED:
@@ -93,6 +95,7 @@
                 break;
             case IS_OPEN:
                 self.doorOpened = YES;
+                [self.garageDoor setOpened:1.0];
                 break;
             default:
                 break;
@@ -116,6 +119,8 @@
                 break;
         }
     }
+    
+    NSLog(@"%d",self.doorOpened);
 }
 
 - (void)requestReturnedWithError:(NSString *)error
