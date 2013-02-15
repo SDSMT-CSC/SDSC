@@ -96,6 +96,7 @@
             case IS_OPEN:
                 self.doorOpened = YES;
                 [self.garageDoor setOpened:1.0];
+                [self.toggleButton.titleLabel setText:@"Close"];
                 break;
             default:
                 break;
@@ -114,6 +115,8 @@
                 break;
             case IS_OPEN:
                 self.doorOpened = NO;
+                [self.garageDoor setOpened:0.0];
+                [self.toggleButton.titleLabel setText:@"Open"];
                 break;
             default:
                 break;
