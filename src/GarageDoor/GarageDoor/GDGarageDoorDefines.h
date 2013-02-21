@@ -8,9 +8,9 @@ enum GD_MESSAGE_T
     NAK=0,
     /** @brief Acknowledged. Used for handshakes and logical true. */
     ACK,
-    /** @brief Open the door and respond false if it's not open. */
+    /** @brief Open the door and respond NAK if door does not actually open. */
     OPEN,
-    /** @brief */
+    /** @brief Close the door and respond NAK if door does not actually close.*/
     CLOSE,
     /** @brief Query the door state; return ACK if open and NAK if closed. */
     IS_OPEN,
