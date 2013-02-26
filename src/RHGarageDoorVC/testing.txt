@@ -7,7 +7,7 @@ Case 0a: Getting Initial Door State - closed
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   iOS UI Updates: should set view controller's doorOpened property to false, button should say "Open"
 
-Case 0b: Getting Initial Door State - closed
+Case 0b: Getting Initial Door State - open
   Initial door state: open
   iOS UI action: open application
   Request JSON:

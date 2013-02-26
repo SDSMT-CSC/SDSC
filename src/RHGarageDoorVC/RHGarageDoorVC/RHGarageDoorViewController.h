@@ -39,7 +39,7 @@ enum
 
 @class RHGarageDoorView;
 
-@interface RHViewController : UIViewController <UIAlertViewDelegate>
+@interface RHGarageDoorViewController : UIViewController <UIAlertViewDelegate>
 @property BOOL doorOpened;
 @property BOOL objectDetected;
 @property (strong, nonatomic) NSDictionary * currentRequest;

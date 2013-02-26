@@ -9,6 +9,7 @@
 #import "RHDeviceViewController.h"
 #import "RHDeviceModel.h"
 #import "RHErrorViewController.h"
+#import "RHGarageDoorViewController.h"
 
 @interface RHDeviceViewController ()
 
@@ -218,7 +219,12 @@
 
 - (void)loadGarageDoorView:(RHDeviceModel*)currentDevice
 {
+    RHGarageDoorViewController * garageDoorVC = [[RHGarageDoorViewController alloc] init];
     
+    garageDoorVC.deviceID = currentDevice.deviceSerial;
+    garageDoorVC.baseStationAddress = self.baseStation.ipAddress;
+    
+    [self.navigationController pushViewController:garageDoorVC animated:YES];
 }
 
 -(void)loadLightView:(RHDeviceModel*)currentDevice

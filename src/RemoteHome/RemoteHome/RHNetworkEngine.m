@@ -1,6 +1,6 @@
 #import "RHNetworkEngine.h"
 
-#define TIMERTIME 30.0              // Timeout time
+#define TIMERTIME 60.0              // Timeout time
 
 @implementation RHNetworkEngine
 

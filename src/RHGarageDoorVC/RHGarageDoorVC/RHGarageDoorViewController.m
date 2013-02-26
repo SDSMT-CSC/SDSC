@@ -6,18 +6,18 @@
 //  Copyright (c) 2013 Joshua Kinkade. All rights reserved.
 //
 
-#import "RHViewController.h"
+#import "RHGarageDoorViewController.h"
 #import "RHNetworkEngine.h"
 #import "RHGarageDoorView.h"
 
-@interface RHViewController ()
+@interface RHGarageDoorViewController ()
 
 -(NSDictionary *)getRequestDictForAction:(NSInteger)action andHumanMessage:(NSString *)msg;
 -(NSString *)getValueForKey:(NSString *)key fromRequest:(NSDictionary *)request;
 
 @end
 
-@implementation RHViewController
+@implementation RHGarageDoorViewController
 
 - (void)viewDidLoad
 {

@@ -9,7 +9,7 @@
 #import "RHAppDelegate.h"
 #import "RHNetworkEngine.h"
 
-#import "RHViewController.h"
+#import "RHGarageDoorViewController.h"
 
 @implementation RHAppDelegate
 
@@ -19,7 +19,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[RHViewController alloc] initWithNibName:@"RHViewController" bundle:nil];
+    self.viewController = [[RHGarageDoorViewController alloc] initWithNibName:@"RHViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

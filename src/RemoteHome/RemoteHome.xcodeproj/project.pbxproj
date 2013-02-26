@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4D124316DBAC1D00400F77 /* RHGarageDoorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D123F16DBAC1C00400F77 /* RHGarageDoorView.m */; };
+		0D4D124416DBAC1D00400F77 /* RHGarageDoorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D124116DBAC1D00400F77 /* RHGarageDoorViewController.m */; };
+		0D4D124516DBAC1D00400F77 /* RHGarageDoorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D124216DBAC1D00400F77 /* RHGarageDoorViewController.xib */; };
 		7208D7B21667F7E10092C686 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7208D7B11667F7E10092C686 /* CoreData.framework */; };
 		726E7F141662B44000B7BC0F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 726E7F131662B44000B7BC0F /* UIKit.framework */; };
 		726E7F161662B44000B7BC0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 726E7F151662B44000B7BC0F /* Foundation.framework */; };
@@ -36,6 +39,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D4D123E16DBAC1C00400F77 /* RHGarageDoorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHGarageDoorView.h; sourceTree = "<group>"; };
+		0D4D123F16DBAC1C00400F77 /* RHGarageDoorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHGarageDoorView.m; sourceTree = "<group>"; };
+		0D4D124016DBAC1C00400F77 /* RHGarageDoorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHGarageDoorViewController.h; sourceTree = "<group>"; };
+		0D4D124116DBAC1D00400F77 /* RHGarageDoorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHGarageDoorViewController.m; sourceTree = "<group>"; };
+		0D4D124216DBAC1D00400F77 /* RHGarageDoorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RHGarageDoorViewController.xib; sourceTree = "<group>"; };
 		7208D7B11667F7E10092C686 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		726E7F0F1662B44000B7BC0F /* RemoteHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemoteHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		726E7F131662B44000B7BC0F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -168,6 +176,7 @@
 		726E7F341662B47F00B7BC0F /* nibs */ = {
 			isa = PBXGroup;
 			children = (
+				0D4D124216DBAC1D00400F77 /* RHGarageDoorViewController.xib */,
 				726E7F481662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib */,
 				726E7F391662B4B000B7BC0F /* RHAddBaseStationViewController.xib */,
 				72AB714A169D041100A478E4 /* RHUpdateBaseStationViewController.xib */,
@@ -179,6 +188,10 @@
 		726E7F361662B49000B7BC0F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0D4D123E16DBAC1C00400F77 /* RHGarageDoorView.h */,
+				0D4D123F16DBAC1C00400F77 /* RHGarageDoorView.m */,
+				0D4D124016DBAC1C00400F77 /* RHGarageDoorViewController.h */,
+				0D4D124116DBAC1D00400F77 /* RHGarageDoorViewController.m */,
 				726E7F371662B4B000B7BC0F /* RHAddBaseStationViewController.h */,
 				726E7F381662B4B000B7BC0F /* RHAddBaseStationViewController.m */,
 				726E7F461662BB7700B7BC0F /* RHFirstTimeInstructionViewController.h */,
@@ -264,6 +277,7 @@
 				726E7F4A1662BB7700B7BC0F /* RHFirstTimeInstructionViewController.xib in Resources */,
 				72AB714B169D041100A478E4 /* RHUpdateBaseStationViewController.xib in Resources */,
 				729246A616A1E90A00229045 /* RHErrorViewController.xib in Resources */,
+				0D4D124516DBAC1D00400F77 /* RHGarageDoorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +301,8 @@
 				72AB7149169D03ED00A478E4 /* RHUpdateBaseStationViewController.m in Sources */,
 				72C3E189169E37EA00570705 /* RHDeviceViewController.m in Sources */,
 				729246A316A1E8DD00229045 /* RHErrorViewController.m in Sources */,
+				0D4D124316DBAC1D00400F77 /* RHGarageDoorView.m in Sources */,
+				0D4D124416DBAC1D00400F77 /* RHGarageDoorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,8 +17,8 @@
 		0D5190D516A86FA7001A6A2A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D416A86FA7001A6A2A /* Default.png */; };
 		0D5190D716A86FA7001A6A2A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D616A86FA7001A6A2A /* Default@2x.png */; };
 		0D5190D916A86FA7001A6A2A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190D816A86FA7001A6A2A /* Default-568h@2x.png */; };
-		0D5190DC16A86FA7001A6A2A /* RHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190DB16A86FA7001A6A2A /* RHViewController.m */; };
-		0D5190DF16A86FA8001A6A2A /* RHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190DD16A86FA8001A6A2A /* RHViewController.xib */; };
+		0D5190DC16A86FA7001A6A2A /* RHGarageDoorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190DB16A86FA7001A6A2A /* RHGarageDoorViewController.m */; };
+		0D5190DF16A86FA8001A6A2A /* RHGarageDoorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D5190DD16A86FA8001A6A2A /* RHGarageDoorViewController.xib */; };
 		0D5190E716A8725D001A6A2A /* RHNetworkEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */; };
 /* End PBXBuildFile section */
 
@@ -38,9 +38,9 @@
 		0D5190D416A86FA7001A6A2A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0D5190D616A86FA7001A6A2A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0D5190D816A86FA7001A6A2A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		0D5190DA16A86FA7001A6A2A /* RHViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHViewController.h; sourceTree = "<group>"; };
-		0D5190DB16A86FA7001A6A2A /* RHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHViewController.m; sourceTree = "<group>"; };
-		0D5190DE16A86FA8001A6A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHViewController.xib; sourceTree = "<group>"; };
+		0D5190DA16A86FA7001A6A2A /* RHGarageDoorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHGarageDoorViewController.h; sourceTree = "<group>"; };
+		0D5190DB16A86FA7001A6A2A /* RHGarageDoorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHGarageDoorViewController.m; sourceTree = "<group>"; };
+		0D5190DE16A86FA8001A6A2A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RHGarageDoorViewController.xib; sourceTree = "<group>"; };
 		0D5190E516A8725D001A6A2A /* RHNetworkEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHNetworkEngine.h; sourceTree = "<group>"; };
 		0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHNetworkEngine.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -93,9 +93,9 @@
 				0D25C2E016C178F600C143CF /* RHGarageDoorView.m */,
 				0D5190D116A86FA7001A6A2A /* RHAppDelegate.h */,
 				0D5190D216A86FA7001A6A2A /* RHAppDelegate.m */,
-				0D5190DA16A86FA7001A6A2A /* RHViewController.h */,
-				0D5190DB16A86FA7001A6A2A /* RHViewController.m */,
-				0D5190DD16A86FA8001A6A2A /* RHViewController.xib */,
+				0D5190DA16A86FA7001A6A2A /* RHGarageDoorViewController.h */,
+				0D5190DB16A86FA7001A6A2A /* RHGarageDoorViewController.m */,
+				0D5190DD16A86FA8001A6A2A /* RHGarageDoorViewController.xib */,
 				0D5190C916A86FA7001A6A2A /* Supporting Files */,
 				0D5190E516A8725D001A6A2A /* RHNetworkEngine.h */,
 				0D5190E616A8725D001A6A2A /* RHNetworkEngine.m */,
@@ -173,7 +173,7 @@
 				0D5190D516A86FA7001A6A2A /* Default.png in Resources */,
 				0D5190D716A86FA7001A6A2A /* Default@2x.png in Resources */,
 				0D5190D916A86FA7001A6A2A /* Default-568h@2x.png in Resources */,
-				0D5190DF16A86FA8001A6A2A /* RHViewController.xib in Resources */,
+				0D5190DF16A86FA8001A6A2A /* RHGarageDoorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,7 +186,7 @@
 			files = (
 				0D5190CF16A86FA7001A6A2A /* main.m in Sources */,
 				0D5190D316A86FA7001A6A2A /* RHAppDelegate.m in Sources */,
-				0D5190DC16A86FA7001A6A2A /* RHViewController.m in Sources */,
+				0D5190DC16A86FA7001A6A2A /* RHGarageDoorViewController.m in Sources */,
 				0D5190E716A8725D001A6A2A /* RHNetworkEngine.m in Sources */,
 				0D25C2E116C178F600C143CF /* RHGarageDoorView.m in Sources */,
 			);
@@ -203,12 +203,12 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		0D5190DD16A86FA8001A6A2A /* RHViewController.xib */ = {
+		0D5190DD16A86FA8001A6A2A /* RHGarageDoorViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0D5190DE16A86FA8001A6A2A /* en */,
 			);
-			name = RHViewController.xib;
+			name = RHGarageDoorViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class RHViewController;
+@class RHGarageDoorViewController;
 
 @interface RHAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) RHViewController *viewController;
+@property (strong, nonatomic) RHGarageDoorViewController *viewController;
 
 @end
