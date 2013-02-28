@@ -9,29 +9,48 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python           # This is client.py file
-import socket
+import socket#, serial
 from Login import Login
 
 def main():
-    Password = Login()
+    #Password = Login()
+    Socket_Communicate(Listen())
 
-    size = 1024
+
+
+def Listen():
     s = socket.socket()
     host = socket.gethostname()
     port = 8128
     s.bind((host,port))
 
     s.listen(5)
+    return s
+
+def Socket_Communicate(s):
+    size = 1024
 
     while True:
         client, address = s.accept()
         print("Connected!")
-        data = client.recv(size)
-        if data:
-            print(data)
-            if data == bytes("quit\n", 'UTF-8'):
-                break
-        client.close()
+        while True:
+            data = client.recv(size).strip()
+            if data:
+                if data == "quit".encode('UTF-8'):
+                    break
+                print(data)
+                #Serial_Communicate(data)
+        if data == "quit".encode('UTF-8'):
+            break
+
+    client.close()
+
+#def Serial_Communicate(message):
+#    s = serial.Serial('/dev/ttyUSB0', 9600)
+#
+#    s.write(message)
+#    time.sleep(10)
+#    s.flushOutput()
 
 if __name__ == '__main__':
     main()
