@@ -45,11 +45,14 @@ enum
 @property (strong, nonatomic) NSDictionary * currentRequest;
 @property (strong, nonatomic) NSString * deviceID;
 @property (strong, nonatomic) NSString * baseStationAddress;
+@property (strong, nonatomic) NSTimer * stateChecker;
 
 @property (strong, nonatomic) IBOutlet UIButton *toggleButton;
 @property (strong, nonatomic) IBOutlet RHGarageDoorView *garageDoor;
 
 - (IBAction)toggleDoor:(id)sender;
+
+- (void)checkState;
 
 - (void)sendRequest:(NSDictionary *) request;
 

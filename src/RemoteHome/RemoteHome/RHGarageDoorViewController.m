@@ -23,14 +23,23 @@
 {
     [super viewDidLoad];
     
-    [[RHNetworkEngine sharedManager] setAddress:@"10.250.1.128"];
+//    [[RHNetworkEngine sharedManager] setAddress:@"10.250.1.128"];
     
     //get initial status of door
-    self.deviceID = @"Jeff";
-    self.baseStationAddress = @"10.250.1.128";
+//    self.deviceID = @"Jeff";
+//    self.baseStationAddress = @"10.250.1.128";
     self.currentRequest = [self getRequestDictForAction:IS_OPEN
                                         andHumanMessage:@"Open?"];
     [self sendRequest:self.currentRequest];
+    
+    self.stateChecker = [NSTimer timerWithTimeInterval:30
+                                                target:self
+                                              selector:@selector(checkState)
+                                              userInfo:nil
+                                               repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,26 +48,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - Event Handlers
 - (IBAction)toggleDoor:(id)sender
 {
-//    self.currentRequest = [self getRequestDictForAction:1
-//                                        andHumanMessage:@"Hello, World!"];
-//    
-//    [self sendRequest:self.currentRequest];
-    
-    
     if (self.doorOpened) {
-        self.currentRequest = [self getRequestDictForAction:CLOSE_IF_OPEN andHumanMessage:@"Close the door"];
+        self.currentRequest = [self getRequestDictForAction:CLOSE_IF_OPEN
+                                            andHumanMessage:@"Close the door"];
     }
     else
     {
-        self.currentRequest = [self getRequestDictForAction:OPEN_IF_CLOSED andHumanMessage:@"Open the door"];
+        self.currentRequest = [self getRequestDictForAction:OPEN_IF_CLOSED
+                                            andHumanMessage:@"Open the door"];
     }
     
     [self sendRequest:self.currentRequest];
     
 }
 
+- (void)checkState {
+    self.currentRequest = [self getRequestDictForAction:IS_OPEN
+                                        andHumanMessage:@"Open?"];
+    
+    [self sendRequest:self.currentRequest];
+}
+
+#pragma mark - Network Handling Methods
 -(void)sendRequest:(NSDictionary *)request
 {
     [RHNetworkEngine sendJSON:request
@@ -77,7 +91,11 @@
     
     NSInteger currentAction = [[self getValueForKey:@"Data" fromRequest:self.currentRequest] integerValue];
     
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway" message:@"You're garage door could not close because an object was detected in the doorway." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway"
+                                                     message:@"You're garage door could not close because an object was detected in the doorway."
+                                                    delegate:nil
+                                           cancelButtonTitle:@"Okay"
+                                           otherButtonTitles: nil];
     
     
     GD_MESSAGE_T message = [data integerValue];
@@ -128,29 +146,9 @@
 
 - (void)requestReturnedWithError:(NSString *)error
 {
-    NSString * alertTitle = @"Oops.";
-    NSString * alertMessage = @"Something bad happend";
+    NSString * alertTitle = @"Connection Error";
+    NSString * alertMessage = @"Could not connect to your base staton";
     
-    if ([error isEqualToString:@"timeout"])
-    {
-        alertTitle = @"Timeout";
-        alertMessage = @"The connection timed out";
-    }
-    else if ([error isEqualToString:@"NSStreamEventErrorOccurred"])
-    {
-        alertTitle = error;
-        alertMessage = @"An NSStreamEvent occurred";
-    }
-    else if([error isEqualToString:@"NSStreamEventEndEncountered"])
-    {
-        alertTitle = error;
-        alertMessage = @"The end of the NSStreamEvent was encountered";
-    }
-    else if([error isEqualToString:@"no address"])
-    {
-        alertTitle = @"No IP Address";
-        alertMessage = @"Tell me where to send the request!";
-    }
     
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:alertTitle
                                                      message:alertMessage
@@ -161,6 +159,7 @@
     [alert show];
 }
 
+#pragma mark - Helper Methods
 - (NSDictionary *)getRequestDictForAction:(NSInteger)action andHumanMessage:(NSString *)msg
 {
     NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":[{\"DeviceID\":\"%@\"},{\"Type\":\"Byte\"},{\"Data\":\"%d\"},{\"HumanMessage\":\"%@\"}]}", self.deviceID, action, msg];

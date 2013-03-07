@@ -240,11 +240,9 @@ return self;
     // Construct the message
     NSError* e = nil;
     
-    NSLog(@"%@",self.payload);
 
     NSData* data = [NSJSONSerialization dataWithJSONObject:self.payload options:0 error:&e];
     
-    NSLog(@"%@",data);
     
     // If an error occours return it
     if(e)
@@ -261,7 +259,6 @@ return self;
     }
     [outputStream write:[data bytes] maxLength:[data length]];
     
-    NSLog(@"Data sent");
     
 }
 
@@ -412,8 +409,6 @@ return self;
                 // If the response is valid check to see if it is
                 // a connection response
                 NSArray* resArr = (NSArray*) [response objectForKey:@"DDNSConnected"];
-                
-                NSLog(@"%@",resArr[0]);
                 
                 if (resArr != Nil && resArr[0]) {
                     // Invalidate second timer
