@@ -40,6 +40,7 @@
     self.currentState = 0.0;
     self.direction = GD_UP;
     self.objectInDoor = NO;
+    self.speed = GD_SLOW;
 }
 
 -(CGFloat)opened {
@@ -50,7 +51,12 @@
     _openedState = openedState;
 
     
-    self.animationTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1.0/50 target:self selector:@selector(animationLoop:) userInfo:nil repeats:YES];
+    self.animationTimer = [[NSTimer alloc] initWithFireDate:[NSDate date]
+                                                   interval:1.0/self.speed
+                                                     target:self
+                                                   selector:@selector(animationLoop:)
+                                                   userInfo:nil
+                                                    repeats:YES];
     
     [[NSRunLoop currentRunLoop] addTimer:self.animationTimer
                                  forMode:NSDefaultRunLoopMode];

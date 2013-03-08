@@ -23,11 +23,7 @@
 {
     [super viewDidLoad];
     
-//    [[RHNetworkEngine sharedManager] setAddress:@"10.250.1.128"];
-    
     //get initial status of door
-//    self.deviceID = @"Jeff";
-//    self.baseStationAddress = @"10.250.1.128";
     self.currentRequest = [self getRequestDictForAction:IS_OPEN
                                         andHumanMessage:@"Open?"];
     [self sendRequest:self.currentRequest];
@@ -38,7 +34,7 @@
                                               userInfo:nil
                                                repeats:YES];
     
-    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+    //[[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
     
 }
 
@@ -72,6 +68,12 @@
     [self sendRequest:self.currentRequest];
 }
 
+- (void)confirmDoorClosed {
+    self.currentRequest = [self getRequestDictForAction:IS_CLOSED andHumanMessage:@"Closed?"];
+    
+    [self sendRequest:self.currentRequest];
+}
+
 #pragma mark - Network Handling Methods
 -(void)sendRequest:(NSDictionary *)request
 {
@@ -96,26 +98,36 @@
                                                     delegate:nil
                                            cancelButtonTitle:@"Okay"
                                            otherButtonTitles: nil];
-    
+    NSTimer * confirmClosedTimer;
     
     GD_MESSAGE_T message = [data integerValue];
     if (message) {
         switch (currentAction) {
             case OPEN_IF_CLOSED:
+                [self.garageDoor setSpeed:GD_SLOW];
                 [self.garageDoor setOpened:1.0];
                 self.doorOpened = YES;
                 [self.toggleButton.titleLabel setText:@"Close"];
                 break;
             case CLOSE_IF_OPEN:
+                [self.garageDoor setSpeed:GD_SLOW];
                 [self.garageDoor setOpened:0.0];
                 self.doorOpened = NO;
                 [self.toggleButton.titleLabel setText:@"Open"];
+                
+                confirmClosedTimer = [NSTimer timerWithTimeInterval:30 target:self selector:@selector(confirmDoorClosed) userInfo:nil repeats:NO];
+                
+                [[NSRunLoop mainRunLoop] addTimer:confirmClosedTimer forMode:NSDefaultRunLoopMode];
+                
                 break;
             case IS_OPEN:
                 self.doorOpened = YES;
+                [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:1.0];
                 [self.toggleButton.titleLabel setText:@"Close"];
                 break;
+            case IS_CLOSED:
+                //do nothing, door is already closed
             default:
                 break;
         }
@@ -128,14 +140,22 @@
                 break;
             case CLOSE_IF_OPEN:
                 self.doorOpened = YES;
+                [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.5];
                 [alert show];
                 break;
             case IS_OPEN:
                 self.doorOpened = NO;
+                [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.0];
                 [self.toggleButton.titleLabel setText:@"Open"];
                 break;
+            case IS_CLOSED:
+                self.doorOpened = YES;
+                [self.garageDoor setSpeed:GD_FAST];
+                [self.garageDoor setOpened:0.5];
+                [self.toggleButton.titleLabel setText:@"Close"];
+                [alert show];
             default:
                 break;
         }

@@ -53,6 +53,7 @@ enum
 - (IBAction)toggleDoor:(id)sender;
 
 - (void)checkState;
+- (void)confirmDoorClosed;
 
 - (void)sendRequest:(NSDictionary *) request;
 

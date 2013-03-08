@@ -19,6 +19,11 @@ enum {
     GD_STOPPED = 0
     } typedef GD_Direction;
 
+enum {
+    GD_FAST = 100,
+    GD_SLOW = 20
+} typedef GD_Speed;
+
 @interface RHGarageDoorView : UIView {
     CGFloat _openedState;
 }
@@ -28,6 +33,7 @@ enum {
 @property GD_Direction direction;
 @property CGFloat currentState;
 @property BOOL objectInDoor;
+@property GD_Speed speed;
 
 
 @property (nonatomic, strong) NSTimer * animationTimer;
