@@ -59,3 +59,9 @@ Base Station to iOS
 		{ "DeviceName" : "(name)", "DeviceSerial" : "(serial)", "DeviceTypeCode" : (int), "ErrorCode" : (int) }
 	]
 }
+
+{“HRHomeStationUpdate”:{“StationDID”:”(StationDID)”,”StationIP”:”(xxx.xxx.xxx.xxx)”}}
+
+
+
+
