@@ -19,9 +19,9 @@ def main():
     s.connect((host, port))
     while True:
         message = sys.stdin.readline()
-        s.sendall(message.encode('UTF-8'))
-                
-        if (message == "quit\n"):
+        s.sendall(message.encode('ascii'))
+
+        if(message == "exit\n"):
             break
 
     s.close()                     # Close the socket when done

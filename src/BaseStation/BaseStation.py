@@ -9,48 +9,53 @@
 # Licence:     <your licence>
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python           # This is client.py file
-import socket#, serial
+import socket, serial, time
 from Login import Login
 
 def main():
     #Password = Login()
-    Socket_Communicate(Listen())
+    Socket_Communicate()
 
 
 
-def Listen():
-    s = socket.socket()
+def Socket_Communicate():
+    size = 1024
+    sock = socket.socket()
     host = socket.gethostname()
     port = 8128
-    s.bind((host,port))
+    sock.bind((host,port))
 
-    s.listen(5)
-    return s
-
-def Socket_Communicate(s):
-    size = 1024
+    Ser = serial.Serial("COM4", 9600)
+    Ser.setTimeout(1)
 
     while True:
-        client, address = s.accept()
-        print("Connected!")
-        while True:
-            data = client.recv(size).strip()
-            if data:
-                if data == "quit".encode('UTF-8'):
-                    break
-                print(data)
-                #Serial_Communicate(data)
-        if data == "quit".encode('UTF-8'):
-            break
+        sock.listen(5)
 
+        while True:
+            client, address = sock.accept()
+            ## This block needs removed ##
+            print(address)
+            print("Connected!")
+            ##############################
+            while True:
+                data = client.recv(size).strip()
+                if data:
+                    if data == "exit".encode("ascii"):
+                        return
+
+                    if data == "quit".encode("ascii"):
+                        break
+
+                    Ser.write( data )
+                    if data == "2".encode("ascii"):
+                        print( "State: ", Ser.readline().strip() )
+
+            if data == "quit".encode("ascii"):
+                        break
+
+    Ser.close()
     client.close()
 
-#def Serial_Communicate(message):
-#    s = serial.Serial('/dev/ttyUSB0', 9600)
-#
-#    s.write(message)
-#    time.sleep(10)
-#    s.flushOutput()
 
 if __name__ == '__main__':
     main()
