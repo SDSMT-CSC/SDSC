@@ -21,7 +21,7 @@ def main():
 def Socket_Communicate():
     size = 1024
     sock = socket.socket()
-    host = socket.gethostname()
+    host = 'localhost' #socket.gethostname()
     port = 8128
     sock.bind((host,port))
 
