@@ -182,7 +182,7 @@
 #pragma mark - Helper Methods
 - (NSDictionary *)getRequestDictForAction:(NSInteger)action andHumanMessage:(NSString *)msg
 {
-    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":[{\"DeviceID\":\"%@\"},{\"Type\":\"Byte\"},{\"Data\":\"%d\"},{\"HumanMessage\":\"%@\"}]}", self.deviceID, action, msg];
+    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":{\"DeviceID\":\"%@\",\"Type\":\"Byte\",\"Data\":\"%d\",\"HumanMessage\":\"%@\"}}", self.deviceID, action, msg];
     NSError * error;
     
     NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
@@ -192,17 +192,9 @@
 
 - (NSString *)getValueForKey:(NSString *)key fromRequest:(NSDictionary *)request
 {
-    NSArray * reqArray = [request objectForKey:@"HRDeviceRequest"];
+    NSDictionary * reqDict = [request objectForKey:@"HRDeviceRequest"];
         
-    NSString * value;
-    
-    for (NSDictionary * dict in reqArray) {
-        if ([dict objectForKey:key] != nil) {
-            value = [dict objectForKey:key];
-        }
-    }
-    
-    return value;
+    return [reqDict objectForKey:key];
 }
 
 #pragma mark - UIAlertViewDelegate Methods

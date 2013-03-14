@@ -60,8 +60,13 @@ Base Station to iOS
 	]
 }
 
+Base Station to DDNS
 {“HRHomeStationUpdate”:{“StationDID”:”(StationDID)”,”StationIP”:”(xxx.xxx.xxx.xxx)”}}
 
-
-
-
+iOS - Base Station Devices
+{"HRDeviceRequest": {
+ "DeviceID":"(stringID)",
+ "Type":"(stringType)",
+ "Data":"(stringData)",
+ "HumanMessage":"(stringHumanReadableText)"
+}}
