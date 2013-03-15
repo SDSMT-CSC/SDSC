@@ -30,21 +30,23 @@ class Server:
     time.sleep(1)
     conn.send('''{"DDNSConnected":[{"Connected":true}]}''')
 
-    print 'confirmation sent'
-
     raw = conn.recv(4096)
-
-    print raw
-
 
     data = None
 
     try:
       data = json.loads(raw)
     except Exception, e:
+      print "JSON error"
       conn.close()
       return
 
+    try:
+      data.keys()
+    except Exception, e:
+      print "Bad request"
+      conn.close()
+      return
 
     if data.keys()[0] == 'HRHomeStationsRequest':
       ids = data.values()[0]
@@ -52,25 +54,32 @@ class Server:
       ips = list()
 
       for id in ids:
-        ips.append(self.finder.find(id.values()[0]))
+        try:
+          ips.append(self.finder.find(id.values()[0]))
+        except Exception, e:
+          print "Bad request"
+          conn.close()
+          return
 
       conn.sendall(self.buildRequestResponse(ids,ips))
       conn.close()
-      print "Connection closed"
     elif data.keys()[0] == 'HRHomeStationUpdate':
       
-      id = data.values()[0].values()[0]
+      try:
+        id = data.values()[0].values()[0]
 
-      ip = data.values()[0].values()[1]
+        ip = data.values()[0].values()[1]
 
-      self.finder.update(id,ip)
+        self.finder.update(id,ip)
+      except Exception, e:
+        print "Bad request"
+        conn.close()
+        return
 
       conn.sendall(id + " " + ip)
       conn.close()
-      print "Connection closed"
     else:
       conn.close()
-      print "Connection closed"
 
   def buildRequestResponse(self,ids,ips):
     values = list()

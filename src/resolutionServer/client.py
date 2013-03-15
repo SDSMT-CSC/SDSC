@@ -2,7 +2,7 @@ import socket
 import json
 import sys
 
-HOST = 'joshsmac.local'
+HOST = 'localhost'
 PORT = 8128
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -17,14 +17,16 @@ if raw != '''{"DDNSConnected":[{"Connected":true}]}''':
   print 'Could not connect'
   sys.exit()
 
-text = '''
-        {
-          "HRHomeStationsRequest":[
-            {"StationDID":"hello"},
-            {"StationDID":"stuff"}
-          ]
-        }
-      '''
+text = '''["stuff","more_stuff"]'''
+
+# text = '''
+#         {
+#           "HRHomeStationsRequest":[
+#             {"StationDID":"hello"},
+#             {"StationDID":"stuff"}
+#           ]
+#         }
+#       '''
 
 # text = '''
 #         {
