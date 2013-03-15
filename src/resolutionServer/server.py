@@ -5,7 +5,8 @@ from finder import Finder
 
 class Server:
   def __init__(self):
-    self.hostName = socket.gethostname()
+    #self.hostName = socket.gethostname()
+    self.hostName = 'localhost'
     self.port = 8128
     self.finder = Finder('deviceServer.db')
 

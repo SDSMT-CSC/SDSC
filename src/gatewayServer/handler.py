@@ -3,10 +3,10 @@ import serial
 import core
 
 def NAK (message):
-  return json.dumps({'NAK': {message}})
+  return json.dumps({'NAK': message})
 
 def ACK (message):
-  return json.dumps({'ACK': {message}})
+  return json.dumps({'ACK': message})
 
 class handler (SocketServer.BaseRequestHandler):
   '''
@@ -15,18 +15,36 @@ class handler (SocketServer.BaseRequestHandler):
   to keep track of each event in serial. This helps substantially with 
   scalability, and prevents a particularly slow request from causing a hangup.
   '''
+
   def handle(self):
+    dev = lambda:0
     request_str = self.request.recv(4096);
-    request = json.loads(request_str);
+    try:
+      request = json.loads(request_str);
+    except ValueError:
+      request = NAK('Invalid JSON received.')
+      self.request.send(request)
+      return
+
+    try:
+      request = request['HRDeviceRequest']
+    except KeyError:
+      response = NAK('Not a HRDeviceRequest request.')
+      self.request.send(response)
+      return
     try:
       dev.requested = request['DeviceDID']
     except KeyError:
       response = NAK('Missing DeviceDID field')
+      self.request.send(response)
+      return
     try:
-      dev.interface = config.devices[dev.requested]
+      print(core.devices)
+      dev.interface = core.devices[dev.requested]
       dev.value = request['Data']
       dev.datatype = request['Type']
-      response = handle_request(dev)
+      print dev
+      response = self.handle_request(dev)
       
     except KeyError:
       response = NAK('Device Not Found or malformed expression.')
