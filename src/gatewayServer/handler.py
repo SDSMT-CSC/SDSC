@@ -1,12 +1,13 @@
 import SocketServer, json
 import serial
 import core
+import hashlib
 
 def NAK (message):
   return json.dumps({'NAK': message})
 
-def ACK (message):
-  return json.dumps({'ACK': message})
+def ACK (message, DeviceID, data = 0, type = 'Str'):
+  return json.dumps({'HRDeviceRequest': {"HumanMessage":message, "Data":data, "Type":type, "DeviceID":DeviceID}})
 
 class handler (SocketServer.BaseRequestHandler):
   '''
@@ -18,7 +19,8 @@ class handler (SocketServer.BaseRequestHandler):
 
   def handle(self):
     dev = lambda:0
-    request_str = self.request.recv(4096);
+    request_str = self.request.recv(127);
+    print(request_str)
     try:
       request = json.loads(request_str);
     except ValueError:
@@ -26,29 +28,66 @@ class handler (SocketServer.BaseRequestHandler):
       self.request.send(request)
       return
 
-    try:
-      request = request['HRDeviceRequest']
-    except KeyError:
-      response = NAK('Not a HRDeviceRequest request.')
-      self.request.send(response)
+    if 'HRLoginPassword' in request.keys():
+      response = hashlib.sha512(request['HRLoginPassword']).hexdigest();
+      if response in core.users.keys():
+        response = '{"RHLoginSuccess" : true,'
+        sections = core.devices.keys()
+        response += '"RHDeviceCount" : %d, "RHDeviceList":[' % len(sections)
+        i = 0
+        for device in sections:
+          i += 1
+          try:
+            iface = core.devices[device]
+          except KeyError:
+            print("Error: %s is not a valid device."%device)
+          try:
+            if not iface['lock'].acquire(0):
+              error_code = (-2, "Device is being read.")
+            else:
+              error_code = iface['error']
+              iface['lock'].release();
+          except KeyError:
+            print('Error: You need to check your dicts.')
+            print(iface.keys())
+          try:
+            response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceTypeCode":%d,"ErrorCode":%d}' % (device, device, int(core.devices[device]['devicetype']), int(error_code[0]))
+          except KeyError:
+            print('Error: Device Type missing.')
+            print(core.devices[device])
+          except ValueError:
+            print('Oops. Cannot convert to number:')
+            print(core.devices[device]['devicetype'])
+            print(error_code)
+          if i == len(sections):
+            response += ']}'
+          else:
+            response += ','
+      else:
+        response = '{"RHLoginSuccess" : false}'
+      self.request.send(json.dumps(response))
       return
-    try:
-      dev.requested = request['DeviceDID']
-    except KeyError:
-      response = NAK('Missing DeviceDID field')
+    else:
+      try:
+        request = request['HRDeviceRequest']
+        try:
+          dev.requested = request['DeviceID']
+        except KeyError:
+          response = NAK('Missing DeviceID field')
+          self.request.send(response)
+          return
+        try:
+          dev.interface = core.devices[dev.requested]
+          dev.value = request['Data']
+          dev.datatype = request['Type']
+          response = self.handle_request(dev)
+        except KeyError:
+          response = NAK('Device Not Found or malformed expression.')
+          self.request.send(response)
+          return
+      except KeyError:
+        response = NAK('Not a valid request.')
       self.request.send(response)
-      return
-    try:
-      print(core.devices)
-      dev.interface = core.devices[dev.requested]
-      dev.value = request['Data']
-      dev.datatype = request['Type']
-      print dev
-      response = self.handle_request(dev)
-      
-    except KeyError:
-      response = NAK('Device Not Found or malformed expression.')
-    self.request.send(response)
 
   def handle_request(self, device):
     # Each interface consists of a name and a lock. The lock prevents multiple
@@ -57,7 +96,7 @@ class handler (SocketServer.BaseRequestHandler):
     # interface, and release it when finished.
     device.interface['lock'].acquire()
     try:
-        stream = open(device.interface['interface'], 'r+')
+        stream = serial.Serial(device.interface['interface'], timeout=5, baudrate=9600)
         stream.write("\1")
         stream.flush()
         result = stream.read(1)
@@ -65,24 +104,25 @@ class handler (SocketServer.BaseRequestHandler):
         # error message back to the user as a NAK. If all went well, we don't 
         # care about the response value. Read it and ignore.
         if result == 0:
-            result = NAK(stream.read(4096))
+            result = NAK(stream.read(127))
         else:
-            result = stream.read(4096)
+            result = stream.read(127)
             if device.datatype == 'Int':
-                stream.write(int(device.data))
+                stream.write(int(device.value))
                 result = stream.read(1)
                 if result == 0:
-                    result = NAK(stream.read(4096))
+                    result = NAK(stream.read(127))
                 else:
-                    result = ACK(stream.read(4096))
-            elif device.datatype == 'String':
-                stream.write(str(device.data))
+                    result = ACK(stream.read(127))
+            elif device.datatype == 'Str':
+                stream.write(str(device.value))
                 result = stream.read(1)
                 if result == 0:
-                    result = NAK(stream.read(4096))
+                    result = NAK(stream.read(127))
                 else:
-                    result = ACK(stream.read(4096))
+                    result = ACK(stream.read(127), device.requested, result)
             else:
                 result = NAK('Malformed data type field. (Expected String or Int)')
     finally:
-        device.interface['lock'].release()
+      device.interface['lock'].release()
+    return result

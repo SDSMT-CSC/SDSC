@@ -3,6 +3,7 @@ user_file = 'users.ini'
 
 import ConfigParser
 import threading
+import serial
 
 dev_cfg = ConfigParser.ConfigParser()
 usr_cfg = ConfigParser.ConfigParser()
@@ -19,6 +20,19 @@ def read_cfg():
     options = dev_cfg.items(device)
     devices[device] = dict(options)
     devices[device]['lock'] = threading.RLock()
+    try:
+      interface = serial.Serial(devices[device]['interface'], timeout=5, baudrate=9600)
+    except:
+      devices[device]['error'] = (-1, "Device is offline or bad interface specified.")
+    else:
+      interface.write("\0")
+      interface.flush()
+      retval = interface.read(1)
+      if retval == '':
+        retval = 0
+      else:
+        retval = int(retval)
+      devices[device]['error'] = (retval, interface.read(interface.inWaiting()))
 
   usr_cfg.read(user_file)
   for user in usr_cfg.sections():

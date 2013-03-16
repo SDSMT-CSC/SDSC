@@ -5,7 +5,8 @@ import core
 
 core.read_cfg()
 class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer): pass
-server = ThreadedTCPServer(('localhost',8128), handler.handler)
+server = ThreadedTCPServer(('Geat',8128), handler.handler)
+server.daemon_threads = True;
 try:
   server.serve_forever()
 except BaseException as e:

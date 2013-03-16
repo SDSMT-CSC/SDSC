@@ -29,4 +29,4 @@ class Remote_Update:
         self.timer.start();
         
 if __name__=='__main__':
-    Remote_Update()
+    Remote_Update(('172.20.10.14', 8128))
