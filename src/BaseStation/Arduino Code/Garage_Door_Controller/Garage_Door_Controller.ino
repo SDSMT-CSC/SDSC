@@ -11,7 +11,7 @@ enum STATES
 
 unsigned long time;
 STATES current_state = OPEN;
-//char value = 0;
+
 
 void setup()
 {
@@ -26,9 +26,10 @@ void loop()
   if( Serial.available() )
   {
     char value = Serial.read();
+    Error( 0, "" );
     
-    if( value == '1' )
-    {
+    if( value == '0' )
+    {      
       digitalWrite( 7, HIGH );
       delay(200);
       digitalWrite( 7, LOW );
@@ -47,8 +48,8 @@ void loop()
       }
     }
     
-    if( value == '2' )
-      Serial.println( current_state );
+    if( value == '1' )
+      Serial.print( current_state );
   }
 
   //if it has been nine and a half seconds and
@@ -65,4 +66,18 @@ void loop()
       current_state = CLOSED;
     }
   }
+}
+
+
+void Error( int error_code, String message )
+{
+  int i;
+  
+  for(i = message.length(); i < 127; i++)
+  {
+    message += "\0";
+  }
+  
+  Serial.print( error_code );
+  Serial.print( message );
 }
