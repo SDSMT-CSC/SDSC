@@ -21,7 +21,7 @@ def read_cfg():
     devices[device] = dict(options)
     devices[device]['lock'] = threading.RLock()
     try:
-      interface = serial.Serial(devices[device]['interface'], timeout=5, baudrate=9600)
+      interface = serial.Serial(devices[device]['interface'], timeout=1, baudrate=9600)
     except:
       devices[device]['error'] = (-1, "Device is offline or bad interface specified.")
     else:
@@ -33,6 +33,7 @@ def read_cfg():
       else:
         retval = int(retval)
       devices[device]['error'] = (retval, interface.read(interface.inWaiting()))
+  print('Done loading devices.')
 
   usr_cfg.read(user_file)
   for user in usr_cfg.sections():

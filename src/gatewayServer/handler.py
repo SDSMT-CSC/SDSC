@@ -2,6 +2,7 @@ import SocketServer, json
 import serial
 import core
 import hashlib
+import time
 
 def NAK (message):
   return json.dumps({'NAK': message})
@@ -19,7 +20,9 @@ class handler (SocketServer.BaseRequestHandler):
 
   def handle(self):
     dev = lambda:0
-    request_str = self.request.recv(127);
+    time.sleep(1)
+    self.request.send('''{"DDNSConnected":[{"Connected":true}]}''')
+    request_str = self.request.recv(512+127);
     print(request_str)
     try:
       request = json.loads(request_str);
@@ -29,8 +32,13 @@ class handler (SocketServer.BaseRequestHandler):
       return
 
     if 'HRLoginPassword' in request.keys():
-      response = hashlib.sha512(request['HRLoginPassword']).hexdigest();
-      if response in core.users.keys():
+      response = request['HRLoginPassword']
+      print response
+      passwords = []
+      for user in core.users.keys():
+        passwords.append(hashlib.sha512(core.users[user]['password']).hexdigest())
+      print passwords[0]
+      if response in passwords:
         response = '{"RHLoginSuccess" : true,'
         sections = core.devices.keys()
         response += '"RHDeviceCount" : %d, "RHDeviceList":[' % len(sections)
@@ -65,7 +73,7 @@ class handler (SocketServer.BaseRequestHandler):
             response += ','
       else:
         response = '{"RHLoginSuccess" : false}'
-      self.request.send(json.dumps(response))
+      self.request.send(response)
       return
     else:
       try:
@@ -96,7 +104,7 @@ class handler (SocketServer.BaseRequestHandler):
     # interface, and release it when finished.
     device.interface['lock'].acquire()
     try:
-        stream = serial.Serial(device.interface['interface'], timeout=5, baudrate=9600)
+        stream = serial.Serial(device.interface['interface'], timeout=0.85, baudrate=9600)
         stream.write("\1")
         stream.flush()
         result = stream.read(1)
