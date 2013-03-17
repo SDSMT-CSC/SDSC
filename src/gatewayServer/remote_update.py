@@ -19,6 +19,7 @@ class Remote_Update:
         finally:
             sock.close()
             self.timer = Timer(30.0, self.update_gateway)
+            self.timer.daemon = True
             self.timer.start();
 
     def __init__(self, remote = ('localhost', 8128) ):
@@ -27,6 +28,7 @@ class Remote_Update:
         self.remote = remote;
         self.timer = Timer(3.0, lambda: 1)
         self.timer = Timer(3.0, self.update_gateway)
+        self.timer.daemon = True
         self.timer.start();
         
 if __name__=='__main__':
