@@ -34,7 +34,7 @@
                                               userInfo:nil
                                                repeats:YES];
     
-    //[[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
     
 }
 
