@@ -5,8 +5,8 @@ from finder import Finder
 
 class Server:
   def __init__(self):
-    #self.hostName = socket.gethostname()
-    self.hostName = 'localhost'
+    self.hostName = socket.gethostname()
+    #self.hostName = 'localhost'
     self.port = 8128
     self.finder = Finder('deviceServer.db')
 
@@ -44,7 +44,7 @@ class Server:
     try:
       data.keys()
     except Exception, e:
-      print "Bad request"
+      print "Bad request 1"
       conn.close()
       return
 
@@ -57,7 +57,7 @@ class Server:
         try:
           ips.append(self.finder.find(id.values()[0]))
         except Exception, e:
-          print "Bad request"
+          print "Bad request 2"
           conn.close()
           return
 
@@ -68,11 +68,14 @@ class Server:
       try:
         id = data.values()[0].values()[0]
 
-        ip = data.values()[0].values()[1]
+        #ip = data.values()[0].values()[1]
+        ip = addr[0]
+
+        print ip
 
         self.finder.update(id,ip)
       except Exception, e:
-        print "Bad request"
+        print "Bad request 3"
         conn.close()
         return
 

@@ -1,6 +1,5 @@
 import sys
 import os
-import resource
 from server import Server
 
 def main():

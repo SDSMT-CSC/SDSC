@@ -2,7 +2,7 @@ import socket
 import json
 import sys
 
-HOST = 'localhost'
+HOST = '10.250.1.128'
 PORT = 8128
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -17,7 +17,7 @@ if raw != '''{"DDNSConnected":[{"Connected":true}]}''':
   print 'Could not connect'
   sys.exit()
 
-text = '''["stuff","more_stuff"]'''
+#text = '''["stuff","more_stuff"]'''
 
 # text = '''
 #         {
@@ -28,11 +28,11 @@ text = '''["stuff","more_stuff"]'''
 #         }
 #       '''
 
-# text = '''
-#         {
-#           "HRHomeStationUpdate": {"StationDID":"basestation", "StationIP":"0.0.0.5"}
-#         }
-#        '''
+text = '''
+        {
+          "HRHomeStationUpdate": {"StationDID":"basestation", "StationIP":"0.0.0.5"}
+        }
+       '''
 
 s.sendall(text)
 
