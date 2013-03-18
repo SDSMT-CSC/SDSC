@@ -21,6 +21,8 @@ Repeate Garage Door View Controller Test cases
 {"RHLoginSuccess":true,"RHDeviceCount":1,"RHDeviceList":[{"DeviceName":"Garage Door 1","DeviceSerial":"gd1","DeviceTypeCode":0,"ErrorCode":0 }]}
 
 
-{"HRDeviceRequest":{"DeviceID":"someID","Type":"Byte","Data":"0","HumanMessage":""}}
+{"HRDeviceRequest":{"DeviceID":"someID","Type":"Str","Data":"0","HumanMessage":""}}
 
-{"HRDeviceRequest":{"DeviceID":"someID","Type":"Byte","Data":"1","HumanMessage":""}}
+{"HRDeviceRequest":{"DeviceID":"someID","Type":"Str","Data":"2","HumanMessage":""}}
+
+{"HRDeviceRequest":{"DeviceID":"someID","Type":"Str","Data":"4","HumanMessage":""}}
