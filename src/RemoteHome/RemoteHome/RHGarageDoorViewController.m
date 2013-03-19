@@ -34,7 +34,7 @@
                                               userInfo:nil
                                                repeats:YES];
     
-    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+//    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
     
 }
 
@@ -179,8 +179,8 @@
                                                              selector:@selector(checkState)
                                                              userInfo:nil repeats:NO];
                 
-                [[NSRunLoop mainRunLoop] addTimer:checkTimer
-                                          forMode:NSDefaultRunLoopMode];
+//                [[NSRunLoop mainRunLoop] addTimer:checkTimer
+//                                          forMode:NSDefaultRunLoopMode];
             }
             else if(self.doorOpened == GD_CLOSED) {
                 NSLog(@"Opening");
