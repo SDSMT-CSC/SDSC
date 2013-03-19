@@ -32,7 +32,7 @@
         
         // Copy the characters into the passStr
         for (int i = 0; i < CC_SHA512_DIGEST_LENGTH; i++) {
-            [passStr appendString:[NSString stringWithFormat:@"%x", hash[i]]];
+            [passStr appendString:[NSString stringWithFormat:@"%02x", hash[i]]];
         }
         
         hashedPassword = passStr;
