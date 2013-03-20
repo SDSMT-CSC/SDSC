@@ -66,6 +66,7 @@ Base Station to DDNS
 iOS - Base Station Devices
 {"HRDeviceRequest": {
  "DeviceID":"(stringID)",
+ "Password":"(string)",
  "Type":"(stringType)",
  "Data":"(stringData)",
  "HumanMessage":"(stringHumanReadableText)"

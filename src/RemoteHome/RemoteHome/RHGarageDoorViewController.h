@@ -58,6 +58,7 @@ enum {
 @property (strong, nonatomic) NSDictionary * currentRequest;
 @property (strong, nonatomic) NSString * deviceID;
 @property (strong, nonatomic) NSString * baseStationAddress;
+@property (strong, nonatomic) NSString * password;
 @property (strong, nonatomic) NSTimer * stateChecker;
 
 @property (strong, nonatomic) IBOutlet UIButton *toggleButton;

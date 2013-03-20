@@ -248,7 +248,7 @@
 #pragma mark - Helper Methods
 - (NSDictionary *)getRequestDictForAction:(NSInteger)action andHumanMessage:(NSString *)msg
 {
-    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":{\"DeviceID\":\"%@\",\"Type\":\"Str\",\"Data\":\"%d\",\"HumanMessage\":\"%@\"}}", self.deviceID, action, msg];
+    NSString * json = [NSString stringWithFormat:@"{\"HRDeviceRequest\":{\"DeviceID\":\"%@\",\"Password\":\"%@\",\"Type\":\"Str\",\"Data\":\"%d\",\"HumanMessage\":\"%@\"}}", self.deviceID, self.password, action, msg];
     NSError * error;
     
     NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:[json dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];

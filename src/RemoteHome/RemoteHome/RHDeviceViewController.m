@@ -223,6 +223,7 @@
     
     garageDoorVC.deviceID = currentDevice.deviceSerial;
     garageDoorVC.baseStationAddress = self.baseStation.ipAddress;
+    garageDoorVC.password = self.baseStation.hashedPassword;
     
     [self.navigationController pushViewController:garageDoorVC animated:YES];
 }
