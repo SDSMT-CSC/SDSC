@@ -58,8 +58,9 @@ function print_device_form($message = "", $name = "", $groups = "", $action='Add
 }
 function try_device_add($action)
 {
-  $name = isset($_REQUEST['name']) ? filter_var($_REQUEST['name'], FILTER_SANITIZE_MAGIC_QUOTES) : false;
-  $groups = isset($_REQUEST['groups']) ? filter_var($_REQUEST['groups'],FILTER_SANITIZE_MAGIC_QUOTES) : false;
+  $name = isset($_REQUEST['name']) ? filter_var($_REQUEST['name'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : false;
+  $groups = isset($_REQUEST['groups']) ? filter_var($_REQUEST['groups'],FILTER_SANITIZE_FULL_SPECIAL_CHARS) : false;
+  $interface = isset($_REQUEST['interface']) ? filter_var($_REQUEST['interface'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : "";
   $fp = fopen('devices.ini', 'r+');
   flock($fp, LOCK_EX);
   $devices = parse_ini_file('devices.ini', true, INI_SCANNER_RAW);
@@ -75,7 +76,7 @@ function try_device_add($action)
       {
         unset($devices[$_REQUEST['old_name']]);
       }
-      $devices[$name] = array( 'group' => $groups, 'interface' => $interface);
+      $devices[$_REQUEST['name']] = array( 'group' => $_REQUEST['groups'], 'interface' => $_REQUEST['interface']);
       $retval = write_ini($devices);
       if (!fwrite($fp, $retval))
       {
