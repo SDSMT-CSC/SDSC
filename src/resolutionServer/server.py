@@ -49,6 +49,9 @@ class Server:
       return
 
     if data.keys()[0] == 'HRHomeStationsRequest':
+
+      print "Home Stations Request"
+
       ids = data.values()[0]
 
       ips = list()

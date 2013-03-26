@@ -247,7 +247,7 @@
         // Send the data
         SEL response = @selector(DDNSUpdateRequestDidRecieveResponse:);
         SEL eResponse = @selector(DDNSUpdateRequestDidRecieveError:);
-        [[RHNetworkEngine sharedManager] setAddress:@"172.20.10.14"];
+        [[RHNetworkEngine sharedManager] setAddress:IPADDRESS];
         
         [RHNetworkEngine sendJSON:JSONMsg toAddressWithTarget:self withRetSelector:response andErrSelector:eResponse withMode:RHNetworkModeManaged];
     }

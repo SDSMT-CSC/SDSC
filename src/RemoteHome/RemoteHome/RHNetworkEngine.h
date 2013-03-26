@@ -13,6 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define IPADDRESS @"10.250.1.128"
+
 enum RHNetworkMode {
     RHNetworkModeManaged = 0,
     RHNetworkModeUnmanaged = 1
