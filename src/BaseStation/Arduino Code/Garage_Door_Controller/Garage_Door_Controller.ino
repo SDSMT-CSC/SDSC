@@ -9,15 +9,25 @@ enum STATES
   PARTIAL    
 };
 
-unsigned long time;
-STATES current_state = OPEN;
+unsigned long time = -1;
+unsigned long elapsed_time = 0;
+STATES current_state;
 
 
 void setup()
 {
-  int i;
   Serial.begin(9600);
   pinMode(7, OUTPUT );
+  pinMode(2, INPUT);
+  pinMode(3, INPUT);
+  
+  //Find the current state of the garage door
+  if( analogRead(2) < 1000 )
+    current_state = OPEN;
+  else if( analogRead(3) < 1000 )
+    current_state = CLOSED;
+  else
+    current_state = PARTIAL; 
 }
 
 
@@ -33,18 +43,37 @@ void loop()
       digitalWrite( 7, HIGH );
       delay(200);
       digitalWrite( 7, LOW );
-      time = millis();
-      if( current_state == OPEN || current_state == PARTIAL )
+      
+      switch( current_state )
       {
-        current_state = CLOSING;
-      }
-      else if( current_state == CLOSED || current_state == CLOSING )
-      {
-        current_state = OPENING;
-      }
-      else// current_state == OPENING
-      {        
-        current_state = PARTIAL;
+        case OPEN:
+          current_state = CLOSING;
+          time = millis();
+          break;
+          
+        case OPENING:
+          current_state = PARTIAL;
+          //set the time to the elapsed time
+          elapsed_time = millis() - time;
+          time = -1;
+          break;
+          
+        case CLOSED:
+          current_state = OPENING;
+          time = millis();
+          break;
+          
+        case CLOSING:
+          current_state = OPENING;
+          //offset the time by the time already elapsed
+          time = millis() + 9500 - (millis() - time);
+          break;
+          
+        case PARTIAL:
+          current_state = CLOSING;
+          //Set the time to the time that has already elapsed
+          time = millis() - elapsed_time;
+          break;
       }
     }
     
@@ -57,13 +86,17 @@ void loop()
   if( (millis() - time) > 9500 && 
       (current_state == OPENING || current_state == CLOSING) )
   {
-    if( current_state == OPENING )
+    if( analogRead(2) < 1000 )
     {
+      //if( current_state == CLOSING )
+        //Error( 1, "Object in door" );
       current_state = OPEN;
+      time = -1;
     }
-    else// current_state == CLOSING
-    { 
+    else if( analogRead(3) < 1000 )
+    {
       current_state = CLOSED;
+      time = -1;
     }
   }
 }
