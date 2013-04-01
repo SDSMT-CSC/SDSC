@@ -1,87 +1,108 @@
-Case 0a: Getting Initial Door State - closed
+Case 1: Getting Initial Door State - closed
   Initial door state: closed
   iOS UI action: open application
   Request JSON: 
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"2"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"2","HumanMessage":""}}
   iOS UI Updates: should set view controller's doorOpened property to false, button should say "Open", door should be closed
 
-Case 0b: Getting Initial Door State - open
+Case 2: Getting Initial Door State - open
   Initial door state: open
   iOS UI action: open application
   Request JSON:
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"1"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"2"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"0","HumanMessage":""}}
   iOS UI Updates: should set view controller's doorOpened property to false, door view should open, button should say "Close"
 
-Case 1: Normal door opening
+Case 3: Normal door opening
   Initial door state: closed
   iOS UI action: tap button
-  Request JSON: 
+  Request JSON:
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"0","HumanMessage":""}}
   iOS UI Updates: door view should open, button should change to "Close"
 
-Case 2: Normal door closing
+Case 4: Normal door closing
   Initial door state: opened
   iOS UI action: tap button
   Request JSON: 
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"2"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"2","HumanMessage":""}}
   iOS UI Updates: door view should close, button should change to "Close"
 
-Case 3: Object under door
+Case 5: Object under door
   Initial door state: opened
   iOS UI action: tap button
   Request JSON: 
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"4"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"4","HumanMessage":""}}
   iOS UI Updates: should alert user of object, door should close halfway, button should change to "Close"
 
-Case 4: network connection failure
+Case 6: network connection failure
   Initial door state: either
   iOS UI action: tap button
   Request JSON: doesn't matter
   response: connection error
-  iOS UI Updates: should alert user about error, retry if they tap retry button 
+  iOS UI Updates: should alert user about error, retry if they tap retry button
 
-Case 5: swipe up to open normally
+Case 7: connection reestablished
+  iOS UI action: tap retry button
+  result: current request gets sent and app handles it normally
+
+Case 8: swipe up to open normally
   Initial door state: closed
   iOS UI action: swipe door up
   Request JSON: 
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"0","HumanMessage":""}}
   iOS UI Updates: door view should open, button should change to "Open"
 
-Case 6: swipe down to close normally 
+Case 9: swipe down to close normally 
   Initial door state: open
   iOS UI action: swipe door down
   Request JSON: 
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"2"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"2","HumanMessage":""}}
   iOS UI Updates: door view should close, button should change to "Close"
 
-Case 7: swipe down to close with object
+Case 10: swipe down to close with object
   Initial door state: open
   iOS UI action: swipe door down
   Request JSON: 
     {"HRDeviceRequest":[{"DeviceID":"someID"},{"Type":"Byte"},{"Data":"0"},{"HumanMessage":""}]}
   Response JSON:
-    {"HRDeviceRequest":[{"DeviceID":"someID"},{"Password":"password"},{"Type":"Byte"},{"Data":"4"},{"HumanMessage":""}]}
+    {"HRDeviceRequest":{"DeviceID":"someID","Password":"password","Type":"Byte","Data":"4","HumanMessage":""}}
   iOS UI Updates: should alert user of object, door should close halfway, button should change to "Close"
 
+Case 11: getRequestDictForAction:andHumanMessage: - toggle request
+  method arguments: action = GD_CMD_TOGGLE, humanMessage = "Toggle"
+  result: HRDeviceRequest dictionary with correct device id, password, action, and message
 
-{
-  "RHLoginSuccess" : true,
-  "RHDeviceCount" : 1,
-  "RHDeviceList" : [
-    { "DeviceName" : "Garage Door", "DeviceSerial" : "garageDoor1", "DeviceTypeCode" : 0, "ErrorCode" : 0}
-  ]
-}
+Case 12: getRequestDictForAction:andHumanMessage: - query request
+  method arguments: action = GD_CMD_QUERY, humanMessge = "Query"
+  result: HRDeviceRequest dictionary with correct device id, password, action, and message
+
+Case 13: getRequestDictForAction:andHumanMessage: - nil humanMessage
+  method arguments: action = GD_CMD_TOGGLE, humanMessage = nil
+  result: should not effect the request
+
+Case 14: getValueForKey:fromRequest
+  method arguments: key = "Data", request = <valid request dict>
+  result: return value of "Data" in dictionary
+
+Case 15: getValueForKey:fromRequest
+  method arguments: key = "notInDict", request = <valid request dict>
+  result: return nil
+
+Case 16: getValueForKey:fromRequest
+  method argumeents: key = "Data", request = nil
+  result: nil
+
+

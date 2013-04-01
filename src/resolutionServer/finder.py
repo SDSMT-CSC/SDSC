@@ -29,6 +29,9 @@ class Finder:
 
   def update(self, deviceID, deviceIP):
 
+    if deviceID == None or deviceIP == None:
+      return
+
     cursor = self.db.cursor()
 
     cursor.execute('SELECT * FROM devices WHERE ID=?', [deviceID])

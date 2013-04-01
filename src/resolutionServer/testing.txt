@@ -1,0 +1,78 @@
+Case 1: good "HRHomeStationsRequest" single device that is in database
+  Request: {"HRHomeStationsRequest" : [{ "StationDID" : "mac"}]}
+  Response: {"HRHomeStationReply" : [{"StationDID" : "mac", "StationIP" : "10.250.1.128"}]}
+
+Case 2: good "HRHomeStationsRequest" single device not in database
+  Request: {"HRHomeStationsRequest" : [{ "StationDID" : "imaginary"}]}
+  Response: {"HRHomeStationReply" : [{"StationDID" : "imaginary", "StationIP" : "null"}]}
+
+Case 3: good "HRHomeStationsRequest" multiple devices in database
+  Request: {"HRHomeStationsRequest" : [{ "StationDID" : "mac"},{"StationDID":"hello"}]}
+  Response: {"HRHomeStationReply" : [{"StationDID" : "mac", "StationIP" : "10.250.1.128"},{"StationDID" : "hello", "StationIP" : "10.250.1.128"}]}
+
+Case 4: good "HRHomestationsRequest" multiple devices not all in database
+  Request: {"HRHomeStationsRequest" : [{ "StationDID" : "mac"},{"StationDID":"imaginary"}]}
+  Response: {"HRHomeStationReply" : [{"StationDID" : "mac", "StationIP" : "10.250.1.128"},{"StationDID" : "imaginary", "StationIP" : "null"}]}
+
+Case 5: good "HRHomestationsRequest" multiple devices not in database
+  Request: {"HRHomeStationsRequest" : [{ "StationDID" : "imaginary"},{"StationDID":"fake"}]}
+  Response: {"HRHomeStationReply" : [{"StationDID" : "imaginary", "StationIP" : "null"},{"StationDID" : "fake", "StationIP" : "null"}]}
+
+Case 6: invalid JSON
+  request: {"HRHomeStationsRequest" : { "StationDID" : "mac"}]}
+  response: do nothing
+
+Case 7: valid JSON - invalid request type
+  request: {"HRImaginaryRequest" : [{ "StationDID" : "mac"}]}
+  response: do nothing
+
+Case 8: valid JSON "HRHomeStationsRequest" - no devices
+  request: {"HRHomeStationsRequest" : []}
+  response: do nothing
+
+Case 9: valid JSON "HRHomeStationsRequest" - empty deviceID
+  request: {"HRHomeStationsRequest" : [{ "StationDID" : ""}]}
+  response: {"HRHomeStationReply": [{"StationDID": "", "StationIP": null}]}
+
+Case 10: valid JSON "HRHomeStationUpdate" - correct
+  Request: {"HRHomeStationUpdate" : [{ "StationDID" : "mac"}]}
+  response: update database
+
+Case 10: valid JSON "HRHomeStationUpdate" - no device given
+  Request: {"HRHomeStationUpdate" : []}
+  Reponse: do nothing
+
+Case 11: valid JSON "HRHomeStationUpdate" - empty deviceID
+  request: {"HRHomeStationUpdate" : [{ "StationDID" : ""}]}
+  response: do nothing
+
+finder.py
+  find
+    Case 12: device id in database
+    Arguments: "mac"
+    Returns: "10.250.1.128"
+
+    Case 13: device id not in database
+    Arguments: "imaginary"
+    Returns: None
+
+    Case 14: invalid device id
+    Arguments: None
+    Returns: None
+
+  update
+    Case 15: existing device id, same ip address
+    Arguments: "mac"
+    Result: nothing should change
+
+    Case 16: existing device id, new ip address
+    Arguments: "hello"
+    Result: should change "hello"'s ip address to my ip address in the database
+
+    Case 17: new device id
+    Arguments: "aNewID"
+    Result: should add "aNewID" to database with my ip address
+
+    Case 18: invalid device id
+    Arguments: None
+    Result: should do nothing

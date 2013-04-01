@@ -54,6 +54,10 @@ class Server:
 
       ids = data.values()[0]
 
+      if len(ids) == 0:
+        conn.close()
+        return
+
       ips = list()
 
       for id in ids:

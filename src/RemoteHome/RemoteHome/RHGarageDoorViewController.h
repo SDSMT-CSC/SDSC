@@ -62,6 +62,8 @@ enum {
 @property (strong, nonatomic) NSTimer * stateChecker;
 
 @property (strong, nonatomic) IBOutlet UIButton *toggleButton;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *upSwipeRecognizer;
+@property (strong, nonatomic) IBOutlet UISwipeGestureRecognizer *downSwipeRecognizer;
 @property (strong, nonatomic) IBOutlet RHGarageDoorView *garageDoor;
 
 - (IBAction)toggleDoor:(id)sender;

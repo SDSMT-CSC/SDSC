@@ -17,22 +17,7 @@ if raw != '''{"DDNSConnected":[{"Connected":true}]}''':
   print 'Could not connect'
   sys.exit()
 
-#text = '''["stuff","more_stuff"]'''
-
-# text = '''
-#         {
-#           "HRHomeStationsRequest":[
-#             {"StationDID":"hello"},
-#             {"StationDID":"stuff"}
-#           ]
-#         }
-#       '''
-
-text = '''
-        {
-          "HRHomeStationUpdate": {"StationDID":"basestation", "StationIP":"0.0.0.5"}
-        }
-       '''
+text = '''{"HRHomeStationUpdate" : [{ "StationDID" : ""}]}'''
 
 s.sendall(text)
 

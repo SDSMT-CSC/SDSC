@@ -34,8 +34,12 @@
                                               userInfo:nil
                                                repeats:YES];
     
-//    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+    //[[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    //[self.stateChecker invalidate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -56,6 +60,23 @@
 //        self.currentRequest = [self getRequestDictForAction:OPEN_IF_CLOSED
 //                                            andHumanMessage:@"Open the door"];
 //    }
+    
+    NSLog(@"Toggling");
+    
+    if (sender == self.upSwipeRecognizer && self.doorOpened == 1.0) {
+        return;
+    }
+    
+    if (sender == self.downSwipeRecognizer && (self.doorOpened == 0.0 || self.doorOpened == 0.5) ) {
+        return;
+    }
+    
+    if (sender == self.upSwipeRecognizer) {
+        NSLog(@"Swipe up");
+    }
+    else if( sender == self.downSwipeRecognizer) {
+        NSLog(@"Swipe down");
+    }
     
     self.currentRequest = [self getRequestDictForAction:GD_CMD_TOGGLE
                                         andHumanMessage:@"Toggle"];
@@ -95,6 +116,8 @@
 //    NSString * humanMessage = [self getValueForKey:@"HumanMessage"
 //                                       fromRequest:requestData];
     
+
+    
     NSInteger currentAction = [[self getValueForKey:@"Data" fromRequest:self.currentRequest] integerValue];
     
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway"
@@ -102,7 +125,6 @@
                                                     delegate:nil
                                            cancelButtonTitle:@"Okay"
                                            otherButtonTitles: nil];
-    NSTimer * confirmClosedTimer;
     
     GD_MESSAGE_T message = [data integerValue];
 //    if (message) {
@@ -165,6 +187,7 @@
 //        }
 //    }
     
+    
     switch (currentAction) {
         case GD_CMD_TOGGLE:
             if (self.doorOpened == GD_OPEN) {
@@ -179,8 +202,8 @@
                                                              selector:@selector(checkState)
                                                              userInfo:nil repeats:NO];
                 
-//                [[NSRunLoop mainRunLoop] addTimer:checkTimer
-//                                          forMode:NSDefaultRunLoopMode];
+                [[NSRunLoop mainRunLoop] addTimer:checkTimer
+                                          forMode:NSDefaultRunLoopMode];
             }
             else if(self.doorOpened == GD_CLOSED) {
                 NSLog(@"Opening");
@@ -232,6 +255,7 @@
 
 - (void)requestReturnedWithError:(NSString *)error
 {
+    NSLog(@"%@",error);
     NSString * alertTitle = @"Connection Error";
     NSString * alertMessage = @"Could not connect to your base staton";
     
@@ -258,9 +282,17 @@
 
 - (NSString *)getValueForKey:(NSString *)key fromRequest:(NSDictionary *)request
 {
-    NSDictionary * reqDict = [request objectForKey:@"HRDeviceRequest"];
-        
-    return [reqDict objectForKey:key];
+    NSString * str;
+    @try {
+        NSDictionary * reqDict = [request objectForKey:@"HRDeviceRequest"];
+        str = [reqDict objectForKey:key];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Error while parsing request");
+        return @"-1";
+    }
+   
+    return str;
 }
 
 #pragma mark - UIAlertViewDelegate Methods
