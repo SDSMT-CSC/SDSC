@@ -5,9 +5,9 @@ import core
 
 core.read_cfg()
 class ThreadedTCPServer(SocketServer.ThreadingMixIn, SocketServer.TCPServer): pass
-server = ThreadedTCPServer(('Geat',8128), handler.handler)
+server = ThreadedTCPServer(('',8128), handler.handler)
 server.daemon_threads = True;
-remote_update.Remote_Update(('172.20.10.2',8128))
+remote_update.Remote_Update(('ec2-54-244-67-241.us-west-2.compute.amazonaws.com',8128))
 try:
   server.serve_forever()
 except BaseException as e:
