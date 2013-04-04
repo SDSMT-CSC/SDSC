@@ -34,7 +34,7 @@
                                               userInfo:nil
                                                repeats:YES];
     
-    //[[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop mainRunLoop] addTimer:self.stateChecker forMode:NSDefaultRunLoopMode];
     
 }
 
@@ -63,6 +63,11 @@
     
     NSLog(@"Toggling");
     
+    //don't let another request begin if there is already one in progress
+    while (self.currentRequest != nil) {
+        //wait
+    }
+    
     if (sender == self.upSwipeRecognizer && self.doorOpened == 1.0) {
         return;
     }
@@ -86,6 +91,14 @@
 }
 
 - (void)checkState {
+    
+    //creating another request while the app is waiting for a response
+    //causes problems, so don't let the background state checker do anything
+    //if there is an existing request
+    if (self.currentRequest != nil) {
+        return;
+    }
+    
     self.currentRequest = [self getRequestDictForAction:GD_CMD_QUERY
                                         andHumanMessage:@"Open?"];
     
@@ -212,6 +225,7 @@
                 [self.toggleButton.titleLabel setText:@"Close"];
                 self.doorOpened = GD_OPEN;
                 
+                self.currentRequest = nil;
 
             }
             else if(self.doorOpened == GD_PARTIAL) {
@@ -220,6 +234,8 @@
                 [self.garageDoor setOpened:1.0];
                 [self.toggleButton.titleLabel setText:@"Close"];
                 self.doorOpened = GD_OPEN;
+                
+                self.currentRequest = nil;
             }
             break;
         case GD_CMD_QUERY:
@@ -228,12 +244,16 @@
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:1.0];
                 [self.toggleButton.titleLabel setText:@"Close"];
+                
+                self.currentRequest = nil;
             }
             else if (message == GD_CLOSED) {
                 NSLog(@"Closed");
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.0];
                 [self.toggleButton.titleLabel setText:@"Open"];
+                
+                self.currentRequest = nil;
             }
             else if (message == GD_PARTIAL) {
                 NSLog(@"Partial");
@@ -243,6 +263,8 @@
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.5];
                 [self.toggleButton.titleLabel setText:@"Open"];
+                
+                self.currentRequest = nil;
             }
             self.doorOpened = message;
             break;

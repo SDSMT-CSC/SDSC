@@ -2,7 +2,7 @@ import socket
 import json
 import sys
 
-HOST = '10.250.1.128'
+HOST = 'ec2-54-244-67-241.us-west-2.compute.amazonaws.com'
 PORT = 8128
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 

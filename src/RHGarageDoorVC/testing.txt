@@ -106,3 +106,4 @@ Case 16: getValueForKey:fromRequest
   result: nil
 
 
+{"RHLoginSuccess" : true,"RHDeviceCount" : 1,"RHDeviceList" : [{ "DeviceName" : "Garage Door 1", "DeviceSerial" : "gd1", "DeviceTypeCode" : 0, "ErrorCode" : 0 }]}
