@@ -62,15 +62,15 @@ finder.py
 
   update
     Case 15: existing device id, same ip address
-    Arguments: "mac"
+    Arguments: "mac","10.250.1.128"
     Result: nothing should change
 
     Case 16: existing device id, new ip address
-    Arguments: "hello"
+    Arguments: "hello","10.250.1.128"
     Result: should change "hello"'s ip address to my ip address in the database
 
     Case 17: new device id
-    Arguments: "aNewID"
+    Arguments: "aNewID","10.250.1.128"
     Result: should add "aNewID" to database with my ip address
 
     Case 18: invalid device id

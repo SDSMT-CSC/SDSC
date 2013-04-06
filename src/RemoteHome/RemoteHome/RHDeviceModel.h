@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 enum RHDeviceType {
-    RHGarageDoorType = 0,
-    RHSprinklerType = 1,
-    RHLightType = 2
+    RHGarageDoorType = 1,
+    RHSprinklerType = 2,
+    RHLightType = 3
     };
 
 enum RHErrorCodes {

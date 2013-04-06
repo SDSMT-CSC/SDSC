@@ -2,7 +2,8 @@ import socket
 import json
 import sys
 
-HOST = 'ec2-54-244-67-241.us-west-2.compute.amazonaws.com'
+#HOST = 'ec2-54-244-67-241.us-west-2.compute.amazonaws.com'
+HOST = '10.250.1.128'
 PORT = 8128
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -17,7 +18,7 @@ if raw != '''{"DDNSConnected":[{"Connected":true}]}''':
   print 'Could not connect'
   sys.exit()
 
-text = '''{"HRHomeStationUpdate" : [{ "StationDID" : ""}]}'''
+text = '''{"HRHomeStationsRequest" : [{ "StationDID" : "imaginary"}]}'''
 
 s.sendall(text)
 
