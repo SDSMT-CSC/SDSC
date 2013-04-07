@@ -13,7 +13,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define IPADDRESS @"ec2-54-244-67-241.us-west-2.compute.amazonaws.com"
+//#define IPADDRESS @"ec2-54-244-67-241.us-west-2.compute.amazonaws.com"
+#define IPADDRESS @"192.168.1.20"
 
 enum RHNetworkMode {
     RHNetworkModeManaged = 0,

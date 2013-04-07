@@ -42,6 +42,18 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    // Transmit the password to the base station
+    NSDictionary *JSONPasswordTransaction = @{@"HRLoginPassword" : [self.baseStation hashedPassword]};
+    
+    // Set the target
+    [[RHNetworkEngine sharedManager] setAddress:[self.baseStation ipAddress]];
+    
+    // Send the request
+    [RHNetworkEngine sendJSON:JSONPasswordTransaction toAddressWithTarget:self withRetSelector:@selector(passwordTransactionDidRecieveResponse:) andErrSelector:@selector(passwordTransactionDidRecieveError:) withMode:RHNetworkModeManaged];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -178,6 +190,13 @@
     [popupNotice dismissAnimated:YES];
     
     [alert show];
+    
+    // Set all devices to offline
+    for (RHDeviceModel * mod in self.dataSource) {
+        mod.errorCode = 1;
+    }
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Refresh Button
@@ -186,6 +205,9 @@
 {
     // Notify the user of the loading status
     UIBarButtonItem *refreshItem = self.navigationItem.rightBarButtonItem;
+    
+    [popupNotice dismissAnimated:YES];
+    
     popupNotice = [[CMPopTipView alloc] initWithMessage:@"Refreshing. Tap the screen to stop connecting."];
     [popupNotice setDismissTapAnywhere:YES];
     [popupNotice setDelegate:self];

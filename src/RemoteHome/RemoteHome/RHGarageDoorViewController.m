@@ -23,6 +23,9 @@
 {
     [super viewDidLoad];
     
+    // Set up the button
+    [self.toggleButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    
     //get initial status of door
     self.currentRequest = [self getRequestDictForAction:GD_CMD_QUERY
                                         andHumanMessage:@"Open?"];
@@ -64,9 +67,9 @@
     NSLog(@"Toggling");
     
     //don't let another request begin if there is already one in progress
-    while (self.currentRequest != nil) {
-        //wait
-    }
+//    while (self.currentRequest != nil) {
+//        //wait
+//    }
     
     if (sender == self.upSwipeRecognizer && self.doorOpened == 1.0) {
         return;
@@ -274,6 +277,10 @@
     if (buttonIndex == 1) //if the user pressed the retry button
     {
         [self sendRequest:self.currentRequest];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 @end
