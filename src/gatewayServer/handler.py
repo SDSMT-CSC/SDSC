@@ -3,6 +3,9 @@ import serial
 import core
 import hashlib
 import time
+import re
+
+is_ip = re.compile('(\d{1,3}\.){3,3}?\d{1,3}')
 
 def NAK (message):
   return json.dumps({'NAK': message})
@@ -34,14 +37,15 @@ class handler (SocketServer.BaseRequestHandler):
     if 'HRLoginPassword' in request.keys():
       response = request['HRLoginPassword']
       print response
-      passwords = []
+      passwords = {}
       for user in core.users.keys():
-        passwords.append(hashlib.sha512(core.users[user]['password']).hexdigest())
-      print passwords[0]
-      if response in passwords:
+        passwords[hashlib.sha512(user).hexdigest()] = core.users[user]['group']
+      if response in passwords.keys():
+        group = passwords[response];
         response = '{"RHLoginSuccess" : true,'
         sections = core.devices.keys()
-        response += '"RHDeviceCount" : %d, "RHDeviceList":[' % len(sections)
+        length = 0;
+        response += '"RHDeviceList":['
         i = 0
         for device in sections:
           i += 1
@@ -51,24 +55,27 @@ class handler (SocketServer.BaseRequestHandler):
             print("Error: %s is not a valid device."%device)
           try:
             if not iface['lock'].acquire(0):
-              error_code = (-2, "Device is being read.")
+              error_code = (-2, "Device is in use.")
             else:
               error_code = iface['error']
               iface['lock'].release();
           except KeyError:
             print('Error: You need to check your dicts.')
             print(iface.keys())
-          try:
-            response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceTypeCode":%d,"ErrorCode":%d}' % (device, device, int(core.devices[device]['devicetype']), int(error_code[0]))
-          except KeyError:
-            print('Error: Device Type missing.')
-            print(core.devices[device])
-          except ValueError:
-            print('Oops. Cannot convert to number:')
-            print(core.devices[device]['devicetype'])
-            print(error_code)
+          if(group == iface['group'] or group.lower() == 'all'):
+            length += 1;
+            try:
+              response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceType":%d,"ErrorCode":%d}' % (device, device, int(core.devices[device]['devicetype']), int(error_code[0]))
+            except KeyError:
+              print('Error: Device Type missing.')
+              print(core.devices[device])
+            except ValueError:
+              print('Oops. Cannot convert to number:')
+              print(core.devices[device]['devicetype'])
+              print(error_code)
           if i == len(sections):
-            response += ']}'
+            response += '],'
+            response += '"RHDeviceCount": %d}' % i
           else:
             response += ','
       else:
@@ -98,6 +105,19 @@ class handler (SocketServer.BaseRequestHandler):
       self.request.send(response)
 
   def handle_request(self, device):
+    # If we have an IPV4 address, send on socket instead of file.
+    global is_ip;
+    if (is_ip.match(device.interface['interface']) is not None):
+      stream = socket.socket(socket.AF_INET);
+      try:
+        stream.connect((device.interface['interface'], 8128));
+        stream.send("\1");
+        result = stream.recv(1);
+        stream.send(device.value);
+        return ACK(stream.recv(127), device.connected, result);
+      except socket.error as e:
+        print('Error: failed to connect to %s on port 8128: %s' % (device.interface['interface'], e));
+        return NAK('Failed to connect.');
     # Each interface consists of a name and a lock. The lock prevents multiple
     # reads from each interface, but slow interfaces may take a while. C'est la
     # vie, no way around that, really. Acquire the lock before playing with the
@@ -121,7 +141,7 @@ class handler (SocketServer.BaseRequestHandler):
                 if result == 0:
                     result = NAK(stream.read(127))
                 else:
-                    result = ACK(stream.read(127))
+                    result = ACK(stream.read(127), device.requested, result)
             elif device.datatype == 'Str':
                 stream.write(str(device.value))
                 result = stream.read(1)

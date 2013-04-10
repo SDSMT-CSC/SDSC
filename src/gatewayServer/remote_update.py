@@ -30,6 +30,3 @@ class Remote_Update:
         self.timer = Timer(3.0, self.update_gateway)
         self.timer.daemon = True
         self.timer.start();
-        
-if __name__=='__main__':
-    Remote_Update(('172.20.10.14', 8128))
