@@ -7,7 +7,7 @@ import time
 def NAK (message):
   return json.dumps({'NAK': message})
 
-def ACK (message, DeviceID, data = 0, type = 'Str'):
+def ACK (data, DeviceID, message = '', type = 'Str'):
   return json.dumps({'HRDeviceRequest': {"HumanMessage":message, "Data":data, "Type":type, "DeviceID":DeviceID}})
 
 class handler (SocketServer.BaseRequestHandler):
@@ -36,9 +36,10 @@ class handler (SocketServer.BaseRequestHandler):
       print response
       passwords = []
       for user in core.users.keys():
-        passwords.append(hashlib.sha512(core.users[user]['password']).hexdigest())
+        passwords.append(hashlib.sha512(user).hexdigest())
       print passwords[0]
       if response in passwords:
+        core.read_cfg();
         response = '{"RHLoginSuccess" : true,'
         sections = core.devices.keys()
         response += '"RHDeviceCount" : %d, "RHDeviceList":[' % len(sections)
@@ -59,7 +60,7 @@ class handler (SocketServer.BaseRequestHandler):
             print('Error: You need to check your dicts.')
             print(iface.keys())
           try:
-            response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceTypeCode":%d,"ErrorCode":%d}' % (device, device, int(core.devices[device]['devicetype']), int(error_code[0]))
+            response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceType":%d,"ErrorCode":%d}' % (device, device, int(core.devices[device]['devicetype']), int(error_code[0]))
           except KeyError:
             print('Error: Device Type missing.')
             print(core.devices[device])
@@ -73,6 +74,7 @@ class handler (SocketServer.BaseRequestHandler):
             response += ','
       else:
         response = '{"RHLoginSuccess" : false}'
+      print response;
       self.request.send(response)
       return
     else:
@@ -95,6 +97,7 @@ class handler (SocketServer.BaseRequestHandler):
           return
       except KeyError:
         response = NAK('Not a valid request.')
+      print(response);
       self.request.send(response)
 
   def handle_request(self, device):

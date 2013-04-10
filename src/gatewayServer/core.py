@@ -23,7 +23,8 @@ def read_cfg():
     try:
       interface = serial.Serial(devices[device]['interface'], timeout=1, baudrate=9600)
     except:
-      devices[device]['error'] = (-1, "Device is offline or bad interface specified.")
+      print("Failed to open file %s." % devices[device]['interface']);
+      devices[device]['error'] = (1, "Device is offline or bad interface specified.")
     else:
       interface.write("\0")
       interface.flush()

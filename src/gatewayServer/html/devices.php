@@ -1,6 +1,6 @@
 <?php
 {
-  $prop_array = array('Name','Group','Interface');
+  $prop_array = array('Name','Group','Interface', 'DeviceType');
   include_once('util.php');
   if(isset($_REQUEST['action']))
   {
