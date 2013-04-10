@@ -10,7 +10,7 @@ is_ip = re.compile('(\d{1,3}\.){3,3}?\d{1,3}')
 def NAK (message):
   return json.dumps({'NAK': message})
 
-def ACK (message, DeviceID, data = 0, type = 'Str'):
+def ACK (data, DeviceID, message = '', type = 'Str'):
   return json.dumps({'HRDeviceRequest': {"HumanMessage":message, "Data":data, "Type":type, "DeviceID":DeviceID}})
 
 class handler (SocketServer.BaseRequestHandler):
@@ -42,6 +42,7 @@ class handler (SocketServer.BaseRequestHandler):
         passwords[hashlib.sha512(user).hexdigest()] = core.users[user]['group']
       if response in passwords.keys():
         group = passwords[response];
+        print passwords[0]
         response = '{"RHLoginSuccess" : true,'
         sections = core.devices.keys()
         length = 0;
@@ -75,11 +76,12 @@ class handler (SocketServer.BaseRequestHandler):
               print(error_code)
           if i == len(sections):
             response += '],'
-            response += '"RHDeviceCount": %d}' % i
+            response += '"RHDeviceCount": %d}' % length
           else:
             response += ','
       else:
         response = '{"RHLoginSuccess" : false}'
+      print response;
       self.request.send(response)
       return
     else:
@@ -102,6 +104,7 @@ class handler (SocketServer.BaseRequestHandler):
           return
       except KeyError:
         response = NAK('Not a valid request.')
+      print(response);
       self.request.send(response)
 
   def handle_request(self, device):
