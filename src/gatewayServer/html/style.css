@@ -1,0 +1,39 @@
+body
+{
+  padding:0px;
+  margin:0px;
+  background:#071d49;
+}
+
+div.leftbar
+{
+  float:left;
+  background-color:none;
+  color:white;
+  padding:10px;
+  width:180px;
+}
+
+div.topbar
+{
+  width:100%;
+  color:white;
+  font-size:3em;
+  padding-left:200px;
+  float:left;
+}
+
+div.leftbar a
+{
+  color:white;
+  text-decoration:none;
+}
+
+div.content
+{
+  float:left;
+  width:650px;
+  background-color:white;
+  height:600px;
+  padding-left:20px;
+}
