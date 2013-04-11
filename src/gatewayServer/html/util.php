@@ -5,6 +5,10 @@
     $ini_values = parse_ini_file($ini, true, INI_SCANNER_RAW);
     if(isset($ini_values[$value]))
     {
+      if(isset($_REQUEST['name']))
+      {
+        $_REQUEST['old_name'] = $_REQUEST['name'];
+      }
       foreach($ini_values[$value] as $name => $assoc)
       {
         $_REQUEST[$name] = $assoc;
@@ -139,9 +143,17 @@
     if(isset($_REQUEST['old_name']))
     {
       unset($data[$_REQUEST['old_name']]);
+      print $_REQUEST['old_name'];
     }
     /* Add a new key with the values specified in the data passed in. */
     $key = $_REQUEST[strtolower(filter_var($elements[0], FILTER_SANITIZE_URL))];
+    print $key;
+    print_r($data);
+    if(array_key_exists($key, $data))
+    {
+      $retval = "<p class=\"error\">The identifier $key already exists in the system. Please choose a unique identifier.</p>\n";
+      return get_header("$action $object") . print_generic_form($action, $target, $object, $elements) . $retval . get_content_tail();
+    }
     foreach(array_slice($elements, 1) as $property)
     {
       $property = strtolower(filter_var($property, FILTER_SANITIZE_URL));

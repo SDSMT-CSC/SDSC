@@ -42,7 +42,7 @@ class handler (SocketServer.BaseRequestHandler):
         passwords[hashlib.sha512(user).hexdigest()] = core.users[user]['group']
       if response in passwords.keys():
         group = passwords[response];
-        print passwords[0]
+        print passwords.keys()
         response = '{"RHLoginSuccess" : true,'
         sections = core.devices.keys()
         length = 0;
@@ -74,11 +74,12 @@ class handler (SocketServer.BaseRequestHandler):
               print('Oops. Cannot convert to number:')
               print(core.devices[device]['devicetype'])
               print(error_code)
-          if i == len(sections):
-            response += '],'
-            response += '"RHDeviceCount": %d}' % length
-          else:
-            response += ','
+              response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceType":%s,"ErrorCode":%d}' % (device, device, core.devices[device]['devicetype'], int(error_code[0]))
+            if i == len(sections):
+              response += '],'
+              response += '"RHDeviceCount": %d}' % length
+            else:
+              response += ','
       else:
         response = '{"RHLoginSuccess" : false}'
       print response;
@@ -93,6 +94,24 @@ class handler (SocketServer.BaseRequestHandler):
           response = NAK('Missing DeviceID field')
           self.request.send(response)
           return
+        if 'Password' not in request.keys() or request['Password'] == "":
+          response = NAK('Missing Password field.');
+          self.request.send(response);
+          return
+        # Validate the passwords
+        password = request['Password'];
+        passwords = {};
+        for user in core.users.keys():
+          passwords[hashlib.sha512(user).hexdigest()] = core.users[user]['group']
+        if password not in passwords.keys():
+          self.request.send(NAK('Invalid Password.'));
+          return
+        else:
+          group = passwords[password];
+          if group.lower() != 'all' and group != core.devices[dev.requested]['group']:
+            self.request.send(NAK('%s does not have access to device %s.' % (password, dev.requested)));
+            return
+        # Password validated. Compress everything and send it to request-handling function.
         try:
           dev.interface = core.devices[dev.requested]
           dev.value = request['Data']
@@ -154,6 +173,8 @@ class handler (SocketServer.BaseRequestHandler):
                     result = ACK(stream.read(127), device.requested, result)
             else:
                 result = NAK('Malformed data type field. (Expected String or Int)')
+    except serial.SerialException as e:
+      result = NAK('Failed to access interface %s (Bad interface or not connected).' % device.interface['interface']);
     finally:
       device.interface['lock'].release()
     return result
