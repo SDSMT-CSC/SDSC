@@ -213,7 +213,7 @@
             else if (message == GD_PARTIAL) {
                 NSLog(@"Partial");
                 
-                [alert show];
+                //[alert show];
                 
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.5];
