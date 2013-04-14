@@ -22,9 +22,9 @@ void setup()
   pinMode(3, INPUT);
   
   //Find the current state of the garage door
-  if( analogRead(2) > 1000 )
+  if( analogRead(2) > 1020 )
     current_state = OPEN;
-  else if( analogRead(3) > 1000 )
+  else if( analogRead(3) > 1020 )
     current_state = CLOSED;
   else
     current_state = PARTIAL; 
@@ -86,14 +86,14 @@ void loop()
   if( (millis() - time) > 9500 && 
       (current_state == OPENING || current_state == CLOSING) )
   {
-    if( analogRead(2) > 1000 )
+    if( analogRead(2) > 1020 )
     {
       //if( current_state == CLOSING )
         //Error( 1, "Object in door" );
       current_state = OPEN;
       time = -1;
     }
-    else if( analogRead(3) > 1000 )
+    else if( analogRead(3) > 1020 )
     {
       current_state = CLOSED;
       time = -1;
