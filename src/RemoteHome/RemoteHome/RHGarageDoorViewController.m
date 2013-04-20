@@ -33,7 +33,9 @@
     [super viewDidLoad];
     
     // Set up the button
+    [self.toggleButton setTitle:@"Connecting to Base Station" forState:UIControlStateDisabled];
     [self.toggleButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.toggleButton setEnabled:NO];
     
     //get initial status of door
     self.currentRequest = [self getRequestDictForAction:GD_CMD_QUERY
@@ -82,7 +84,7 @@
  */
 - (IBAction)toggleDoor:(id)sender
 {
-    
+    [self.toggleButton setEnabled:NO];
     NSLog(@"Toggling");
     
     //should not toggle if the door is opened when user tries to open it.
@@ -199,13 +201,15 @@
     NSInteger currentAction = [actionString integerValue];
     
     //prepare to alert the user that there is an object in the door
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway"
-                                                     message:@"You're garage door could not close because an object was detected in the doorway."
-                                                    delegate:nil
-                                           cancelButtonTitle:@"Okay"
-                                           otherButtonTitles: nil];
+//    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Object in Doorway"
+//                                                     message:@"You're garage door could not close because an object was detected in the doorway."
+//                                                    delegate:nil
+//                                           cancelButtonTitle:@"Okay"
+//                                           otherButtonTitles: nil];
     
     GD_MESSAGE_T message = [data integerValue];
+    
+    NSLog(@"%d, %d", currentAction, message);
     
     switch (currentAction) {
         case GD_CMD_TOGGLE: //just toggled the door
@@ -214,14 +218,16 @@
                 //update the UI to reflect garage door state
                 [self.garageDoor setSpeed:GD_SLOW];
                 [self.garageDoor setOpened:0.0];
-                [self.toggleButton.titleLabel setText:@"Open"];
+                //[self.toggleButton.titleLabel setText:@"Open"];
+                [self.toggleButton setTitle:@"Open" forState:UIControlStateNormal];
+
                 self.doorOpened = GD_CLOSED;
                 
                 //make sure the door really closed in case something ran under
                 //the door
                 NSTimer * checkTimer = [NSTimer timerWithTimeInterval:12
                                                                target:self
-                                                             selector:@selector(checkState)
+                                                             selector:@selector(confirmDoorClosed)
                                                              userInfo:nil repeats:NO];
                 
                 [[NSRunLoop mainRunLoop] addTimer:checkTimer
@@ -233,20 +239,24 @@
                 [self.garageDoor setSpeed:GD_SLOW];
                 [self.garageDoor setOpened:1.0];
                 [self.toggleButton.titleLabel setText:@"Close"];
+                [self.toggleButton setTitle:@"Close" forState:UIControlStateNormal];
+
                 self.doorOpened = GD_OPEN;
                 
                 self.currentRequest = nil; //prepare for new request
-
+                [self.toggleButton setEnabled:YES];
             }
             else if(self.doorOpened == GD_PARTIAL) { //open the door
                 NSLog(@"Opening");
                 //update the UI to reflect the garage door state
                 [self.garageDoor setSpeed:GD_SLOW];
                 [self.garageDoor setOpened:1.0];
-                [self.toggleButton.titleLabel setText:@"Close"];
+                //[self.toggleButton.titleLabel setText:@"Close"];
+                [self.toggleButton setTitle:@"Close" forState:UIControlStateNormal];
                 self.doorOpened = GD_OPEN;
                 
                 self.currentRequest = nil; //prepare for new request
+                [self.toggleButton setEnabled:YES];
             }
             break;
         case GD_CMD_QUERY: //just querried the door's state
@@ -255,7 +265,9 @@
                 //update the UI to reflect the new garage door state
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:1.0];
-                [self.toggleButton.titleLabel setText:@"Close"];
+                //[self.toggleButton.titleLabel setText:@"Close"];
+                [self.toggleButton setTitle:@"Close" forState:UIControlStateNormal];
+
                 
                 self.currentRequest = nil; //prepare for new request
             }
@@ -264,22 +276,33 @@
                 //update the UI to reflect the new garage door state
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.0];
-                [self.toggleButton.titleLabel setText:@"Open"];
+                //[self.toggleButton.titleLabel setText:@"Open"];
+                [self.toggleButton setTitle:@"Open" forState:UIControlStateNormal];
+
                 
                 self.currentRequest = nil; //prepare for new request
             }
             else if (message == GD_PARTIAL) {
-                NSLog(@"Partial");
+                NSLog(@"Partial query");
                 
                 //[alert show];
                 //update the UI to reflect the new garage door state
 
                 [self.garageDoor setSpeed:GD_FAST];
                 [self.garageDoor setOpened:0.5];
-                [self.toggleButton.titleLabel setText:@"Open"];
+                
+                NSLog(@"%@",self.toggleButton.titleLabel.text);
+                
+                //[self.toggleButton.titleLabel setText:@"Open"];
+                [self.toggleButton setTitle:@"Open" forState:UIControlStateNormal];
+
+                
+                NSLog(@"%@",self.toggleButton.titleLabel.text);
+
                 
                 self.currentRequest = nil; //prepare for new request
             }
+            [self.toggleButton setEnabled:YES];
             self.doorOpened = message; //update door state property
             break;
         default:
