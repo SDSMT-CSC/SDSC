@@ -323,7 +323,7 @@
 {
     NSLog(@"%@",error);
     NSString * alertTitle = @"Connection Error";
-    NSString * alertMessage = @"Could not connect to your base staton";
+    NSString * alertMessage = @"Could not connect to your base station";
     
     //create the alert with two buttons: cancel and retry
     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:alertTitle

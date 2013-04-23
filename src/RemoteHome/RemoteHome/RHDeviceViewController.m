@@ -185,7 +185,7 @@
 
 - (void)passwordTransactionDidRecieveError:(NSString*)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was troubble connecting to the base station. Please ensure the base station is turned on." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was trouble connecting to the base station. Please ensure the base station is turned on." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles: nil];
     
     [popupNotice dismissAnimated:YES];
     
