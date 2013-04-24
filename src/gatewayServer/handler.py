@@ -80,6 +80,8 @@ class handler (SocketServer.BaseRequestHandler):
               response += '"RHDeviceCount": %d}' % length
             else:
               response += ','
+        if length == 0:
+          response += '], RHDevicesCount:0}';
       else:
         response = '{"RHLoginSuccess" : false}'
       print response;
