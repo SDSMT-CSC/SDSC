@@ -75,11 +75,11 @@ class handler (SocketServer.BaseRequestHandler):
               print(core.devices[device]['devicetype'])
               print(error_code)
               response += '{"DeviceName":"%s", "DeviceSerial":"%s","DeviceType":%s,"ErrorCode":%d}' % (device, device, core.devices[device]['devicetype'], int(error_code[0]))
-            if i == len(sections):
-              response += '],'
-              response += '"RHDeviceCount": %d}' % length
-            else:
-              response += ','
+          if i == len(sections):
+            response += '],'
+            response += '"RHDeviceCount": %d}' % length
+          else:
+            response += ','
         if length == 0:
           response += '], RHDevicesCount:0}';
       else:
